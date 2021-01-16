@@ -1,0 +1,59 @@
+{
+  "plugins": [
+    "stylelint-order"
+  ],
+  "rules": {
+    "order/order": [
+      "custom-properties",
+      "declarations"
+    ],
+    "at-rule-empty-line-before": [
+      "always",
+      {
+        "except": [
+          "blockless-after-same-name-blockless",
+          "first-nested"
+        ],
+        "ignore": [
+          "after-comment",
+          "blockless-after-blockless"
+        ],
+        "ignoreAtRules": ["else"]
+      }
+    ],
+    "at-rule-no-unknown": null,
+    "declaration-colon-space-after": "always-single-line",
+    "declaration-no-important": true,
+    "font-family-name-quotes": "always-where-recommended",
+    "max-empty-lines": 2,
+    "max-nesting-depth": 3,
+    "no-eol-whitespace": [
+      true,
+      {
+        "ignore": ["empty-lines"]
+      }
+    ],
+    "selector-max-attribute": 2,
+    "selector-max-class": 4,
+    "selector-max-combinators": 3,
+    "selector-max-compound-selectors": 3,
+    "selector-max-type": 1,
+    "selector-max-universal": 1,
+    "shorthand-property-no-redundant-values": null,
+    "string-quotes": "single",
+    "selector-type-no-unknown": [
+        true,
+        {
+            "ignore": [
+                "custom-elements"
+            ]
+        }
+    ],
+    "order/properties-alphabetical-order": true
+  },
+  "processors": ["stylelint-processor-styled-components"],
+  "extends": [
+    "stylelint-config-recommended",
+    "stylelint-config-styled-components"
+  ]
+}
