@@ -4,20 +4,21 @@ import { gql } from '@apollo/client';
 export const GET_POSTS = gql`
     query GetPosts($skip: Int, $first: Int) {
         posts(skip: $skip, first: $first, orderBy: createdAt_DESC) {
-            id
-            subject
             author {
                 id
+                name
             }
             content {
                 html
             }
+            createdAt
+            date
             excerpt
+            id
+            subject
             tags
             title
-            date
             updatedAt
-            createdAt
         }
     }
 `;

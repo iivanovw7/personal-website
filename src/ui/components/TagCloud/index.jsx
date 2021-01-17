@@ -30,6 +30,9 @@ function TagCloud(props) {
      */
     const TagButtonElement = (text) => <TagButton key={uuidv4()} text={text} />;
 
+    /**
+     * Tag buttons list.
+     */
     const TagButtons = always(map(TagButtonElement, tags));
 
     return (

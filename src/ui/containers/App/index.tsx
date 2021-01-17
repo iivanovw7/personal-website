@@ -15,8 +15,8 @@ import { Route, Switch } from 'react-router-dom';
 
 import { logLevelMap } from '../../../config/constants';
 import { getText } from '../../../locale';
+import Logger from '../../../log';
 import { client } from '../../../service/graphcms/apolloClient';
-import Logger from '../../../utils/logger';
 import LocaleSwitch from '../../components/LocaleSwitch';
 import ThemeSwitch from '../../components/ThemeSwitch';
 import TopBar from '../../components/TopBar';
@@ -32,6 +32,8 @@ import messages from './model/messages';
 import { makeSelectApp } from './model/selectors';
 import { hideWaitScreen, showWaitScreen } from './model/util';
 import Section from './Section';
+
+const logger = Logger.getInstance();
 
 /**
  * Main application component.
@@ -65,7 +67,7 @@ function App(props: PropTypes.InferProps<typeof App.propTypes>): ReactElement<JS
      * @param {string} info - string represents componentStack.
      */
     function handleError(error, info): void {
-        Logger.send({
+        logger.send({
             type: logLevelMap.ERROR,
             message: `Application error: ${error}, componentStack: ${info}`,
         });

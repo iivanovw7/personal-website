@@ -4,8 +4,10 @@
  * @author Igor Ivanov
  */
 import enCommonMessages from './translations/en/common.json';
+import enErrorMessage from './translations/en/error-message.json';
 import enNavigationMessages from './translations/en/navigation.json';
 import ruCommonMessages from './translations/ru/common.json';
+import ruErrorMessage from './translations/ru/error-message.json';
 import ruNavigationMessages from './translations/ru/navigation.json';
 
 /**
@@ -20,8 +22,8 @@ import ruNavigationMessages from './translations/ru/navigation.json';
  * @type {module:locale~LocalizedMessages}
  */
 export const translationMessages = {
-    en: { ...enCommonMessages, ...enNavigationMessages },
-    ru: { ...ruCommonMessages, ...ruNavigationMessages },
+    en: { ...enCommonMessages, ...enNavigationMessages, ...enErrorMessage },
+    ru: { ...ruCommonMessages, ...ruNavigationMessages, ...ruErrorMessage },
 };
 
 /**

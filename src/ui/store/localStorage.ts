@@ -4,9 +4,10 @@
  * @author Igor Ivanov
  */
 import { logLevelMap } from '../../config/constants';
-import Logger from '../../utils/logger';
+import Logger from '../../log';
 
 const { ERROR } = logLevelMap;
+const logger = Logger.getInstance();
 
 /**
  * Loads sate object from local storage, if no object has been found returns undefined.
@@ -21,7 +22,7 @@ export const loadState = (): void | undefined => {
 
         return JSON.parse(serializedState);
     } catch (err) {
-        Logger.send({
+        logger.send({
             type: ERROR,
             message: `Error during state load: ${err}`,
         });
@@ -39,7 +40,7 @@ export const saveState = (state): void => {
         const serializedState = JSON.stringify(state);
         localStorage.setItem('state', serializedState);
     } catch (err) {
-        Logger.send({
+        logger.send({
             type: ERROR,
             message: `Error during state save: ${err}`,
         });

@@ -9,6 +9,7 @@ import React, { memo, useState } from 'react';
 
 import { GET_POSTS } from '../../../service/graphcms/queries/posts';
 import { isNilOrEmpty } from '../../../utils/helpers';
+import ErrorMessage from '../../components/ErrorMessage';
 import Spinner from '../../elements/Spinner';
 
 import Article from './Article';
@@ -50,7 +51,7 @@ const Posts = (props) => {
     }
 
     const Content = cond([
-        [prop('error'), always(<p>Error</p>)],
+        [prop('error'), always(<ErrorMessage title="Query Error" message="Error during data fetch" />)],
         [prop('loading'), always(<Spinner />)],
         [pipe(prop('posts'), isNilOrEmpty), always(<p>No results</p>)],
         [T, ({ posts }) => <Grid posts={posts} />],

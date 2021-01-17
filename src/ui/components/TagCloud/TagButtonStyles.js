@@ -11,7 +11,7 @@ const TagButtonStyles = css`
     border-radius: 0.32rem;
     margin: 0.25rem 0.32rem 0.25rem 0;
     ${styleMixins.focusBoxShadow()};
-    padding: 0.125rem 0.34rem;
+    padding: 0.01rem 0.34rem;
     transition: transform 0.2s;
 
     &:hover,

@@ -123,6 +123,18 @@ export const styleMixins = {
             transition: 0s;
         }
     `,
+    /**
+     * Adds custom font properties.
+     * @param {number} [size = 1] font size in `rem`.
+     * @param {number} [lineHeight = 1] line height size in `rem`.
+     * @param {number} [fontWeight = 300] font weight.
+     * @return {Array} css properties
+     */
+    fontSize: (size = 1, lineHeight = 1, fontWeight = 300) => css`
+        font-size: ${size}rem;
+        font-weight: ${fontWeight};
+        line-height: ${lineHeight}rem;
+    `,
     fadeInTop: () => css`
         animation: ${keyframesFadeInTop} ease 0.5s;
         animation-fill-mode: forwards;
@@ -155,6 +167,47 @@ export const styleMixins = {
 
         &::-webkit-scrollbar-track {
             background: ${backgroundColor};
+        }
+
+        scrollbar-color: ${foregroundColor} ${backgroundColor};
+        scrollbar-width: thin;
+    `,
+    /**
+     * Sets elements max width properties.
+     * @param {string} [maxWidth = '2rem'] - width limit in rem.
+     * @return {Array} css properties
+     */
+    fluidWidth: (maxWidth = '2rem') => css`
+        max-width: ${maxWidth};
+        width: 100%;
+    `,
+    /**
+     * Creates a shape of the cross with custom size and color parameters.
+     * @param {string} color - color string.
+     * @param {number} [size = 1] in `rem`.
+     * @param {number} [border = 0.1] width in `rem`.
+     * @return {Array} css properties
+     */
+    cross: (color, size = 1, border = 0.1) => css`
+        height: ${size}rem;
+        width: ${size}rem;
+
+        &::after {
+            border-left: ${border}rem solid ${color};
+            content: '';
+            height: ${size}rem;
+            left: calc(${size}rem / 2.5);
+            position: absolute;
+            transform: rotate(45deg);
+        }
+
+        &::before {
+            border-left: ${border}rem solid ${color};
+            content: '';
+            height: ${size}rem;
+            left: calc(${size}rem / 2.5);
+            position: absolute;
+            transform: rotate(-45deg);
         }
     `,
 };

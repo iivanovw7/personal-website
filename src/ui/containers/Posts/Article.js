@@ -14,8 +14,8 @@ const Article = styled.article`
     flex-direction: column;
     height: 100%;
     margin-top: ${base.topBarHeight}rem;
-    padding: 1rem;
     ${styleMixins.vertAlignFlex()};
+    padding: 1rem;
 `;
 
 export default Article;

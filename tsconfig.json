@@ -36,6 +36,7 @@
         "types": [
             "./src/types/globals",
             "./src/types/custom",
+            "./src/types/util",
             "node",
             "jest",
         ]
