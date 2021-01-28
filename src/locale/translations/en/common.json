@@ -5,5 +5,6 @@
     "pw.common.error": "Something went wrong.",
     "pw.common.reload": "Reload",
     "pw.common.defaultTitle": "Igor Ivanov",
-    "pw.common.defaultDescription": "Personal web application"
+    "pw.common.defaultDescription": "Personal web application",
+    "pw.common.noResults": "Nothing found"
 }

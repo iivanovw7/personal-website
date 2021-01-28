@@ -26,13 +26,11 @@ import StyledLink from './StyledLink';
 const Button = (props) => {
     const { variant, children, styling, onClick, index } = props;
 
-    /* eslint-disable react/jsx-props-no-spreading */
     const ButtonElement = R.ifElse(
         R.pipe(R.prop('onClick'), isUndefined),
         R.always(<StyledLink {...props} />),
-        R.always(<StyledButton {...props} />),
+        R.always(<StyledButton {...props} />)
     );
-    /* eslint-enable react/jsx-props-no-spreading */
 
     return (
         <ButtonElement data-index={index} variant={variant} styling={styling} onClick={onClick}>

@@ -9,6 +9,8 @@ import { initState } from './index';
 
 const selectApp = (state) => state.app || initState;
 
+const selectRouter = (state) => state.router;
+
 /**
  * Select the app state.
  * @method
@@ -18,5 +20,9 @@ const makeSelectApp = createSelector(selectApp, (appState) => ({
     wait: appState.wait > 0,
 }));
 
+const makeSelectLocation = (state) => ({
+    location: selectRouter(state).location,
+});
+
 // eslint-disable-next-line import/prefer-default-export
-export { makeSelectApp };
+export { makeSelectApp, makeSelectLocation };

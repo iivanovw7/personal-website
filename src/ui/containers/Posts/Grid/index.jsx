@@ -2,16 +2,22 @@
  * Module contains posts list component.
  * @module ui/containers/Posts/Grid
  */
+import { compose } from '@reduxjs/toolkit';
 import * as PropTypes from 'prop-types';
 import React, { useRef, memo } from 'react';
+import { injectIntl } from 'react-intl';
+import { connect } from 'react-redux';
 
+import { getText } from '../../../../locale';
+import TagCloud from '../../../components/TagCloud';
 import H6 from '../../../elements/H6';
+import NavLink from '../../../elements/NavLink';
+import { routes as routesPaths } from '../../../routes';
+import { makeSelectLocation } from '../../App/model/selectors';
 
 import Bar from './Bar';
-import Button from '../../../elements/Button';
 import Cell from './Cell';
 import Container from './Container';
-import TagCloud from '../../../components/TagCloud';
 
 /**
  * Creates Posts List component.
@@ -23,7 +29,7 @@ import TagCloud from '../../../components/TagCloud';
  * @constructor
  */
 function Grid(props) {
-    const { hasMore, posts } = props;
+    const { hasMore, posts, location } = props;
     const listRef = useRef(null);
 
     return (
@@ -34,9 +40,14 @@ function Grid(props) {
                     <p>{post.subject}</p>
                     <Bar>
                         <TagCloud tags={post.tags} />
-                        <Button href="/">
-                            <i className="material-icons">read_more</i>
-                        </Button>
+                        <NavLink
+                            variant="secondary"
+                            exact={false}
+                            location={location}
+                            link={`${routesPaths.posts}/${post.id}`}
+                            icon="read_more"
+                            text={getText('read_more', props)}
+                        />
                     </Bar>
                 </Cell>
             ))}
@@ -48,11 +59,13 @@ function Grid(props) {
  * @name Grid.propTypes
  * @type {Object}
  * @param {Object} props - React PropTypes
+ * @property {object} props.location - object represents router `location`.
  * @property {boolean} [props.hasMore = false] - `true` if there are new posts to load and `else` otherwise.
  * @property {Array.<Object>} [props.posts = []] - list of posts to show.
  * @return {Array} React propTypes
  */
 Grid.propTypes = {
+    location: PropTypes.object.isRequired,
     hasMore: PropTypes.bool,
     posts: PropTypes.array,
 };
@@ -62,4 +75,22 @@ Grid.defaultProps = {
     posts: [],
 };
 
-export default memo(Grid);
+/**
+ * Function selects parts of the state required in component.
+ * @method
+ * @param {Object} state
+ *    Object contains application state.
+ * @see {@link module:containers/App/model/selectors}
+ * @return {Function} selector
+ */
+const mapStateToProps = (state) => {
+    const { location } = makeSelectLocation(state);
+
+    return {
+        location,
+    };
+};
+
+const withConnect = connect(mapStateToProps, null);
+
+export default compose(withConnect, injectIntl, memo)(Grid);

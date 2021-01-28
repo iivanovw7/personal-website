@@ -7,7 +7,6 @@ const webpack = require('webpack');
 
 const config = require('../config/webpack/webpack.prod.js');
 
-// eslint-disable-next-line no-unused-vars
 webpack(config, function handler(err, stats) {
     if (err) {
         // eslint-disable-next-line no-console

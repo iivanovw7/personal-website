@@ -12,12 +12,12 @@ import React, { lazy, Suspense } from 'react';
  */
 const loadable = (importFunc, { fallback = null } = { fallback: null }) => {
     const LazyComponent = lazy(importFunc);
-    /* eslint-disable react/jsx-props-no-spreading */
-    return (props) => (
+
+    return (props) => ( // eslint-disable-line
         <Suspense fallback={fallback}>
             <LazyComponent {...props} />
         </Suspense>
     );
-    /* eslint-enable react/jsx-props-no-spreading */
+
 };
 export default loadable;

@@ -24,6 +24,7 @@ import { routes as routesPaths } from '../../routes';
 import history from '../../routes/history';
 import GlobalStyle from '../../styles/global';
 import NotFoundPage from '../NotFoundPage';
+import Post from '../Post';
 import Posts from '../Posts';
 
 import ErrorFallback from './ErrorFallback';
@@ -87,9 +88,9 @@ function App(props: PropTypes.InferProps<typeof App.propTypes>): ReactElement<JS
                 </TopBar>
                 <Section>
                     <Switch>
-                        <Route exact path={routesPaths.base} component={Posts} />
                         <Route exact path={routesPaths.posts} component={Posts} />
-                        <Route exact path={routesPaths.postsSearch} component={Posts} />
+                        <Route path={routesPaths.post} component={Post} />
+                        <Route path={routesPaths.postsSearch} component={Posts} />
                         <Route component={NotFoundPage} />
                     </Switch>
                     <GlobalStyle />

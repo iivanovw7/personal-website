@@ -31,4 +31,8 @@ export default defineMessages({
         id: `${scope}.defaultDescription`,
         defaultMessage: 'personal web application',
     },
+    noResults: {
+        id: `${scope}.noResults`,
+        defaultMessage: 'Nothing found',
+    },
 });

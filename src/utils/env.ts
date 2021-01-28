@@ -9,7 +9,7 @@
  * @param {*} r require.context.
  * @return {void}
  */
-export function requireAll(r) {
+export function requireAll(r): void { // eslint-disable-line @typescript-eslint/explicit-module-boundary-types
     r.keys().forEach(r);
 }
 

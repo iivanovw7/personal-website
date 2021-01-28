@@ -26,7 +26,7 @@ const StyledNavLink = styled(NavLink).attrs({ activeClassName })`
     text-decoration: none;
     transition: background-color 0.2s ease-in-out;
     ${/* sc-custom */ (props) => props.styling};
-    ${/* sc-custom */ styleMixins.focusBoxShadow('2px', 'transparent', btnBackground)};
+    ${/* sc-custom */ styleMixins.focusBoxShadow('0.1rem', 'transparent', navLinkTextColor)};
 
     &:hover {
         background-color: ${navLinkBackgroundHover};

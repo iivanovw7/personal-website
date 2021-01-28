@@ -21,7 +21,6 @@ export function registerServiceWorker() {
             navigator.serviceWorker
                 .register(swUrl)
                 .then((registration) => {
-                    // eslint-disable-next-line no-param-reassign
                     registration.onupdatefound = () => {
                         const installingWorker = registration.installing;
                         installingWorker.onstatechange = () => {
@@ -32,7 +31,8 @@ export function registerServiceWorker() {
                                     // It's the perfect time to display a "New content is
                                     // available; please refresh." message in your web app.
                                     // console.log('New content is available; please refresh.');
-                                } else {
+                                }
+                                else {
                                     // At this point, everything has been precached.
                                     // It's the perfect time to display a
                                     // "Content is cached for offline use." message.
@@ -42,7 +42,7 @@ export function registerServiceWorker() {
                         };
                     };
                 })
-                .catch(() => {
+                .catch(() => { // eslint-disable-line
                     // console.error('Error during service worker registration:', error);
                 });
         });

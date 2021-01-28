@@ -7,6 +7,8 @@ import theme from 'styled-theming';
 
 import { colorSet } from '../settings';
 
+/* eslint-disable no-magic-numbers */
+
 export const linkColor = theme.variants('mode', 'variant', {
     primary: {
         dark: `${colorSet.dark.colorPrimary}`,
@@ -43,7 +45,7 @@ export const navLinkTextColor = theme.variants('mode', 'variant', {
         dark: colorSet.dark.colorPrimary,
     },
     secondary: {
-        light: colorSet.dark.textColorPrimary,
+        light: colorSet.light.textColorPrimary,
         dark: colorSet.dark.textColorPrimary,
     },
 });
@@ -65,7 +67,9 @@ export const navLinkBackgroundHover = theme.variants('mode', 'variant', {
         dark: transparentize(0.8, colorSet.dark.colorPrimary),
     },
     secondary: {
-        light: transparentize(0.9, colorSet.dark.textColorPrimary),
+        light: transparentize(0.9, colorSet.light.textColorPrimary),
         dark: transparentize(0.8, colorSet.dark.textColorPrimary),
     },
 });
+
+/* eslint-enable no-magic-numbers */

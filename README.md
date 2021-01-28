@@ -34,7 +34,6 @@ Technologies used
 - [Webpack Dev Server](https://webpack.js.org/configuration/dev-server/)
 - [Gulp](https://gulpjs.com/)
 - [ESLint](https://eslint.org)
-- [Prettier](https://prettier.io/)
 - [stylelint](https://stylelint.io)
 - [typescript](https://www.typescriptlang.org/)
 

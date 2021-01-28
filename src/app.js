@@ -17,23 +17,22 @@ import { addIntlPolyfills, translationMessages } from './locale';
 import LocaleProvider from './ui/components/LocaleProvider';
 import ThemeProvider from './ui/components/ThemeProvider';
 import App from './ui/containers/App';
-import history from './ui/routes/history';
+import appHistory from './ui/routes/history';
 import configureStore from './ui/store/configureStore';
 import { registerServiceWorker } from './utils/register-service-worker';
 import { reportWebVitals } from './utils/report-web-vitals';
 
-const store = configureStore({}, history);
+const store = configureStore(appHistory);
 const MOUNT_NODE = document.getElementById('pw-app');
 
 addIntlPolyfills();
 
 const render = (messages) => {
     ReactDOM.render(
-        // eslint-disable-next-line react/jsx-filename-extension
         <React.StrictMode>
             <Provider store={store}>
                 <LocaleProvider messages={messages}>
-                    <ConnectedRouter history={history}>
+                    <ConnectedRouter history={appHistory}>
                         <ThemeProvider>
                             <HelmetProvider>
                                 <App />

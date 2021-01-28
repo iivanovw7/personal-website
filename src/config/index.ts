@@ -7,8 +7,7 @@ import { DARK_THEME, logModeMap } from './constants';
 
 export type RunningMode = 'test' | 'production' | 'development';
 
-// eslint-disable-next-line no-undef
-export const runningMode = CONFIG || 'development';
+export const runningMode = CONFIG;
 
 const settings = {
     /**
@@ -95,7 +94,7 @@ const settings = {
     }
 
     Object.assign(object, { logLevel });
-    // eslint-disable-next-line no-undef
+
 })(settings, runningMode);
 
 export default settings;

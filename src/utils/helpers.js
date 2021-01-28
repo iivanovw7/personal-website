@@ -20,6 +20,7 @@ import {
     map,
     of,
     is,
+    // eslint-disable-next-line no-shadow
     find,
     propEq,
     uniqBy,
@@ -58,7 +59,7 @@ export const isNumber = is(Number);
  * isUndefined(undefined); //=> true
  * isUndefined(null); //=> false
  */
-export const isUndefined = equals(undefined);
+export const isUndefined = equals(undefined); // eslint-disable-line no-undefined
 
 /**
  * Returns `true` if the given value is its type's empty value, `null` or `undefined`
@@ -99,7 +100,6 @@ export const isNotEmptyString = both(is(String), complement(isNilOrEmpty));
  */
 export const paths = curry((ps, obj) => ap([path(__, obj)], ps));
 
-/* eslint-disable react-hooks/rules-of-hooks */
 /**
  * Parses dot paths, used in propsDotPath
  * @func dotPath

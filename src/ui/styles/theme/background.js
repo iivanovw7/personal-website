@@ -7,6 +7,8 @@ import theme from 'styled-theming';
 
 import { colorSet } from '../settings';
 
+const backgroundOpacityRate = 0.8;
+
 export const mainBg = theme('mode', {
     dark: `${colorSet.dark.mainBackgroundPrimary}`,
     light: `${colorSet.light.mainBackgroundPrimary}`,
@@ -18,8 +20,8 @@ export const topBarBg = theme('mode', {
 });
 
 export const fadePrimaryBg = theme('mode', {
-    dark: transparentize(0.8, colorSet.dark.colorPrimary),
-    light: transparentize(0.8, colorSet.light.colorPrimary),
+    dark: transparentize(backgroundOpacityRate, colorSet.dark.colorPrimary),
+    light: transparentize(backgroundOpacityRate, colorSet.light.colorPrimary),
 });
 
 // export const mainBgInversed = theme('mode', {

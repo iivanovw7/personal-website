@@ -7,7 +7,7 @@ import { fromPairs } from 'ramda';
 import { css } from 'styled-components';
 
 import { keyframesFadeInTop } from './keyframes';
-import { base, breakpoints, colorSet } from './settings';
+import { base, breakpoints, colorSet, typography } from './settings';
 
 /**
  * Media mixin function.
@@ -28,18 +28,18 @@ export const respondToMedia = Object.keys(breakpoints).reduce((accumulator, labe
             ${css(...args)};
         }
     `;
+
     return accumulator;
 }, {});
 
-// prettier-ignore
 /**
  * Verifies if parameter exists in breakpoints as key prop, if not - returns default `sm` key.
  * @param {string} [value = 'sm'] breakpoint key to be checked.
  * @return {string} breakpoint key
  */
-export const mediaKey = (value = "sm") => (Object.keys(breakpoints).includes(value)
+export const mediaKey = (value = 'sm') => (Object.keys(breakpoints).includes(value)
     ? value
-    : "sm"
+    : 'sm'
 );
 
 /**
@@ -70,6 +70,7 @@ export const styleMixins = {
         align-items: ${align};
         display: flex;
     `,
+    // eslint-disable-next-line max-params
     focusOutline: (color, colorActive = color, width = '0.154rem', style = 'solid') => css`
         outline: none;
         transition: outline 0.4s;
@@ -77,6 +78,7 @@ export const styleMixins = {
         &:focus {
             outline: ${width} ${style} ${color};
         }
+
         &:focus:hover {
             outline: ${width} ${style} ${colorActive};
         }
@@ -84,7 +86,7 @@ export const styleMixins = {
     focusBoxShadow: (
         border = '2px',
         borderColor = 'transparent',
-        borderFocus = colorSet.textColorPrimary,
+        borderFocus = colorSet.textColorPrimary
     ) => css`
         box-shadow: 0 0 0 ${border} ${borderColor};
         transition: box-shadow 0.4s;
@@ -130,7 +132,7 @@ export const styleMixins = {
      * @param {number} [fontWeight = 300] font weight.
      * @return {Array} css properties
      */
-    fontSize: (size = 1, lineHeight = 1, fontWeight = 300) => css`
+    fontSize: (size = 1, lineHeight = 1, fontWeight = typography.regular) => css`
         font-size: ${size}rem;
         font-weight: ${fontWeight};
         line-height: ${lineHeight}rem;
@@ -149,13 +151,17 @@ export const styleMixins = {
      * @param {string | function} [backgroundColor] - string background color representation.
      * @return {Array} css properties
      */
-    scrollbars: (size, foregroundColor, backgroundColor = mix('0.3', '#1e2227', '#fffaf0')) => css`
-        // For Internet Explorer
+    scrollbars: (
+        size,
+        foregroundColor,
+        backgroundColor = mix('0.3', '#1e2227', '#fffaf0')
+    ) => css`
+        /* stylelint-disable */
         & {
             scrollbar-face-color: ${foregroundColor};
             scrollbar-track-color: ${backgroundColor};
         }
-        // For Google Chrome
+        /* stylelint-enable */
         &::-webkit-scrollbar {
             height: ${size}px;
             width: ${size}px;
@@ -173,6 +179,16 @@ export const styleMixins = {
         scrollbar-width: thin;
     `,
     /**
+     * Centers element with position absolute.
+     * @return {Array} css properties
+     */
+    absoluteCentred: () => css`
+        left: 50%;
+        position: absolute;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    `,
+    /**
      * Sets elements max width properties.
      * @param {string} [maxWidth = '2rem'] - width limit in rem.
      * @return {Array} css properties
@@ -188,7 +204,7 @@ export const styleMixins = {
      * @param {number} [border = 0.1] width in `rem`.
      * @return {Array} css properties
      */
-    cross: (color, size = 1, border = 0.1) => css`
+    cross: (color, size = 1, border = 0.1 /* eslint-disable-line */ ) => css`
         height: ${size}rem;
         width: ${size}rem;
 
@@ -196,7 +212,7 @@ export const styleMixins = {
             border-left: ${border}rem solid ${color};
             content: '';
             height: ${size}rem;
-            left: calc(${size}rem / 2.5);
+            left: calc(${size}rem * 0.4);
             position: absolute;
             transform: rotate(45deg);
         }
@@ -205,7 +221,7 @@ export const styleMixins = {
             border-left: ${border}rem solid ${color};
             content: '';
             height: ${size}rem;
-            left: calc(${size}rem / 2.5);
+            left: calc(${size}rem * 0.4);
             position: absolute;
             transform: rotate(-45deg);
         }

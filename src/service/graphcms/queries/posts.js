@@ -8,6 +8,25 @@ export const GET_POSTS = gql`
                 id
                 name
             }
+            createdAt
+            date
+            excerpt
+            id
+            subject
+            tags
+            title
+            updatedAt
+        }
+    }
+`;
+
+export const GET_POST = gql`
+    query GetPost($postId: ID!) {
+        post(where: { id: $postId }) {
+            author {
+                id
+                name
+            }
             content {
                 html
             }

@@ -1,31 +1,29 @@
 /**
- * Module contains posts article component.
- * @module ui/containers/Posts/Article
+ * Module contains post article component.
+ * @module ui/containers/Post/Article
  * @author Igor Ivanov
  */
 import styled from 'styled-components';
 
-import { styleMixins, respondToMedia, mediaKey } from '../../styles/mixins';
+import { styleMixins } from '../../styles/mixins';
 import { base } from '../../styles/settings';
 import { mainBg } from '../../styles/theme/background';
 
 // prettier-ignore
-const Article = styled.article`
+const Article = styled.div`
     background-color: ${mainBg};
-    flex-direction: column;
-    height: 100%;
+    border-radius: 0.25rem;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
     margin-top: ${base.topBarHeight}rem;
     ${styleMixins.vertAlignFlex()};
     ${({ error }) => error && `
         ${styleMixins.absoluteCentred()};
         width: 100%;
     `}
-    ${respondToMedia[mediaKey('md')]`
-        padding-bottom: ${(props) => (props.hasMore
-        ? '5em'
-        : '0em'
-    )};`};
-    padding: 1rem;
+    padding: 0.5rem;
+    user-select: none;
 `;
 
 export default Article;

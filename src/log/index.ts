@@ -36,30 +36,10 @@ type SendArgs = {
  */
 class Logger {
     /**
-     * Logger operation mode.
-     * @protected
-     */
-    protected mode: AnyLoggerMode;
-
-    /**
      * Logger object instance.
      * @private
      */
     private static instance: Logger;
-
-    /**
-     * Creates class instance.
-     * @param {LoggerOptions} options
-     *      Logger options.
-     * @private
-     */
-    private constructor(options: LoggerOptions) {
-        this.mode = options.logLevel || LOGGER_OFF;
-
-        if (this.mode !== LOGGER_OFF) {
-            Logger.sendMessage('Info', 'rgb(49,196,251)', `Logger is in [${this.mode}] mode.`);
-        }
-    }
 
     /**
      * Sends logger message of appropriate type
@@ -80,7 +60,7 @@ class Logger {
             `color: ${color}`,
             'color: inherit',
             `color: ${color}`,
-            'color: inherit',
+            'color: inherit'
         );
     }
 
@@ -89,11 +69,32 @@ class Logger {
      * @return {Logger} logger instance.
      */
     public static getInstance(): Logger {
-        if (!Logger.instance) {
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+        if (! Logger.instance) {
             Logger.instance = new Logger({ logLevel: config.logLevel });
         }
 
         return Logger.instance;
+    }
+
+    /**
+     * Logger operation mode.
+     * @protected
+     */
+    protected mode: AnyLoggerMode;
+
+    /**
+     * Creates class instance.
+     * @param {LoggerOptions} options
+     *      Logger options.
+     * @private
+     */
+    private constructor(options: LoggerOptions) {
+        this.mode = options.logLevel || LOGGER_OFF;
+
+        if (this.mode !== LOGGER_OFF) {
+            Logger.sendMessage('Info', 'rgb(49,196,251)', `Logger is in [${this.mode}] mode.`);
+        }
     }
 
     /**
