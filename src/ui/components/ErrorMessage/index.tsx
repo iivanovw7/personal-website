@@ -6,6 +6,7 @@
 import { compose } from '@reduxjs/toolkit';
 import React, { memo, ReactNode } from 'react';
 import { injectIntl } from 'react-intl';
+import { connect } from 'react-redux';
 
 import { getText } from '../../../locale';
 import H3 from '../../elements/H3';
@@ -14,6 +15,7 @@ import Container from './Container';
 import HeaderStyles from './HeaderStyles';
 import messages from './model/messages';
 import Paragraph from './Paragraph';
+
 
 const { errorMessageTitle, errorMessageText } = messages;
 
@@ -41,4 +43,6 @@ function ErrorMessage(props: ErrorMessageProps): ReactNode {
     );
 }
 
-export default compose(injectIntl, memo)(ErrorMessage);
+const withConnect = connect(null, null);
+
+export default compose(withConnect, injectIntl, memo)(ErrorMessage);

@@ -40,19 +40,19 @@ function LocaleProvider(props) {
  * @name LocaleProvider.propTypes
  * @type {Object}
  * @param {Object} props - React PropTypes
- * @property {string} [props.locale = 'en'] - locale string.
- * @property {Object} props.messages - current localizations messages set.
  * @property {Array} props.children - collection of children components.
+ * @property {Object} props.messages - current localizations messages set.
+ * @property {string} [props.locale = 'en'] - locale string.
  * @return {Array} React propTypes
  */
 LocaleProvider.propTypes = {
-    locale: PropTypes.string,
-    messages: PropTypes.object.isRequired,
     children: PropTypes.oneOfType([
         PropTypes.func,
         PropTypes.node,
         PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.func, PropTypes.node])),
     ]).isRequired,
+    messages: PropTypes.object.isRequired,
+    locale: PropTypes.string,
 };
 
 LocaleProvider.defaultProps = {

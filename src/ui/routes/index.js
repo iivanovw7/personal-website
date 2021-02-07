@@ -66,8 +66,3 @@ export function isAreaPath(areaPath, path) {
 export function isPostsAreaPath(path) {
     return isAreaPath(basePath.posts, path);
 }
-
-export function hasPostId(path) {
-
-    return isPostsAreaPath(path);
-}

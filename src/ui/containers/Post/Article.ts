@@ -6,17 +6,18 @@
 import styled from 'styled-components';
 
 import { styleMixins } from '../../styles/mixins';
-import { base } from '../../styles/settings';
+import { base, breakpoints } from '../../styles/settings';
 import { mainBg } from '../../styles/theme/background';
 
-// prettier-ignore
+/* eslint-disable */
 const Article = styled.div`
     background-color: ${mainBg};
     border-radius: 0.25rem;
     flex-direction: row;
     flex-wrap: nowrap;
-    justify-content: space-between;
-    margin-top: ${base.topBarHeight}rem;
+    justify-content: center;
+    margin: ${base.topBarHeight}rem auto 1rem auto;
+    max-width: ${breakpoints.md}px;
     ${styleMixins.vertAlignFlex()};
     ${({ error }) => error && `
         ${styleMixins.absoluteCentred()};
@@ -25,5 +26,6 @@ const Article = styled.div`
     padding: 0.5rem;
     user-select: none;
 `;
+/* eslint-enable */
 
 export default Article;

@@ -21,10 +21,10 @@ import LocaleSwitch from '../../components/LocaleSwitch';
 import ThemeSwitch from '../../components/ThemeSwitch';
 import TopBar from '../../components/TopBar';
 import { routes as routesPaths } from '../../routes';
-import history from '../../routes/history';
+import appHistory from '../../routes/history';
 import GlobalStyle from '../../styles/global';
 import NotFoundPage from '../NotFoundPage';
-import Post from '../Post';
+import PostComponent from '../Post';
 import Posts from '../Posts';
 
 import ErrorFallback from './ErrorFallback';
@@ -51,13 +51,14 @@ function App(props: PropTypes.InferProps<typeof App.propTypes>): ReactElement<JS
     const { defaultTitle, defaultDescription } = messages;
 
     useEffect(() => {
-        history.push(routesPaths.posts);
+        appHistory.push(routesPaths.posts);
     }, []);
 
     useEffect(() => {
         if (wait) {
             showWaitScreen();
-        } else {
+        }
+        else {
             hideWaitScreen();
         }
     }, [wait]);
@@ -67,18 +68,16 @@ function App(props: PropTypes.InferProps<typeof App.propTypes>): ReactElement<JS
      * @param {Error} error - app Error object.
      * @param {string} info - string represents componentStack.
      */
-    function handleError(error, info): void {
+    function handleError(error: Error, info): void {
         logger.send({
             type: logLevelMap.ERROR,
-            message: `Application error: ${error}, componentStack: ${info}`,
+            message: `Application error: ${error.stack || ''}, componentStack: ${info as string}`,
         });
     }
 
     return (
         <ErrorBoundary FallbackComponent={ErrorFallback} onError={handleError}>
-            <ApolloProvider
-                // @ts-ignore
-                client={client}>
+            <ApolloProvider client={client}>
                 <Helmet titleTemplate="%s" defaultTitle={getText(defaultTitle, props)}>
                     <meta name="description" content={getText(defaultDescription, props)} />
                 </Helmet>
@@ -89,7 +88,7 @@ function App(props: PropTypes.InferProps<typeof App.propTypes>): ReactElement<JS
                 <Section>
                     <Switch>
                         <Route exact path={routesPaths.posts} component={Posts} />
-                        <Route path={routesPaths.post} component={Post} />
+                        <Route path={routesPaths.post} component={PostComponent} />
                         <Route path={routesPaths.postsSearch} component={Posts} />
                         <Route component={NotFoundPage} />
                     </Switch>

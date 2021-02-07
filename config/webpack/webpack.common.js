@@ -111,7 +111,7 @@ module.exports = {
     },
     entry: {
         index: {
-            import: './src/app.js',
+            'import': './src/app.js',
             dependOn: 'shared',
         },
         shared: 'core-js',
@@ -140,10 +140,11 @@ module.exports = {
     ],
     // prettier-ignore
     devtool: sourceMaps
-        ? "inline-source-map"
+        ? 'inline-source-map'
         : false,
     output: {
         filename: 'assets/js/[name].bundle.js',
         path: path.resolve(__dirname, '../../dist'),
+        publicPath: '/',
     },
 };

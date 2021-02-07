@@ -84,10 +84,8 @@ Grid.defaultProps = {
  * @return {Function} selector
  */
 const mapStateToProps = (state) => {
-    const { location } = makeSelectLocation(state);
-
     return {
-        location,
+        location: makeSelectLocation(state),
     };
 };
 

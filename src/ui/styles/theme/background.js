@@ -24,11 +24,11 @@ export const fadePrimaryBg = theme('mode', {
     light: transparentize(backgroundOpacityRate, colorSet.light.colorPrimary),
 });
 
-// export const mainBgInversed = theme('mode', {
-//   light: `${colorSet.dark.mainBackgroundPrimary}`,
-//   dark: `${colorSet.light.mainBackgroundPrimary}`,
-// });
-//
+export const mainBgInverse = theme('mode', {
+    light: `${colorSet.dark.mainBackgroundPrimary}`,
+    dark: `${colorSet.light.mainBackgroundPrimary}`,
+});
+
 
 //
 // export const headerBg = theme('mode', {

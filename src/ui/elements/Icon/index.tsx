@@ -29,19 +29,20 @@ function Icon(props: PropTypes.InferProps<typeof Icon.propTypes>): ReactElement<
     useEffect((): void => {
         setLoading(true);
 
-        const renderImage = async (imagePath) => {
-            const Image = (await import(`../../../../assets/svg/${imagePath}.svg`)).ReactComponent;
-            ImportedIconRef.current = await Image;
+        const renderImage = async (imagePath: string): Promise<void> => {
+            const imageComponent = (await import(`../../../../assets/svg/${imagePath}.svg`)).ReactComponent;
+            ImportedIconRef.current = await imageComponent;
             setLoading(false);
         };
 
-        renderImage(path);
+        // eslint-disable-next-line no-void
+        void renderImage(path);
     }, [path]);
 
-    if (!loading && ImportedIconRef.current) {
+    if (! loading && ImportedIconRef.current) {
         const { current: ImportedIcon } = ImportedIconRef;
 
-        // eslint-disable-next-line react/jsx-props-no-spreading
+        // @ts-ignore eslint-disable-line @typescript-eslint/ban-ts-comment
         return <ImportedIcon {...props} />;
     }
 

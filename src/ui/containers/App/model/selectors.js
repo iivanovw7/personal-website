@@ -16,13 +16,12 @@ const selectRouter = (state) => state.router;
  * @method
  * @return {Function} creates new locale selector.
  */
-const makeSelectApp = createSelector(selectApp, (appState) => ({
-    wait: appState.wait > 0,
-}));
-
-const makeSelectLocation = (state) => ({
-    location: selectRouter(state).location,
+const makeSelectApp = createSelector(selectApp, (appState) => {
+    return {
+        wait: appState.wait > 0,
+    };
 });
 
-// eslint-disable-next-line import/prefer-default-export
+const makeSelectLocation = (state) => selectRouter(state).location;
+
 export { makeSelectApp, makeSelectLocation };

@@ -40,24 +40,27 @@ function LocaleSwitch(props) {
         return onLocaleChange(localeKey);
     }
 
+    /* eslint-disable new-cap */
+
     return (
         <Button variant="primary" styling={ButtonStyles} onClick={handleClick}>
             {LocaleImage(localeData)}
         </Button>
     );
+    /* eslint-enable new-cap */
 }
 
 /**
  * @name propTypes
  * @type {Object}
  * @param {Object} props - React PropTypes
- * @property {string} [props.locale = 'en'] - locale string.
  * @property {Function} props.onLocaleChange - locale change handler.
+ * @property {string} [props.locale = 'en'] - locale string.
  * @return {Array} React propTypes
  */
 LocaleSwitch.propTypes = {
-    locale: PropTypes.string,
     onLocaleChange: PropTypes.func.isRequired,
+    locale: PropTypes.string,
 };
 
 LocaleSwitch.defaultProps = {

@@ -27,13 +27,13 @@ const LocaleImage = ({ image, alt }) => <Img src={image} alt={alt} styling={Imag
  * @name propTypes
  * @type {Object}
  * @param {Object} props - React PropTypes
- * @property {string} image - src link.
  * @property {LocaleImage} alt - alt text string.
+ * @property {string} image - src link.
  * @return {Array} React propTypes
  */
 LocaleImage.propTypes = {
-    image: PropTypes.string,
     alt: PropTypes.func.isRequired,
+    image: PropTypes.string,
 };
 
 export default LocaleImage;

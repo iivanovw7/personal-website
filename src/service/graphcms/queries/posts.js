@@ -1,6 +1,5 @@
 import { gql } from '@apollo/client';
 
-// eslint-disable-next-line import/prefer-default-export
 export const GET_POSTS = gql`
     query GetPosts($skip: Int, $first: Int) {
         posts(skip: $skip, first: $first, orderBy: createdAt_DESC) {
@@ -30,6 +29,7 @@ export const GET_POST = gql`
             content {
                 html
             }
+            basicText
             createdAt
             date
             excerpt

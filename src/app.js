@@ -42,7 +42,7 @@ const render = (messages) => {
                 </LocaleProvider>
             </Provider>
         </React.StrictMode>,
-        MOUNT_NODE,
+        MOUNT_NODE
     );
 };
 
@@ -57,8 +57,8 @@ if (module.hot) {
 
 if (runningMode === 'production') {
     registerServiceWorker();
-} else {
-    // eslint-disable-next-line global-require
+}
+else {
     require('../assets/css/critical.css');
 }
 
