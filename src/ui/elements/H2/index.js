@@ -5,8 +5,11 @@
  */
 import styled from 'styled-components';
 
+import { textColor } from '../../styles/theme/typography';
+
 const H2 = styled.h2`
-    font-size: 1.6em;
+    color: ${textColor};
+    font-size: 1.6rem;
     ${(props) => props.styling};
 `;
 

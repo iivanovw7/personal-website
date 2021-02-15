@@ -5,9 +5,13 @@
  */
 import styled from 'styled-components';
 
+import { colorSecondary } from '../../styles/theme/colors';
+
 const H1 = styled.h1`
-    font-size: 2em;
-    margin-bottom: 0.25em;
+    color: ${colorSecondary};
+    font-size: 2rem;
+    margin-bottom: 0.25rem;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 `;
 
 export default H1;

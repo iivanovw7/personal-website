@@ -5,7 +5,7 @@
  */
 import styled from 'styled-components';
 
-const Container = styled.header`
+const Container = styled.div`
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;

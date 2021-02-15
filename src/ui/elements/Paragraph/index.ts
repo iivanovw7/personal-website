@@ -3,13 +3,19 @@
  * @module ui/elements/Paragraph
  * @author Igor Ivanov
  */
-import styled from 'styled-components';
+import styled, { CSSProp } from 'styled-components';
 
+import { PartialAndNullable } from '../../../types/util';
 import { textColor } from '../../styles/theme/typography';
 
-const Paragraph = styled.p`
+type ParagraphProps = PartialAndNullable<{
+    styling?: CSSProp
+}>;
+
+const Paragraph = styled.p<ParagraphProps>`
     color: ${textColor};
-    width: 100%;
+    ${(props) => props.styling};
+    width: 100%
 `;
 
 export default Paragraph;

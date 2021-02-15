@@ -28,6 +28,17 @@ module.exports = {
                 '@typescript-eslint/naming-convention': 0,
                 'react/prop-types': 0,
             },
+            settings: {
+                'import/extensions': ['d.ts'],
+                'import/resolver': {
+                    node: {
+                        extensions: ['d.ts'],
+                    },
+                    'typescript': {
+                        'alwaysTryTypes': true
+                    },
+                },
+            },
         },
     ],
 };

@@ -52,6 +52,7 @@ module.exports = merge(common, {
                     mangle: true,
                     output: {
                         comments: false,
+                        // eslint-disable-next-line camelcase
                         ascii_only: true,
                     },
                 },

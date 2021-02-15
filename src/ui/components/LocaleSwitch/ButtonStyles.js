@@ -12,9 +12,9 @@ const ButtonStyles = css`
     background: transparent;
     color: ${btnBackground};
     display: flex;
-    margin: 0.5em;
+    margin: 0.5rem;
     padding: 0.34rem;
-    width: 2.6em;
+    width: 2.6rem;
 
     ${/* sc-custom */ styleMixins.focusBoxShadow()};
 `;

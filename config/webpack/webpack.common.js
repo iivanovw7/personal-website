@@ -111,7 +111,7 @@ module.exports = {
     },
     entry: {
         index: {
-            'import': './src/app.js',
+            'import': './src/app.tsx',
             dependOn: 'shared',
         },
         shared: 'core-js',

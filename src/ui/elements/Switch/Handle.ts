@@ -5,12 +5,17 @@
  */
 import styled from 'styled-components';
 
+import { PartialAndNullable } from '../../../types/util';
 import { zIndex } from '../../styles/mixins';
 import { switchHandleColor, switchBackgroundColor, switchFocusColor } from '../../styles/theme/switches';
 
 import Checkbox from './Checkbox';
 
-const Handle = styled.div`
+type HandleProps = PartialAndNullable<{
+    variant: string;
+}>;
+
+const Handle = styled.div<HandleProps>`
     background-color: ${switchBackgroundColor};
     border-radius: 2.13rem;
     bottom: 0;

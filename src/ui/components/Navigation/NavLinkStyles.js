@@ -9,7 +9,7 @@ import { styleMixins } from '../../styles/mixins';
 
 const NavLinkStyles = css`
     display: table-cell;
-    height: 2.25em;
+    height: 2.25rem;
     ${styleMixins.fadeInTop};
 `;
 

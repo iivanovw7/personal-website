@@ -38,7 +38,7 @@ function ThemeSwitch(props) {
      * @return {*} return onLocaleChange handles with new theme name.
      */
     function handleChange() {
-        // prettier-ignore
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-return
         return onThemeChange(isDarkTheme(theme)
             ? LIGHT_THEME
             : DARK_THEME
@@ -67,8 +67,8 @@ function ThemeSwitch(props) {
  * @return {Array} React propTypes
  */
 ThemeSwitch.propTypes = {
-    theme: PropTypes.string,
     onThemeChange: PropTypes.func.isRequired,
+    theme: PropTypes.string,
 };
 
 ThemeSwitch.defaultProps = {
@@ -94,6 +94,7 @@ export const mapStateToProps = createSelector(makeSelectTheme(), (theme) => ({
  */
 export function mapDispatchToProps(dispatch) {
     return {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-return
         onThemeChange: (theme) => dispatch(changeTheme(theme)),
         dispatch,
     };

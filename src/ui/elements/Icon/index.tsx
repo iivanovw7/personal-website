@@ -4,9 +4,9 @@
  * @author Igor Ivanov
  */
 import * as PropTypes from 'prop-types';
-import React, { memo, ReactElement, useEffect } from 'react';
+import React, { memo, ReactElement, useEffect, FC, SVGProps } from 'react';
 
-interface ImportedIconInterface extends React.FC<React.SVGProps<SVGSVGElement>> {
+interface ImportedIconInterface extends FC<SVGProps<SVGSVGElement>> {
     path: string;
     fill?: string;
 }

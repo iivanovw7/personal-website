@@ -25,7 +25,6 @@ import StyledLink from './StyledLink';
  */
 const Button = (props) => {
     const { variant, children, styling, onClick, index } = props;
-
     const ButtonElement = R.ifElse(
         R.pipe(R.prop('onClick'), isUndefined),
         R.always(<StyledLink {...props} />),

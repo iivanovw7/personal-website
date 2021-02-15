@@ -8,6 +8,8 @@ import { css } from 'styled-components';
 
 import { keyframesFadeInTop } from './keyframes';
 import { base, breakpoints, colorSet, typography } from './settings';
+import { mainBgInverse } from './theme/background';
+import { textColorInverse } from './theme/typography';
 
 /**
  * Media mixin function.
@@ -187,6 +189,18 @@ export const styleMixins = {
         position: absolute;
         top: 50%;
         transform: translate(-50%, -50%);
+    `,
+    /**
+     * Emphasizes text with provided color and background.
+     * @param {string} textColor - text color.
+     * @param {string} bgColor - background color.
+     * @return {Array} css properties
+     */
+    emphasizedText: (textColor, bgColor) => css`
+        background-color: ${bgColor};
+        color: ${textColor};
+        opacity: 0.8;
+        padding: 0.1em;
     `,
     /**
      * Sets elements max width properties.

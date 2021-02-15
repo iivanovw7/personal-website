@@ -73,9 +73,10 @@ LocaleSwitch.defaultProps = {
  * @see {@link module:containers/LocaleProvider/model/selectors}
  * @return {Function} selector
  */
-const mapStateToProps = createSelector(makeSelectLocale(), (locale) => ({
-    locale,
-}));
+const mapStateToProps = createSelector(
+    makeSelectLocale,
+    (locale) => ({ locale }) // eslint-disable-line
+);
 
 /**
  * Function mapping dispatch to props.

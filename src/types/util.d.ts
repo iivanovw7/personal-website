@@ -15,3 +15,7 @@ export interface AnyObject<T = unknown> {
 export type ObjectOrNull<T = unknown> = AnyObject<T> | null;
 
 export type OptionalObject<T = unknown> = ObjectOrNull<T> | undefined;
+
+export type PartialAndNullable<T> = {
+    [P in keyof T]?: T[P] | null;
+};

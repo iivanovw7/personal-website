@@ -3,30 +3,56 @@
  * @module ui/elements/NavLink
  * @author Igor Ivanov
  */
-import * as PropTypes from 'prop-types';
 import React, { memo, ReactElement } from 'react';
+import { CSSProp } from 'styled-components';
 
 import StyledNavLink from './StyledNavLink';
+
+export interface NavLinkProps {
+    /** Navigation link address. */
+    link: string;
+    /** Navigation link text. */
+    text: string;
+    /** Defines `exact` link. */
+    exact?: boolean;
+    /** Material icon string. */
+    icon?: string;
+    /** Styles variant option.  */
+    variant?: 'primary' | 'secondary';
+    /** Defines `strict` link. */
+    strict?: boolean;
+    /** Object represents router `location`. */
+    location?: Location;
+    /** Additional styles. */
+    styling?: CSSProp;
+}
 
 /**
  * Creates NavLink component.
  * @name elements/NavLink
  * @method
- * @param {Object.<module:ui/elements/NavLink~propTypes>} props
- *  contains component props
- *  @see {@link module:elements/NavLink~propTypes}
- * @return {Node} React component with children.
+ * @param {Object} props - contains component props
+ * @return {ReactElement<JSX.Element>} React component with children.
  * @constructor
  */
-function NavLink(props: PropTypes.InferProps<typeof NavLink.propTypes>): ReactElement<JSX.Element> {
-    const { icon, exact, text, variant, link, styling, location, strict } = props;
+function NavLink(props: NavLinkProps): ReactElement<JSX.Element> {
+    const {
+        icon = null,
+        exact = true,
+        text,
+        variant = 'primary',
+        link,
+        styling,
+        location: appLocation,
+        strict = false
+    } = props;
 
     return (
         <StyledNavLink
             exact={exact}
             strict={strict}
             variant={variant}
-            location={location}
+            location={appLocation}
             styling={styling}
             to={link}>
             {icon && <i className="material-icons">{icon}</i>}
@@ -34,38 +60,5 @@ function NavLink(props: PropTypes.InferProps<typeof NavLink.propTypes>): ReactEl
         </StyledNavLink>
     );
 }
-
-/**
- * @name propTypes
- * @type {Object}
- * @param {Object} props - React PropTypes
- * @property {string} props.link - navigation link address.
- * @property {string} props.text - navigation link text.
- * @property {boolean} [props.exact = true] - defines `exact` link.
- * @property {object} [props.location] - object represents router `location`.
- * @property {string} [props.icon = null] - material icon string.
- * @property {Array.<string>} [props.styling = []] - image additional styles.
- * @property {boolean} [props.strict = false] - defines `strict` link.
- * @property {Array.<string>} [props.variant = 'primary'] - styles variant option.
- * @return {Array} React propTypes
- */
-NavLink.propTypes = {
-    link: PropTypes.string.isRequired,
-    text: PropTypes.string.isRequired,
-    exact: PropTypes.bool,
-    location: PropTypes.object,
-    icon: PropTypes.string,
-    styling: PropTypes.array, // eslint-disable-line react/forbid-prop-types
-    strict: PropTypes.bool,
-    variant: PropTypes.oneOf(['primary', 'secondary']),
-};
-
-NavLink.defaultProps = {
-    icon: null,
-    styling: [],
-    exact: true,
-    strict: false,
-    variant: 'primary',
-};
 
 export default memo(NavLink);

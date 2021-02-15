@@ -16,7 +16,6 @@ import HeaderStyles from './HeaderStyles';
 import messages from './model/messages';
 import Paragraph from './Paragraph';
 
-
 const { errorMessageTitle, errorMessageText } = messages;
 
 export interface ErrorMessageProps {

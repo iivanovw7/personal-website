@@ -17,7 +17,6 @@ import messages from './model/messages';
 function handleReloadClick(eventData) {
     eventData.preventDefault();
     eventData.stopPropagation();
-    // eslint-disable-next-line no-restricted-globals
     location.reload();
 }
 

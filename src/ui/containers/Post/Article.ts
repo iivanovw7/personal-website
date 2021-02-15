@@ -3,14 +3,21 @@
  * @module ui/containers/Post/Article
  * @author Igor Ivanov
  */
+import { ApolloError } from '@apollo/client';
 import styled from 'styled-components';
 
-import { styleMixins } from '../../styles/mixins';
+import { PartialAndNullable } from '../../../types/util';
+import { styleMixins, respondToMedia, mediaKey } from '../../styles/mixins';
 import { base, breakpoints } from '../../styles/settings';
 import { mainBg } from '../../styles/theme/background';
 
+type ArticleProps = PartialAndNullable<{
+    error?: ApolloError;
+}>;
+
 /* eslint-disable */
-const Article = styled.div`
+
+const Article = styled.div<ArticleProps>`
     background-color: ${mainBg};
     border-radius: 0.25rem;
     flex-direction: row;
@@ -23,9 +30,13 @@ const Article = styled.div`
         ${styleMixins.absoluteCentred()};
         width: 100%;
     `}
-    padding: 0.5rem;
+    ${respondToMedia[mediaKey('md')]`
+        padding: 0.5rem;
+    )};`};
+    padding: 1rem;
     user-select: none;
 `;
+
 /* eslint-enable */
 
 export default Article;

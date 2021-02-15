@@ -47,15 +47,15 @@ Link.propTypes = {
         PropTypes.node,
         PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.func, PropTypes.node])),
     ]),
+    styling: PropTypes.array,
     target: PropTypes.string,
-    styling: PropTypes.array, // eslint-disable-line react/forbid-prop-types
     variant: PropTypes.oneOf(['primary', 'secondary']),
 };
 
 Link.defaultProps = {
     children: [],
-    target: '_blank',
     styling: [],
+    target: '_blank',
     variant: 'primary',
 };
 

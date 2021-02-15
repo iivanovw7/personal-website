@@ -38,6 +38,7 @@
             "./src/types/util",
             "node",
             "jest",
+            "webpack-env"
         ]
     },
     "rules": {

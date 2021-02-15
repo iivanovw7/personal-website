@@ -31,7 +31,6 @@ const localeProvider = createSlice({
     initialState: initState,
     reducers: {
         changeLocale(state, action) {
-            // eslint-disable-next-line no-param-reassign
             state.locale = action.payload;
         },
     },

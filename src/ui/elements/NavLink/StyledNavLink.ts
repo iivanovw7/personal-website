@@ -6,12 +6,16 @@
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
+import { PartialAndNullable } from '../../../types/util';
 import { styleMixins } from '../../styles/mixins';
 import { btnBackground } from '../../styles/theme/buttons';
 import { navLinkTextColor, navLinkTextColorActive, navLinkBackgroundHover } from '../../styles/theme/links';
 
+// eslint-disable-next-line import/named
+import { NavLinkProps } from './index';
+
 const activeClassName = 'active';
-const StyledNavLink = styled(NavLink).attrs({ activeClassName })`
+const StyledNavLink = styled(NavLink).attrs({ activeClassName })<PartialAndNullable<NavLinkProps>>`
     align-items: center;
     background-color: transparent;
     border: 1px solid ${navLinkTextColor};

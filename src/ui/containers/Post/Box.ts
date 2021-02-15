@@ -5,6 +5,7 @@
  */
 import styled from 'styled-components';
 
+import { styleMixins } from '../../styles/mixins';
 import { mainBgInverse } from '../../styles/theme/background';
 import { textColorInverse } from '../../styles/theme/typography';
 
@@ -12,10 +13,7 @@ const Box = styled.div`
     width: 100%;
 
     u {
-        background-color: ${mainBgInverse};
-        color: ${textColorInverse};
-        opacity: 0.8;
-        padding: 0.1em;
+        ${styleMixins.emphasizedText(textColorInverse, mainBgInverse)};
     }
 `;
 

@@ -29,7 +29,7 @@ import Container from './Container';
  * @constructor
  */
 function Grid(props) {
-    const { hasMore, posts, location } = props;
+    const { hasMore, posts, location: appLocation } = props;
     const listRef = useRef(null);
 
     return (
@@ -43,7 +43,7 @@ function Grid(props) {
                         <NavLink
                             variant="secondary"
                             exact={false}
-                            location={location}
+                            location={appLocation}
                             link={`${routesPaths.posts}/${post.id}`}
                             icon="read_more"
                             text={getText('read_more', props)}

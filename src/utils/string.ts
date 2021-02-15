@@ -14,4 +14,4 @@
  * @example
  * getLastItem('https://somePath.com/test') //=> 'test'
  */
-export const getLastItem = (targetString: string, splitter = '/'): string => targetString.substring(targetString.lastIndexOf(splitter) + 1)
+export const getLastItem = (targetString: string, splitter = '/'): string => targetString.substring(targetString.lastIndexOf(splitter) + 1);

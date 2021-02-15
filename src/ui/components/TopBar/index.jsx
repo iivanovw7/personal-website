@@ -40,7 +40,7 @@ function TopBar(props) {
         // Media queries
         [`(min-width: ${breakpoints.sm}px)`],
         [true],
-        false,
+        false
     );
 
     return (
@@ -67,7 +67,6 @@ function TopBar(props) {
  * @return {Array} React propTypes
  */
 TopBar.propTypes = {
-    // eslint-disable-next-line react/no-unused-prop-types
     intl: PropTypes.object.isRequired,
     children: PropTypes.oneOfType([
         PropTypes.func,

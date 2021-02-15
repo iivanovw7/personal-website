@@ -5,7 +5,7 @@
 import { useQuery } from '@apollo/client';
 import { compose } from '@reduxjs/toolkit';
 import { always, cond, pipe, prop, T } from 'ramda';
-import React, { memo } from 'react';
+import React, { memo, FC } from 'react';
 import { injectIntl } from 'react-intl';
 import { connect } from 'react-redux';
 
@@ -18,6 +18,8 @@ import ErrorMessage from '../../components/ErrorMessage';
 import TagCloud from '../../components/TagCloud';
 import Paragraph from '../../elements/Paragraph';
 import Spinner from '../../elements/Spinner';
+import H1 from '../../elements/H1';
+import H2 from '../../elements/H2';
 import { isPostsAreaPath } from '../../routes';
 import commonMessages from '../App/model/messages';
 import { makeSelectLocation } from '../App/model/selectors';
@@ -25,10 +27,14 @@ import { makeSelectLocation } from '../App/model/selectors';
 import Article from './Article';
 import Box from './Box';
 import formattedPostTex from './model/util';
+import dayjs from 'dayjs';
 
 const { noResults } = commonMessages;
 
 export interface Post {
+    title: string;
+    subject: string;
+    createdAt: string;
     tags: string[];
     content: {
         html: string;
@@ -46,7 +52,7 @@ export interface PostProps {
  * @return {ReactNode} Post component.
  * @constructor
  */
-const PostComponent: React.FC<PostProps> = (props: PostProps) => {
+const PostComponent: FC<PostProps> = (props: PostProps) => {
     const { location: currentLocation } = props;
     const { pathname } = currentLocation;
     const isPostsPath = isPostsAreaPath(pathname);
@@ -67,9 +73,12 @@ const PostComponent: React.FC<PostProps> = (props: PostProps) => {
         // eslint-disable-next-line react/no-unused-prop-types
         [T, ({ post }: { post: Post }) => {
             runCodePrettify();
-
+            console.log(post);
             return (
                 <Box>
+                    <H1>{post.title}</H1>
+                    <H2>{post.subject}</H2>
+                    <p>{dayjs(post.createdAt).format('DD MMM YYYY HH:MM A')}</p>
                     <TagCloud tags={post.tags} />
                     <Paragraph dangerouslySetInnerHTML={{ __html: formattedPostTex(post.content.html) }} />
                 </Box>

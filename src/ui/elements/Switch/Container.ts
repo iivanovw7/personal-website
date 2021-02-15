@@ -5,12 +5,20 @@
  */
 import styled from 'styled-components';
 
+import { PartialAndNullable } from '../../../types/util';
 import { zIndex } from '../../styles/mixins';
 
+type ContainerProps = PartialAndNullable<{
+    id: string;
+    checked: boolean;
+    image: string;
+    themeSwitch: boolean;
+}>;
+
 // prettier-ignore
-const Container = styled.div`
+const Container = styled.div<ContainerProps>`
     background-image: ${(props) => (props.image
-        ? `url(${props.image})`
+        ? `url(${props.image as string})`
         : 'none'
     )};
     background-position: center center;
@@ -23,9 +31,9 @@ const Container = styled.div`
         : 'none'
     )};
     height: 1rem;
-    left: ${props => (props.checked
+    left: ${(props) => (props.checked
         ? 6
-        : 30
+        : 30 // eslint-disable-line
     )}px;
     position: absolute;
     width: 1rem;

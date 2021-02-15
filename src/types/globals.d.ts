@@ -2,12 +2,16 @@
  * Module contains global application types.
  * @module types/global
  */
-
 import * as H from 'history';
+import type {} from 'styled-components/cssprop';
+// eslint-disable-next-line import/named
+import { CSSProp } from 'styled-components';
 
 import { RunningMode } from '../config';
 
-/* eslint-disable no-unused-vars */
+interface MyTheme {
+    variant: string
+}
 
 declare global {
     /**
@@ -16,6 +20,7 @@ declare global {
      */
     const CONFIG: RunningMode;
 
+    // eslint-disable-next-line @typescript-eslint/ban-types
     type JSX = {};
 
     namespace JSX {}
@@ -25,4 +30,8 @@ declare global {
     }
 }
 
-/* eslint-enable no-unused-vars */
+declare module 'react' {
+    interface Attributes {
+        css?: CSSProp<MyTheme | any>
+    }
+}

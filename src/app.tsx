@@ -7,7 +7,7 @@ import 'regenerator-runtime/runtime';
 import '../assets/css/sanitize.css';
 
 import { ConnectedRouter } from 'connected-react-router';
-import React from 'react';
+import React, { StrictMode } from 'react';
 import ReactDOM from 'react-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { Provider } from 'react-redux';
@@ -29,7 +29,7 @@ addIntlPolyfills();
 
 const render = (messages) => {
     ReactDOM.render(
-        <React.StrictMode>
+        <StrictMode>
             <Provider store={store}>
                 <LocaleProvider messages={messages}>
                     <ConnectedRouter history={appHistory}>
@@ -41,14 +41,12 @@ const render = (messages) => {
                     </ConnectedRouter>
                 </LocaleProvider>
             </Provider>
-        </React.StrictMode>,
+        </StrictMode>,
         MOUNT_NODE
     );
 };
 
 render(translationMessages);
-
-module.hot.accept();
 
 if (module.hot) {
     // Webpack hot reloading
@@ -59,6 +57,7 @@ if (runningMode === 'production') {
     registerServiceWorker();
 }
 else {
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
     require('../assets/css/critical.css');
 }
 

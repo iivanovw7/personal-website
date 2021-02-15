@@ -60,6 +60,9 @@ module.exports = {
             node: {
                 extensions: ['.js', '.jsx', '.ts', '.tsx'],
             },
+            'typescript': {
+                'alwaysTryTypes': true
+            },
         },
     },
     parserOptions: {

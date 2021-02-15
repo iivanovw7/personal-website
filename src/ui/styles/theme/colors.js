@@ -10,3 +10,8 @@ export const colorPrimary = theme('mode', {
     dark: `${colorSet.dark.colorPrimary}`,
     light: `${colorSet.light.colorPrimary}`,
 });
+
+export const colorSecondary = theme('mode', {
+    dark: `${colorSet.dark.colorSecondary}`,
+    light: `${colorSet.light.colorSecondary}`,
+});

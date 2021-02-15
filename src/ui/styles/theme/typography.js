@@ -25,3 +25,14 @@ export const textColorInverse = theme('mode', {
     light: `${colorSet.dark.textColorPrimary}`,
     dark: `${colorSet.light.textColorPrimary}`,
 });
+
+export const headerColor = theme.variants('mode', 'variant', {
+    primary: {
+        dark: colorSet.dark.colorPrimary,
+        light: colorSet.light.colorPrimary,
+    },
+    secondary: {
+        dark: colorSet.dark.colorSecondary,
+        light: colorSet.light.colorSecondary,
+    },
+});
