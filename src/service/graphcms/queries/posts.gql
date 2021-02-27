@@ -1,0 +1,38 @@
+query GetPosts($skip: Int, $first: Int) {
+    posts(skip: $skip, first: $first, orderBy: createdAt_DESC) {
+        ...Author
+        createdAt
+        date
+        excerpt
+        id
+        subject
+        tags
+        title
+        updatedAt
+    }
+}
+
+query GetPost($postId: ID!) {
+    post(where: { id: $postId }) {
+        ...Author
+        content {
+            html
+        }
+        basicText
+        createdAt
+        date
+        excerpt
+        id
+        subject
+        tags
+        title
+        updatedAt
+    }
+}
+
+fragment Author on Post {
+    author {
+        id
+        name
+    }
+}

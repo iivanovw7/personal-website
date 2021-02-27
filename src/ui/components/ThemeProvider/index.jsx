@@ -49,9 +49,11 @@ ThemeProvider.propTypes = {
  * @see {@link module:components/ThemeProvider/model/selectors}
  * @return {Function} selector
  */
-const mapStateToProps = createSelector(makeSelectTheme(), (theme) => ({
-    theme,
-}));
+const mapStateToProps = createSelector(makeSelectTheme(), (theme) => {
+    return {
+        theme,
+    };
+});
 
 const withConnect = connect(mapStateToProps, null);
 

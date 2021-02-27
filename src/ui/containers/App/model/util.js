@@ -9,7 +9,7 @@
 export function hideWaitScreen() {
     const waitScreen = document.querySelector('.pw-preloader');
 
-    if (waitScreen && !waitScreen.classList.contains('pw-preloader-hidden')) {
+    if (waitScreen && ! waitScreen.classList.contains('pw-preloader-hidden')) {
         waitScreen.classList.add('pw-preloader-hidden');
     }
 }

@@ -34,8 +34,9 @@ function useMedia(queries, values, defaultValue) {
     const getValue = () => {
         // Get index of first media query that matches
         const index = mediaQueryLists.findIndex((mql) => mql.matches);
+
         // Return related value or defaultValue if none
-        // prettier-ignore
+        // eslint-disable-next-line no-negated-condition
         return typeof values[index] !== 'undefined'
             ? values[index]
             : defaultValue;
@@ -52,10 +53,11 @@ function useMedia(queries, values, defaultValue) {
             const handler = () => setValue(getValue);
             // Set a listener for each media query with above handler as callback.
             mediaQueryLists.forEach((mql) => mql.addListener(handler));
+
             // Remove listeners on cleanup
             return () => mediaQueryLists.forEach((mql) => mql.removeListener(handler));
         },
-        [], // Empty array ensures effect is only run on mount and unmount
+        [] // Empty array ensures effect is only run on mount and unmount
     );
 
     return value;

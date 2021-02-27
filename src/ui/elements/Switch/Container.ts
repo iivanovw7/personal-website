@@ -18,7 +18,7 @@ type ContainerProps = PartialAndNullable<{
 // prettier-ignore
 const Container = styled.div<ContainerProps>`
     background-image: ${(props) => (props.image
-        ? `url(${props.image as string})`
+        ? `url(${props.image})`
         : 'none'
     )};
     background-position: center center;

@@ -1,6 +1,5 @@
 ## personal-website
 
-
 Webpage client application.
 Uses [graphcms](https://graphcms.com/).
 
@@ -86,8 +85,6 @@ Additional arguments could be added to `npm run dev`, `npm run dev:dashboard`, `
 Contains information about configuration files.
 
 `./.nvmrc` -- contains current Node.js version.
-
-`./.prettier` -- contains prettier configuration.
 
 `./.stylelintrc` -- contains stylelint configuration.
 

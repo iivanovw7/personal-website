@@ -4,14 +4,13 @@
  */
 import { useQuery } from '@apollo/client';
 import { compose } from '@reduxjs/toolkit';
-import * as PropTypes from 'prop-types';
 import { always, T, prop, cond, pipe } from 'ramda';
-import React, { memo, useState } from 'react';
-import { injectIntl } from 'react-intl';
+import React, { FC, memo } from 'react';
+import { injectIntl, IntlShape } from 'react-intl';
 import { connect } from 'react-redux';
 
+import { GetPostsDocument, Post } from '../../../generated/graphcms-schema';
 import { getText } from '../../../locale';
-import { GET_POSTS } from '../../../service/graphcms/queries/posts';
 import { isNilOrEmpty } from '../../../utils/helpers';
 import ErrorMessage from '../../components/ErrorMessage';
 import Spinner from '../../elements/Spinner';
@@ -23,14 +22,30 @@ import Grid from './Grid';
 
 const { noResults } = commonMessages;
 
-const Posts = (props) => {
-    const { skip, first } = props;
-    // eslint-disable-next-line no-unused-vars
-    const [skipped, setSkipped] = useState(skip);
-    const localizedText = (message) => getText(message, props);
+const defaultSkip = 0;
+const defaultFirst = 48;
+
+export interface IPosts {
+    posts: Post[]
+}
+
+export interface IPostsProps {
+    /** [first = defaultFirst] Max number of posts to be returned after one data fetch. */
+    first: number;
+    /** `react-intl` object provides access  to localization methods. */
+    intl: IntlShape;
+    /** Object represents router `location` */
+    location: Location;
+    /** [skip = defaultSkip] Number of posts to be skipped during query. */
+    skip: number;
+}
+
+const PostsComponent: FC<IPostsProps> = (props: IPostsProps) => {
+    const { skip = defaultSkip, first = defaultFirst } = props;
+    const localizedText = (message) => getText(message, props) as string;
 
     // https://github.com/apollographql/apollo-client/issues/6209
-    const { data, loading, error } = useQuery(GET_POSTS, {
+    const { data, loading, error } = useQuery(GetPostsDocument, {
         variables: { skip, first },
         fetchPolicy: 'cache-and-network',
     });
@@ -39,7 +54,8 @@ const Posts = (props) => {
         [prop('error'), always(<ErrorMessage />)],
         [prop('loading'), always(<Spinner />)],
         [pipe(prop('posts'), isNilOrEmpty), always(<p>{localizedText(noResults)}</p>)],
-        [T, ({ posts }) => <Grid posts={posts} />],
+        // @ts-ignore TODO: Migrate <Grid /> to TS
+        [T, ({ posts }: IPosts) => <Grid posts={posts} />],
     ]);
 
     // prettier-ignore
@@ -53,27 +69,6 @@ const Posts = (props) => {
                     : null} />
         </Article>
     );
-};
-
-/**
- * @name Posts.propTypes
- * @type {Object}
- * @param {Object} props - React PropTypes
- * @property {Object} props.intl - react-intl object provides access  to localization methods.
- * @property {Object} [props.skip = 0] - number of posts to be skipped during query.
- * @property {Object} [props.first = 48] - max number of posts to be returned after one data fetch.
- * @return {Array} React propTypes
- */
-Posts.propTypes = {
-    // eslint-disable-next-line react/no-unused-prop-types
-    intl: PropTypes.object.isRequired,
-    first: PropTypes.number,
-    skip: PropTypes.number,
-};
-
-Posts.defaultProps = {
-    first: 48,
-    skip: 0,
 };
 
 /**
@@ -92,4 +87,5 @@ const mapStateToProps = (state) => {
 
 const withConnect = connect(mapStateToProps);
 
-export default compose(withConnect, injectIntl, memo)(Posts);
+export default compose(withConnect, injectIntl, memo)(PostsComponent);
+

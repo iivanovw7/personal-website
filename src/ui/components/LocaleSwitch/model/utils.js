@@ -3,7 +3,7 @@
  * @module components/LocaleSwitch/model/utils
  * @author Igor Ivanov
  */
-import { __, always, dec, either, head, ifElse, inc, indexOf, keys, length, lt, nth, pipe } from 'ramda';
+import { __, always, dec, either, head, ifElse, inc, indexOf, keys, length as rambdaLength, lt, nth, pipe } from 'ramda';
 
 import { DEFAULT_LOCALE, LOCALE_RESOURCES } from '../../LocaleProvider/model/constants';
 
@@ -14,16 +14,16 @@ import { DEFAULT_LOCALE, LOCALE_RESOURCES } from '../../LocaleProvider/model/con
 const locales = keys(LOCALE_RESOURCES);
 /**
  * Gets index of current locale.
- * @type {f1}
+ * @type {number}
  */
 const localeIndex = indexOf(__, locales);
 /**
  * Gets length of locales list.
  */
-const localesLength = length(locales);
+const localesLength = rambdaLength(locales);
 /**
  * Verifies if there is nex locale available.
- * @type {f1}
+ * @type {function}
  */
 const hasNextLocale = lt(__, dec(localesLength));
 /**
@@ -38,12 +38,12 @@ const firstLocale = head(locales);
  */
 const newLocaleKey = pipe(
     localeIndex,
-    ifElse(hasNextLocale, pipe(inc, nth(__, locales)), always(firstLocale)),
+    ifElse(hasNextLocale, pipe(inc, nth(__, locales)), always(firstLocale))
 );
 
 /**
  * Returns either a new locale key or default key.
- * @type {f1}
+ * @type {function}
  */
 const nextLocaleKey = either(newLocaleKey, DEFAULT_LOCALE);
 

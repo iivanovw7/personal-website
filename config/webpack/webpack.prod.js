@@ -3,15 +3,15 @@
  * @module _/config/webpack.prod.js
  * @author Igor Ivanov
  */
-const path = require('path');
-
 const CompressionPlugin = require('compression-webpack-plugin');
-const ImageminPlugin = require('imagemin-webpack-plugin').default;
+const ImageminPlugin = require('imagemin-webpack-plugin')['default'];
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const webpack = require('webpack');
 const WebpackAssetsManifest = require('webpack-assets-manifest');
 const { merge } = require('webpack-merge');
+
+const path = require('path');
 
 const common = require('./webpack.common.js');
 
@@ -69,6 +69,7 @@ module.exports = merge(common, {
             cacheGroups: {
                 vendor: {
                     test: /[\\/]node_modules[\\/]/,
+                    // eslint-disable-next-line no-shadow
                     name(module) {
                         // get the name. E.g. node_modules/packageName/not/this/part.js
                         // or node_modules/packageName
@@ -82,7 +83,7 @@ module.exports = merge(common, {
         },
     },
     performance: {
-        assetFilter: (assetFilename) => !/(\.map$)|(^(main\.|favicon\.))/.test(assetFilename),
+        assetFilter: (assetFilename) => ! /(\.map$)|(^(main\.|favicon\.))/.test(assetFilename),
         maxEntrypointSize: 512000,
         maxAssetSize: 512000,
     },

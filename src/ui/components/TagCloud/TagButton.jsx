@@ -20,11 +20,10 @@ import TagButtonStyles from './TagButtonStyles';
  *      @see {@link module:config/styles~colorSet.tagBtnBgColors}
  */
 export function setColorIndex(key = '') {
-    const { length } = key;
+    const { length: keyLength } = key;
 
-    // prettier-ignore
-    return length <= colorSet.tagBtnBgColors.length
-        ? length
+    return keyLength <= colorSet.tagBtnBgColors.length
+        ? keyLength
         : 7;
 }
 

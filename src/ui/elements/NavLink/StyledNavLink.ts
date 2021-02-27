@@ -11,7 +11,6 @@ import { styleMixins } from '../../styles/mixins';
 import { btnBackground } from '../../styles/theme/buttons';
 import { navLinkTextColor, navLinkTextColorActive, navLinkBackgroundHover } from '../../styles/theme/links';
 
-// eslint-disable-next-line import/named
 import { NavLinkProps } from './index';
 
 const activeClassName = 'active';

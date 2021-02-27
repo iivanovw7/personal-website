@@ -8,8 +8,6 @@ import { css } from 'styled-components';
 
 import { keyframesFadeInTop } from './keyframes';
 import { base, breakpoints, colorSet, typography } from './settings';
-import { mainBgInverse } from './theme/background';
-import { textColorInverse } from './theme/typography';
 
 /**
  * Media mixin function.

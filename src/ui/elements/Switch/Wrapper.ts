@@ -12,8 +12,6 @@ type WrapperProps = PartialAndNullable<{
     styling: CSSProp
 }>;
 
-/* eslint-disable @typescript-eslint/no-unsafe-return */
-
 const Wrapper = styled.label<WrapperProps>`
     display: inline-block;
     height: 1.5rem;
@@ -23,8 +21,6 @@ const Wrapper = styled.label<WrapperProps>`
     vertical-align: middle;
     width: 3.13rem;
 `;
-
-/* eslint-enable @typescript-eslint/no-unsafe-return */
 
 export default Wrapper;
 

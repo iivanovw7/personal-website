@@ -7,7 +7,8 @@ import styled from 'styled-components';
 
 import { mediaKey, respondToMedia, styleMixins } from '../../styles/mixins';
 
-// prettier-ignore
+/* eslint-disable @typescript-eslint/no-magic-numbers */
+
 const Paragraph = styled.p`
     margin-bottom: 0.857rem;
     ${respondToMedia[mediaKey('lg')]`
@@ -20,4 +21,8 @@ const Paragraph = styled.p`
     text-align: center;
 `;
 
+/* eslint-enable @typescript-eslint/no-magic-numbers */
+
 export default Paragraph;
+
+

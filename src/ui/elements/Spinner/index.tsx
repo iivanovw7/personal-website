@@ -3,8 +3,7 @@
  * @module ui/elements/Spinner
  * @author Igor Ivanov
  */
-import { compose } from '@reduxjs/toolkit';
-import React, { CSSProperties } from 'react';
+import React, { FC, CSSProperties, memo } from 'react';
 import { SelfBuildingSquareSpinner } from 'react-epic-spinners';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
@@ -63,7 +62,7 @@ interface SpinnerProps {
  * @return {ReactNode} React component with children.
  * @constructor
  */
-const Spinner: React.FC<SpinnerProps & MapStateToPropsTypes> = (props: SpinnerProps & MapStateToPropsTypes) => {
+const Spinner: FC<SpinnerProps & MapStateToPropsTypes> = (props: SpinnerProps & MapStateToPropsTypes) => {
     const { mode, color = colorSet[mode].colorPrimary, size = defaultSpinnerSize, style = defaultStyles } = props;
 
     return (
@@ -83,8 +82,8 @@ const mapStateToProps = createSelector(makeSelectTheme(), (mode: string) => {
     };
 });
 
-const withConnect = connect<MapStateToPropsTypes>(mapStateToProps);
-
-export default compose(withConnect)(Spinner);
+export default connect(mapStateToProps)(
+    memo(Spinner)
+);
 
 export { Spinner as OriginalSpinner };

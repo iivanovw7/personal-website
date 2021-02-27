@@ -7,10 +7,8 @@ import styled from 'styled-components';
 
 import { btnBackground, btnTextColor } from '../../styles/theme/buttons';
 
-// prettier-ignore
-const StyledButton = styled.button.attrs(({ index }) => ({
-    'data-index': index,
-}))`
+// eslint-disable-next-line
+const StyledButton = styled.button.attrs(({ index }) => ({ 'data-index': index }))`
   background-color: ${btnBackground};
   border: none;
   color: ${btnTextColor};

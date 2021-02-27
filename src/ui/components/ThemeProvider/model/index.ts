@@ -4,7 +4,7 @@
  * @author Igor Ivanov
  */
 
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { DEFAULT_THEME } from './constants';
 
@@ -23,6 +23,11 @@ export const initState = {
 };
 
 export type ThemeProviderState = typeof initState;
+export type Theme = ThemeProviderState['theme'];
+export type ChangeTheme = {
+    type: string,
+    payload: Theme
+};
 
 /**
  *  Combines functions of createAction and createReducer of application.
@@ -33,8 +38,7 @@ const themeProvider = createSlice({
     name: 'pw/themeProvider',
     initialState: initState,
     reducers: {
-        changeTheme(state, action) {
-            // eslint-disable-next-line no-param-reassign
+        changeTheme(state, action: PayloadAction<Theme>) {
             state.theme = action.payload;
         },
     },

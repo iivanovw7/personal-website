@@ -53,24 +53,24 @@ const Button = (props) => {
  * @return {Array} React propTypes
  */
 Button.propTypes = {
-    variant: PropTypes.oneOf(['primary', 'secondary', 'alert']),
     children: PropTypes.oneOfType([
         PropTypes.func,
         PropTypes.node,
         PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.func, PropTypes.node])),
     ]),
-    styling: PropTypes.array,
-    onClick: PropTypes.func,
-    href: PropTypes.string,
-    target: PropTypes.string,
     hidden: PropTypes.bool,
+    href: PropTypes.string,
     index: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    styling: PropTypes.array,
+    target: PropTypes.string,
+    variant: PropTypes.oneOf(['primary', 'secondary', 'alert']),
+    onClick: PropTypes.func,
 };
 
 Button.defaultProps = {
-    target: '_blank',
     hidden: false,
     index: 0,
+    target: '_blank',
     variant: 'primary',
 };
 

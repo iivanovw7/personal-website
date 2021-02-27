@@ -137,11 +137,11 @@ const mapStateToProps = (state) => {
  * @param {Function} dispatch method.
  * @return {Object} redux container
  */
-export function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) { // eslint-disable-line
     return {
-        onStartWait: () => dispatch(startWait),
-        onStopWait: () => dispatch(stopWait),
-        onCompleteWait: () => dispatch(completeWait),
+        onStartWait: () => dispatch(startWait), // eslint-disable-line
+        onStopWait: () => dispatch(stopWait), // eslint-disable-line
+        onCompleteWait: () => dispatch(completeWait), // eslint-disable-line
         dispatch,
     };
 }

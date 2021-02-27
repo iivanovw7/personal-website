@@ -3,14 +3,10 @@
  * @module ui/components/LocaleProvider
  * @author Igor Ivanov
  */
-import { compose } from '@reduxjs/toolkit';
-import React, { ReactNode, Children, memo } from 'react';
+import React, { Children, memo, ReactNode } from 'react';
 import { IntlProvider } from 'react-intl';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
-
-// eslint-disable-next-line import/no-unresolved
-import { AnyObject } from '../../../types/util';
 
 import { DEFAULT_LOCALE } from './model/constants';
 import { makeSelectLocale } from './model/selectors';
@@ -27,7 +23,7 @@ export interface LocaleProviderProps {
     /**
      * Current localizations messages set.
      */
-    messages: any;
+    messages: any; // eslint-disable-line
 }
 
 /**
@@ -40,7 +36,6 @@ export interface LocaleProviderProps {
 function LocaleProvider(props: LocaleProviderProps) {
     const { locale = DEFAULT_LOCALE, messages, children } = props;
 
-    // prettier-ignore
     const trimmedLocale = locale.includes('-')
         ? locale.split(/[-]/)[0]
         : locale;
@@ -60,9 +55,10 @@ function LocaleProvider(props: LocaleProviderProps) {
  */
 const mapStateToProps = createSelector(
     makeSelectLocale,
-    (locale) => ({ locale }) // eslint-disable-line
+    (locale) => ({ locale }), // eslint-disable-line
 );
 
-const withConnect = connect<AnyObject, AnyObject, AnyObject>(mapStateToProps);
-
-export default compose(withConnect, memo)(LocaleProvider);
+// Not using `compose` here due to errors https://stackoverflow.com/questions/51605112/react-recompose-causing-typescript-error-on-props
+export default connect(mapStateToProps)(
+    memo(LocaleProvider)
+);

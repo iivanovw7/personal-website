@@ -66,7 +66,7 @@ const settings = {
          */
         requestTimeout: 10000,
         /**
-         * GraphCMS url.
+         * GraphCMS `url`.
          * @type {string}
          */
         graphCmsUrl: 'https://api-eu-central-1.graphcms.com/v2/cki24xt1fy3b701z94v4gh9rp/master',

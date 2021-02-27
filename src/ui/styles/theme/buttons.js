@@ -101,5 +101,6 @@ export const linkColor = theme('mode', {
 
 export const linkColorSecondary = theme('mode', {
     light: colorSet.light.linkColor,
+    // eslint-disable-next-line no-magic-numbers
     dark: lighten(0.1, colorSet.dark.colorAlert),
 });

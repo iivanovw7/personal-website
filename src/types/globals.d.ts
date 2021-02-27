@@ -4,7 +4,6 @@
  */
 import * as H from 'history';
 import type {} from 'styled-components/cssprop';
-// eslint-disable-next-line import/named
 import { CSSProp } from 'styled-components';
 
 import { RunningMode } from '../config';
@@ -32,6 +31,6 @@ declare global {
 
 declare module 'react' {
     interface Attributes {
-        css?: CSSProp<MyTheme | any>
+        css?: CSSProp<MyTheme | any> // eslint-disable-line
     }
 }

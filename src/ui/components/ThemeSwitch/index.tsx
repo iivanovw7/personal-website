@@ -5,7 +5,7 @@
  */
 import { compose } from '@reduxjs/toolkit';
 import * as PropTypes from 'prop-types';
-import React, { memo } from 'react';
+import React, { Dispatch, memo } from 'react';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 
@@ -13,12 +13,17 @@ import Dark from '../../../../assets/svg/theme/moon.svg';
 import Light from '../../../../assets/svg/theme/sun.svg';
 import { DARK_THEME, LIGHT_THEME } from '../../../config/constants';
 import Switch from '../../elements/Switch';
-import { changeTheme } from '../ThemeProvider/model';
+import { ChangeTheme, Theme, changeTheme } from '../ThemeProvider/model';
 import { DEFAULT_THEME } from '../ThemeProvider/model/constants';
 import { makeSelectTheme } from '../ThemeProvider/model/selectors';
 
 import { isDarkTheme } from './model/utils';
 import SwitchStyles from './SwitchStyles';
+
+interface DispatchProps {
+    onThemeChange: (theme: Theme) => void;
+    dispatch: Dispatch<ChangeTheme>;
+}
 
 /**
  * Creates ThemeSwitch component.
@@ -81,9 +86,12 @@ ThemeSwitch.defaultProps = {
  * @see {@link module:ui/containers/ThemeSwitch/model/selectors}
  * @return {Function} selector
  */
-export const mapStateToProps = createSelector(makeSelectTheme(), (theme) => ({
-    theme,
-}));
+export const mapStateToProps = createSelector(
+    makeSelectTheme(),
+    (theme: Theme) => {
+        return { theme };
+    }
+);
 
 /**
  * Function mapping dispatch to props.
@@ -92,10 +100,9 @@ export const mapStateToProps = createSelector(makeSelectTheme(), (theme) => ({
  * @param {Function} dispatch method.
  * @return {Object} redux container
  */
-export function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch: Dispatch<ChangeTheme>): DispatchProps {
     return {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-        onThemeChange: (theme) => dispatch(changeTheme(theme)),
+        onThemeChange: (theme: Theme) => dispatch(changeTheme(theme)),
         dispatch,
     };
 }

@@ -27,12 +27,20 @@ module.exports = {
         'import/order': [
             'error',
             {
-                groups: ['builtin', 'external', ['parent'], ['sibling', 'index'] ],
+                groups: ['external', 'builtin', 'internal', ['parent'], ['sibling', 'index'] ],
                 'newlines-between': 'always',
                 alphabetize: {
                     order: 'asc' /* sort in ascending order. Options: ['ignore', 'asc', 'desc'] */,
                     caseInsensitive: true /* ignore case. Options: [true, false] */,
                 },
+                pathGroups: [
+                    {
+                        pattern: 'react',
+                        group: 'external',
+                        position: 'before',
+                    },
+                ],
+                pathGroupsExcludedImportTypes: ['external'],
             },
         ],
         'import/no-extraneous-dependencies': [

@@ -15,13 +15,14 @@ webpack(config, function handler(err, stats) {
             // eslint-disable-next-line no-console
             console.error(err.details);
         }
-    } else {
+    }
+    else {
         // eslint-disable-next-line no-console
         console.log(
             stats.toString({
                 chunks: false, // Makes the build much quieter
                 colors: true, // Shows colors in the console
-            }),
+            })
         );
 
         if (stats.hasErrors()) {

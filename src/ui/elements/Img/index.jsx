@@ -45,18 +45,18 @@ const Img = ({ src, alt, id, styling, onClick, handleLoad, className }) => (
  * @return {Array} React propTypes
  */
 Img.propTypes = {
-    src: PropTypes.oneOfType([PropTypes.string, PropTypes.object]).isRequired,
     alt: PropTypes.string.isRequired,
-    styling: PropTypes.array,
+    src: PropTypes.oneOfType([PropTypes.string, PropTypes.object]).isRequired,
     className: PropTypes.string,
-    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     handleLoad: PropTypes.func,
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    styling: PropTypes.array,
     onClick: PropTypes.func,
 };
 
 Img.defaultProps = {
-    styling: [],
     className: '',
+    styling: [],
 };
 
 export default Img;

@@ -4,55 +4,49 @@
  */
 import { useQuery } from '@apollo/client';
 import { compose } from '@reduxjs/toolkit';
+import dayjs from 'dayjs';
 import { always, cond, pipe, prop, T } from 'ramda';
-import React, { memo, FC } from 'react';
+import React, { FC, memo } from 'react';
 import { injectIntl } from 'react-intl';
 import { connect } from 'react-redux';
 
+import { GetPostDocument, Post } from '../../../generated/graphcms-schema';
 import { getText } from '../../../locale';
-import { GET_POST } from '../../../service/graphcms/queries/posts';
 import { runCodePrettify } from '../../../utils/codePrettify';
 import { isNilOrEmpty } from '../../../utils/helpers';
 import { getLastItem } from '../../../utils/string';
 import ErrorMessage from '../../components/ErrorMessage';
 import TagCloud from '../../components/TagCloud';
-import Paragraph from '../../elements/Paragraph';
-import Spinner from '../../elements/Spinner';
 import H1 from '../../elements/H1';
 import H2 from '../../elements/H2';
+import Paragraph from '../../elements/Paragraph';
+import Spinner from '../../elements/Spinner';
 import { isPostsAreaPath } from '../../routes';
 import commonMessages from '../App/model/messages';
 import { makeSelectLocation } from '../App/model/selectors';
 
-import Article from './Article';
 import Box from './Box';
+import Container from './Container';
 import formattedPostTex from './model/util';
-import dayjs from 'dayjs';
 
 const { noResults } = commonMessages;
 
-export interface Post {
-    title: string;
-    subject: string;
-    createdAt: string;
-    tags: string[];
-    content: {
-        html: string;
-    }
+export interface IPost {
+    post: Post
 }
 
-export interface PostProps {
+export interface IPostProps {
     location: Location;
 }
 
 /**
  * Creates Post component.
- * @param {PostProps} props - contains component props.
+ * @param {IPostProps} props - contains component props.
  * @method
  * @return {ReactNode} Post component.
  * @constructor
  */
-const PostComponent: FC<PostProps> = (props: PostProps) => {
+const PostComponent: FC<IPostProps> = (props: IPostProps) => {
     const { location: currentLocation } = props;
     const { pathname } = currentLocation;
     const isPostsPath = isPostsAreaPath(pathname);
@@ -60,27 +54,30 @@ const PostComponent: FC<PostProps> = (props: PostProps) => {
     const localizedText = (message) => getText(message, props) as string;
 
     // https://github.com/apollographql/apollo-client/issues/6209
-    const { data, loading, error } = useQuery(GET_POST, {
+    const { data, loading, error } = useQuery(GetPostDocument, {
         variables: { postId },
         fetchPolicy: 'cache-and-network',
-        skip: ! isPostsPath
+        skip: ! isPostsPath,
     });
 
     const Content = cond([
         [prop('error'), always(<ErrorMessage />)],
         [prop('loading'), always(<Spinner />)],
         [pipe(prop('post'), isNilOrEmpty), always(<p>{localizedText(noResults)}</p>)],
-        // eslint-disable-next-line react/no-unused-prop-types
-        [T, ({ post }: { post: Post }) => {
+        [T, ({ post }: IPost) => {
+            const { title, subject, createdAt, tags, content } = post;
+            const createdAtDate = dayjs(createdAt);
             runCodePrettify();
-            console.log(post);
+
             return (
                 <Box>
-                    <H1>{post.title}</H1>
-                    <H2>{post.subject}</H2>
-                    <p>{dayjs(post.createdAt).format('DD MMM YYYY HH:MM A')}</p>
-                    <TagCloud tags={post.tags} />
-                    <Paragraph dangerouslySetInnerHTML={{ __html: formattedPostTex(post.content.html) }} />
+                    <H1>{title}</H1>
+                    <H2>{subject}</H2>
+                    {createdAtDate.isValid() && (
+                        <p>{createdAtDate.format('DD MMM YYYY HH:MM A')}</p>
+                    )}
+                    <TagCloud tags={tags} />
+                    <Paragraph dangerouslySetInnerHTML={{ __html: formattedPostTex(content.html) }} />
                 </Box>
             );
         }],
@@ -88,14 +85,14 @@ const PostComponent: FC<PostProps> = (props: PostProps) => {
 
     return isPostsPath
         ? (
-            <Article error={error}>
+            <Container error={error}>
                 <Content
                     error={error}
                     loading={loading}
                     post={data
                         ? data.post
                         : null} />
-            </Article>
+            </Container>
         )
         : <ErrorMessage />;
 };
