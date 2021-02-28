@@ -6,14 +6,22 @@
 import styled from 'styled-components';
 
 import { zIndex } from '../../styles/mixins';
-import { base } from '../../styles/settings';
+import { base, colorSet } from '../../styles/settings';
 import { topBarBg } from '../../styles/theme/background';
-import { topBarBorderColor } from '../../styles/theme/borders';
+
+const { first, second, third } = colorSet.gradients;
 
 const Container = styled.header`
     align-items: center;
     background-color: ${topBarBg};
-    border-bottom: 2px solid ${topBarBorderColor};
+    border-bottom: 0.225rem solid;
+    border-image-slice: 1;
+    border-image-source: linear-gradient(
+        to right,
+        ${String(first)} 0%,
+        ${String(second)} 50%,
+        ${String(third)} 95%
+    );
     display: flex;
     flex-direction: row;
     height: ${base.topBarHeight}em;

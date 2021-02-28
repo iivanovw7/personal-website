@@ -126,7 +126,8 @@ Contains information about configuration files.
 - ~~Setup linting~~ <br/>
 - ~~Add localization~~ <br/>
 - ~~Add locale toggle~~ <br/>
-- Move all src folder to ts <br />
+- Migrate all src folder to ts <br />
+- Migrate to Typedoc <br />
 - Add unit tests <br />
 - Add e2e test <br />
 - Posts lazy loading <br/>

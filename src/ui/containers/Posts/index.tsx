@@ -4,7 +4,7 @@
  */
 import { useQuery } from '@apollo/client';
 import { compose } from '@reduxjs/toolkit';
-import { always, T, prop, cond, pipe } from 'ramda';
+import { always, cond, pipe, prop, T } from 'ramda';
 import React, { FC, memo } from 'react';
 import { injectIntl, IntlShape } from 'react-intl';
 import { connect } from 'react-redux';
@@ -13,6 +13,7 @@ import { GetPostsDocument, Post } from '../../../generated/graphcms-schema';
 import { getText } from '../../../locale';
 import { isNilOrEmpty } from '../../../utils/helpers';
 import ErrorMessage from '../../components/ErrorMessage';
+import Paragraph from '../../components/ErrorMessage/Paragraph';
 import Spinner from '../../elements/Spinner';
 import commonMessages from '../App/model/messages';
 import { makeSelectLocation } from '../App/model/selectors';
@@ -53,12 +54,12 @@ const PostsComponent: FC<IPostsProps> = (props: IPostsProps) => {
     const Content = cond([
         [prop('error'), always(<ErrorMessage />)],
         [prop('loading'), always(<Spinner />)],
-        [pipe(prop('posts'), isNilOrEmpty), always(<p>{localizedText(noResults)}</p>)],
-        // @ts-ignore TODO: Migrate <Grid /> to TS
+        [pipe(prop('posts'), isNilOrEmpty), always(
+            <Paragraph>{localizedText(noResults)}</Paragraph>
+        )],
         [T, ({ posts }: IPosts) => <Grid posts={posts} />],
     ]);
 
-    // prettier-ignore
     return (
         <Article error={error}>
             <Content

@@ -32,7 +32,7 @@ const Handle = styled.div<HandleProps>`
         bottom: 0.1rem;
         content: '';
         height: 1.22rem;
-        left: 0.1rem;
+        left: 0.122rem;
         position: absolute;
         transition: transform 0.4s;
         width: 1.22rem;

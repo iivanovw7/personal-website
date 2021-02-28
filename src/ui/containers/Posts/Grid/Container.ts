@@ -5,7 +5,11 @@
  */
 import styled from 'styled-components';
 
-const Grid = styled.div`
+type TGridProps = {
+    hasMore: boolean;
+};
+
+const Grid = styled.div<TGridProps>`
     display: grid;
     grid-auto-flow: dense;
     grid-auto-rows: auto;

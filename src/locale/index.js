@@ -6,9 +6,11 @@
 import enCommonMessages from './translations/en/common.json';
 import enErrorMessage from './translations/en/error-message.json';
 import enNavigationMessages from './translations/en/navigation.json';
+import enPostMessage from './translations/en/post.json';
 import ruCommonMessages from './translations/ru/common.json';
 import ruErrorMessage from './translations/ru/error-message.json';
 import ruNavigationMessages from './translations/ru/navigation.json';
+import ruPostMessage from './translations/ru/post.json';
 
 /**
  * Localized messages.
@@ -22,21 +24,22 @@ import ruNavigationMessages from './translations/ru/navigation.json';
  * @type {module:locale~LocalizedMessages}
  */
 export const translationMessages = {
-    en: { ...enCommonMessages, ...enNavigationMessages, ...enErrorMessage },
-    ru: { ...ruCommonMessages, ...ruNavigationMessages, ...ruErrorMessage },
+    en: { ...enCommonMessages, ...enNavigationMessages, ...enErrorMessage, ...enPostMessage },
+    ru: { ...ruCommonMessages, ...ruNavigationMessages, ...ruErrorMessage, ...ruPostMessage },
 };
 
 /**
  * Returns formatted intl message.
  * @param {Object} message - represents react intl message description.
  * @param {Object} props - component props.
+ * @param {Object} values - message values.
  * @return {string|*} formatted text or empty string in case formatted message cant be received.
  */
-export function getText(message, props = {}) {
+export function getText(message, props = {}, values = {}) {
     const { intl } = props;
 
     if (message && message.id && props.intl && typeof props.intl.formatMessage === 'function') {
-        return intl.formatMessage(message);
+        return intl.formatMessage(message, values);
     }
 
     return '';

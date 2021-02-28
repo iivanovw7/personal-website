@@ -9,6 +9,8 @@ import { css } from 'styled-components';
 import { keyframesFadeInTop } from './keyframes';
 import { base, breakpoints, colorSet, typography } from './settings';
 
+const { datesFontFamily } = typography;
+
 /**
  * Media mixin function.
  * @example
@@ -136,6 +138,9 @@ export const styleMixins = {
         font-size: ${size}rem;
         font-weight: ${fontWeight};
         line-height: ${lineHeight}rem;
+    `,
+    fontFamily: (family = datesFontFamily) => css`
+        font-family: ${family}, Fallback, sans-serif;
     `,
     fadeInTop: () => css`
         animation: ${keyframesFadeInTop} ease 0.5s;

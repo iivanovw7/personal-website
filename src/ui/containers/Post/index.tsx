@@ -15,11 +15,13 @@ import { getText } from '../../../locale';
 import { runCodePrettify } from '../../../utils/codePrettify';
 import { isNilOrEmpty } from '../../../utils/helpers';
 import { getLastItem } from '../../../utils/string';
+import { textReadingTime } from '../../../utils/time';
 import ErrorMessage from '../../components/ErrorMessage';
 import TagCloud from '../../components/TagCloud';
 import H1 from '../../elements/H1';
 import H2 from '../../elements/H2';
 import Paragraph from '../../elements/Paragraph';
+import Separator from '../../elements/Separator';
 import Spinner from '../../elements/Spinner';
 import { isPostsAreaPath } from '../../routes';
 import commonMessages from '../App/model/messages';
@@ -27,9 +29,14 @@ import { makeSelectLocation } from '../App/model/selectors';
 
 import Box from './Box';
 import Container from './Container';
-import formattedPostTex from './model/util';
+import CreatedAtStyles from './CreatedAtStyles';
+import postMessages from './model/messages';
+import formattedPostText from './model/util';
+import ReadingTimeStyles from './ReadingTimeStyles';
+import SeparatorStyles from './SeparatorStyles';
 
 const { noResults } = commonMessages;
+const { readingTime, publishedAt } = postMessages;
 
 export interface IPost {
     post: Post
@@ -51,7 +58,7 @@ const PostComponent: FC<IPostProps> = (props: IPostProps) => {
     const { pathname } = currentLocation;
     const isPostsPath = isPostsAreaPath(pathname);
     const postId = getLastItem(pathname);
-    const localizedText = (message) => getText(message, props) as string;
+    const localizedText = (message, values?) => getText(message, props, values) as string;
 
     // https://github.com/apollographql/apollo-client/issues/6209
     const { data, loading, error } = useQuery(GetPostDocument, {
@@ -74,10 +81,27 @@ const PostComponent: FC<IPostProps> = (props: IPostProps) => {
                     <H1>{title}</H1>
                     <H2>{subject}</H2>
                     {createdAtDate.isValid() && (
-                        <p>{createdAtDate.format('DD MMM YYYY HH:MM A')}</p>
+                        <Paragraph styling={CreatedAtStyles}>
+                            {localizedText(publishedAt)}
+                            <span>
+                                {createdAtDate.format('DD MMM YYYY HH:MM A')}
+                            </span>
+                        </Paragraph>
                     )}
+                    <Paragraph styling={ReadingTimeStyles}>
+                        {localizedText(readingTime, {
+                            // eslint-disable-next-line react/display-name
+                            span: (text: string) => (
+                                <span>
+                                    {text}
+                                </span>
+                            ),
+                            minutes: textReadingTime(content.html.length)
+                        })}
+                    </Paragraph>
                     <TagCloud tags={tags} />
-                    <Paragraph dangerouslySetInnerHTML={{ __html: formattedPostTex(content.html) }} />
+                    <Separator styling={SeparatorStyles} />
+                    <Paragraph dangerouslySetInnerHTML={{ __html: formattedPostText(content.html) }} />
                 </Box>
             );
         }],

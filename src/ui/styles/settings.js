@@ -81,9 +81,9 @@ export const logoColor = '#ea4949';
  */
 export const colorSet = {
     gradients: {
-        first: 'rgba(250, 241, 8, 1)',
-        second: 'rgba(176, 14, 14, 1)',
-        third: 'rgba(224, 0, 255, 1)',
+        first: 'rgba(224, 0, 255, 1)',
+        second: 'rgba(250, 241, 8, 1)',
+        third: 'rgba(176, 14, 14, 1)',
     },
     tagBtnBgColors: [
         '#B565A7',
