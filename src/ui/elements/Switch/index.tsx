@@ -11,7 +11,7 @@ import Container from './Container';
 import Handle from './Handle';
 import Wrapper from './Wrapper';
 
-interface SwitchProps {
+interface ISwitchProps {
     /** If switch is enabled. */
     checked: boolean,
     /** Switch handler. */
@@ -35,7 +35,7 @@ interface SwitchProps {
  * @return {ReactElement} React component with children.
  * @constructor
  */
-function Switch(props: SwitchProps): ReactElement {
+function Switch(props: ISwitchProps): ReactElement {
     const {
         onChange,
         checked,

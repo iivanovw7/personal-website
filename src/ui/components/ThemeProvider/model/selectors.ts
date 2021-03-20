@@ -3,7 +3,7 @@
  * @module ui/containers/ThemeProvider/model/selectors
  * @author Igor Ivanov
  */
-import { createSelector, OutputSelector } from 'reselect';
+import { createSelector, OutputSelector } from '@reduxjs/toolkit';
 
 import { RootState } from '../../../store/combineReducers';
 

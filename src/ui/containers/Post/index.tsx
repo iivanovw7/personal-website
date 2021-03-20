@@ -25,7 +25,7 @@ import Separator from '../../elements/Separator';
 import Spinner from '../../elements/Spinner';
 import { isPostsAreaPath } from '../../routes';
 import commonMessages from '../App/model/messages';
-import { makeSelectLocation } from '../App/model/selectors';
+import { selectLocation } from '../App/model/selectors';
 
 import Box from './Box';
 import Container from './Container';
@@ -73,6 +73,7 @@ const PostComponent: FC<IPostProps> = (props: IPostProps) => {
         [pipe(prop('post'), isNilOrEmpty), always(<p>{localizedText(noResults)}</p>)],
         [T, ({ post }: IPost) => {
             const { title, subject, createdAt, tags, content } = post;
+            const { html } = content;
             const createdAtDate = dayjs(createdAt);
             runCodePrettify();
 
@@ -96,12 +97,12 @@ const PostComponent: FC<IPostProps> = (props: IPostProps) => {
                                     {text}
                                 </span>
                             ),
-                            minutes: textReadingTime(content.html.length)
+                            minutes: textReadingTime(html.length)
                         })}
                     </Paragraph>
                     <TagCloud tags={tags} />
                     <Separator styling={SeparatorStyles} />
-                    <Paragraph dangerouslySetInnerHTML={{ __html: formattedPostText(content.html) }} />
+                    <Paragraph dangerouslySetInnerHTML={{ __html: formattedPostText(html) }} />
                 </Box>
             );
         }],
@@ -126,12 +127,11 @@ const PostComponent: FC<IPostProps> = (props: IPostProps) => {
  * @method
  * @param {Object} state
  *    Object contains application state.
- * @see {@link module:containers/App/model/selectors}
  * @return {Function} selector
  */
 const mapStateToProps = (state) => {
     return {
-        location: makeSelectLocation(state),
+        location: selectLocation(state),
     };
 };
 

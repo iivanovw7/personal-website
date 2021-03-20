@@ -2,11 +2,10 @@
  * @module ui/components/ThemeProvider
  * @author Igor Ivanov
  */
-import { compose } from '@reduxjs/toolkit';
+import { compose, createSelector } from '@reduxjs/toolkit';
 import * as PropTypes from 'prop-types';
 import React, { memo } from 'react';
 import { connect } from 'react-redux';
-import { createSelector } from 'reselect';
 import { ThemeProvider as StyledThemeProvider } from 'styled-components';
 
 import { makeSelectTheme } from './model/selectors';

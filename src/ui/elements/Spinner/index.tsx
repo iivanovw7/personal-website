@@ -3,10 +3,10 @@
  * @module ui/elements/Spinner
  * @author Igor Ivanov
  */
+import { createSelector } from '@reduxjs/toolkit';
 import React, { FC, CSSProperties, memo } from 'react';
 import { SelfBuildingSquareSpinner } from 'react-epic-spinners';
 import { connect } from 'react-redux';
-import { createSelector } from 'reselect';
 
 import { makeSelectTheme } from '../../components/ThemeProvider/model/selectors';
 import { colorSet } from '../../styles/settings';
@@ -34,11 +34,11 @@ export const defaultStyles = {
     transform: `translate(-${defaultSpinnerSize * multiplexer}px, -${defaultSpinnerSize * multiplexer}px)`,
 };
 
-interface MapStateToPropsTypes {
+interface IMapStateToPropsTypes {
     mode: string
 }
 
-interface SpinnerProps {
+interface ISpinnerProps {
     /**
      * Specifies the color of the spinner.
      */
@@ -58,11 +58,11 @@ interface SpinnerProps {
  * @name Components/Spinner
  * @method
  *
- * @param {SpinnerProps} props - contains component props.
+ * @param {ISpinnerProps} props - contains component props.
  * @return {ReactNode} React component with children.
  * @constructor
  */
-const Spinner: FC<SpinnerProps & MapStateToPropsTypes> = (props: SpinnerProps & MapStateToPropsTypes) => {
+const Spinner: FC<ISpinnerProps & IMapStateToPropsTypes> = (props: ISpinnerProps & IMapStateToPropsTypes) => {
     const { mode, color = colorSet[mode].colorPrimary, size = defaultSpinnerSize, style = defaultStyles } = props;
 
     return (

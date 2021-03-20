@@ -7,10 +7,12 @@ import enCommonMessages from './translations/en/common.json';
 import enErrorMessage from './translations/en/error-message.json';
 import enNavigationMessages from './translations/en/navigation.json';
 import enPostMessage from './translations/en/post.json';
+import enPostsMessage from './translations/en/posts.json';
 import ruCommonMessages from './translations/ru/common.json';
 import ruErrorMessage from './translations/ru/error-message.json';
 import ruNavigationMessages from './translations/ru/navigation.json';
 import ruPostMessage from './translations/ru/post.json';
+import ruPostsMessage from './translations/ru/posts.json';
 
 /**
  * Localized messages.
@@ -24,8 +26,8 @@ import ruPostMessage from './translations/ru/post.json';
  * @type {module:locale~LocalizedMessages}
  */
 export const translationMessages = {
-    en: { ...enCommonMessages, ...enNavigationMessages, ...enErrorMessage, ...enPostMessage },
-    ru: { ...ruCommonMessages, ...ruNavigationMessages, ...ruErrorMessage, ...ruPostMessage },
+    en: { ...enCommonMessages, ...enNavigationMessages, ...enErrorMessage, ...enPostMessage, ...enPostsMessage },
+    ru: { ...ruCommonMessages, ...ruNavigationMessages, ...ruErrorMessage, ...ruPostMessage, ...ruPostsMessage },
 };
 
 /**
@@ -51,19 +53,19 @@ export function getText(message, props = {}, values = {}) {
  */
 export function addIntlPolyfills() {
     if (!global.Intl) {
-        global.Intl = require("intl");
+        global.Intl = require('intl');
     }
 
     if (!Intl.PluralRules) {
-        require("@formatjs/intl-pluralrules/polyfill");
-        require("@formatjs/intl-pluralrules/locale-data/ru");
-        require("@formatjs/intl-pluralrules/locale-data/en");
+        require('@formatjs/intl-pluralrules/polyfill');
+        require('@formatjs/intl-pluralrules/locale-data/ru');
+        require('@formatjs/intl-pluralrules/locale-data/en');
     }
 
     if (!Intl.RelativeTimeFormat) {
-        require("@formatjs/intl-relativetimeformat/polyfill");
-        require("@formatjs/intl-relativetimeformat/locale-data/ru");
-        require("@formatjs/intl-relativetimeformat/locale-data/en");
+        require('@formatjs/intl-relativetimeformat/polyfill');
+        require('@formatjs/intl-relativetimeformat/locale-data/ru');
+        require('@formatjs/intl-relativetimeformat/locale-data/en');
     }
 }
 

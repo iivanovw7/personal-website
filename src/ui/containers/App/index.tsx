@@ -18,6 +18,7 @@ import { getText } from '../../../locale';
 import Logger from '../../../log';
 import { client } from '../../../service/graphcms/apolloClient';
 import LocaleSwitch from '../../components/LocaleSwitch';
+import ScrollTop from '../../components/ScrollTop';
 import ThemeSwitch from '../../components/ThemeSwitch';
 import TopBar from '../../components/TopBar';
 import { routes as routesPaths } from '../../routes';
@@ -89,10 +90,10 @@ function App(props: PropTypes.InferProps<typeof App.propTypes>): ReactElement<JS
                     <Switch>
                         <Route exact path={routesPaths.posts} component={Posts} />
                         <Route path={routesPaths.post} component={PostComponent} />
-                        <Route path={routesPaths.postsSearch} component={Posts} />
                         <Route component={NotFoundPage} />
                     </Switch>
                     <GlobalStyle />
+                    <ScrollTop />
                 </Section>
             </ApolloProvider>
         </ErrorBoundary>

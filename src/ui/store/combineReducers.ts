@@ -8,6 +8,7 @@ import { connectRouter } from 'connected-react-router';
 import languageProviderReducer from '../components/LocaleProvider/model';
 import themeProviderReducer from '../components/ThemeProvider/model';
 import appReducer from '../containers/App/model';
+import postsReducer from '../containers/Posts/model';
 import appHistory from '../routes/history';
 
 /**
@@ -20,6 +21,7 @@ export default function createReducer() { // eslint-disable-line @typescript-esl
         language: languageProviderReducer,
         theme: themeProviderReducer,
         router: connectRouter(appHistory),
+        posts: postsReducer
     });
 }
 

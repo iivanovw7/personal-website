@@ -3,11 +3,10 @@
  * @module components/LocaleSwitch
  * @author Igor Ivanov
  */
-import { compose } from '@reduxjs/toolkit';
+import { compose, createSelector } from '@reduxjs/toolkit';
 import * as PropTypes from 'prop-types';
 import React, { memo } from 'react';
 import { connect } from 'react-redux';
-import { createSelector } from 'reselect';
 
 import Button from '../../elements/Button';
 import { changeLocale } from '../LocaleProvider/model';

@@ -3,7 +3,7 @@
  * @module ui/containers/App/model/selectors
  * @author Igor Ivanov
  */
-import { createSelector } from 'reselect';
+import { createSelector } from '@reduxjs/toolkit';
 
 import { initState } from './index';
 
@@ -22,6 +22,6 @@ const makeSelectApp = createSelector(selectApp, (appState) => {
     };
 });
 
-const makeSelectLocation = (state) => selectRouter(state).location;
+const selectLocation = (state) => selectRouter(state).location;
 
-export { makeSelectApp, makeSelectLocation };
+export { makeSelectApp, selectLocation };

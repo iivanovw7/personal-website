@@ -53,6 +53,12 @@ const GlobalStyle = createGlobalStyle`
       font-size: .7em;
   }
 
+  #pw-portal__scroll-top-id {
+      bottom: 1rem;
+      position: fixed;
+      right: 1rem;
+  }
+
   @media screen and (min-width: ${breakpoints.md}px) {
       .adaptive-fonts {
   		  font-size: calc(11px + .5vw);

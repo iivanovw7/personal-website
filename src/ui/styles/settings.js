@@ -87,11 +87,11 @@ export const colorSet = {
     },
     tagBtnBgColors: [
         '#B565A7',
-        '#5B5EA6',
-        '#DD4132',
+        '#2e37a3',
+        '#b15f0f',
         '#6B5B95',
-        '#282C34',
-        '#00A591',
+        '#191f32',
+        '#01786a',
         '#69d641',
         '#ecdb54',
         '#BC70A4',
@@ -183,8 +183,14 @@ export const breakpoints = {
  */
 export const typography = {
     light: 100,
-    regular: 300,
+    regular: 400,
     bold: 600,
     baseFontFamily: 'Nunito Sans, sans-serif',
     datesFontFamily: 'Inconsolata, monospace',
 };
+
+/**
+ * Default fade timeout.
+ * @type {number}
+ */
+export const FADE_TIMEOUT = 500;

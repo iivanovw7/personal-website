@@ -4,7 +4,7 @@
  * @author Igor Ivanov
  */
 import * as PropTypes from 'prop-types';
-import React, { memo } from 'react';
+import React, { memo, ReactElement } from 'react';
 import { css } from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -19,7 +19,7 @@ import TagButtonStyles from './TagButtonStyles';
  * @return {*|number} returns color index from colors pallet.
  *      @see {@link module:config/styles~colorSet.tagBtnBgColors}
  */
-export function setColorIndex(key = '') {
+export function setColorIndex(key = ''): number {
     const { length: keyLength } = key;
 
     return keyLength <= colorSet.tagBtnBgColors.length
@@ -36,8 +36,8 @@ export function setColorIndex(key = '') {
  * @return {JSX.Element} React component with children.
  * @constructor
  */
-function TagButton(props) {
-    const { text } = props;
+function TagButton(props): ReactElement {
+    const { text, onClick, styling } = props;
     const colorIndex = setColorIndex(text);
 
     const Styles = css`
@@ -45,10 +45,11 @@ function TagButton(props) {
         border: 1px solid ${colorSet.tagBtnTextColors[colorIndex]};
         color: ${colorSet.tagBtnTextColors[colorIndex]};
         ${TagButtonStyles};
+        ${styling};
     `;
 
     return (
-        <Button variant="primary" styling={Styles} key={uuidv4()} href={`/search/${text}`} target="_self">
+        <Button variant="primary" dataId={text} styling={Styles} key={uuidv4()} onClick={onClick}>
             {text}
         </Button>
     );
@@ -63,6 +64,8 @@ function TagButton(props) {
  */
 TagButton.propTypes = {
     text: PropTypes.string.isRequired,
+    styling: PropTypes.any,
+    onClick: PropTypes.func,
 };
 
 export default memo(TagButton);

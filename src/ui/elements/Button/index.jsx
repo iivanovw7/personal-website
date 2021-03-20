@@ -4,13 +4,10 @@
  * @author Igor Ivanov
  */
 import * as PropTypes from 'prop-types';
-import * as R from 'ramda';
 import React, { Children, memo } from 'react';
 
-import { isUndefined } from '../../../utils/helpers';
-
 import StyledButton from './StyledButton';
-import StyledLink from './StyledLink';
+
 
 /**
  * Creates styled button component.
@@ -20,21 +17,20 @@ import StyledLink from './StyledLink';
  * @param {Object.<module:ui/elements/Button~propTypes>} props
  *  contains component props
  *  @see {@link module:elements/Button~propTypes}
- * @return {JSX.Element} React component with children.
+ * @return {JSX.Element} React component wFith children.
  * @constructor
  */
 const Button = (props) => {
-    const { variant, children, styling, onClick, index } = props;
-    const ButtonElement = R.ifElse(
-        R.pipe(R.prop('onClick'), isUndefined),
-        R.always(<StyledLink {...props} />),
-        R.always(<StyledButton {...props} />)
-    );
+    const { children, onClick, dataId, styling, variant } = props;
 
     return (
-        <ButtonElement data-index={index} variant={variant} styling={styling} onClick={onClick}>
-            {Children.toArray(children)}
-        </ButtonElement>
+        <StyledButton
+            data-id={ dataId }
+            variant={ variant }
+            styling={ styling }
+            onClick={ onClick }>
+            { Children.toArray(children) }
+        </StyledButton>
     );
 };
 
@@ -48,8 +44,7 @@ const Button = (props) => {
  * @property {Function} props.onClick - click handler.
  * @property {string} props.href - target link.
  * @property {string} [props.target = '_blank'] - target prop.
- * @property {boolean} [props.hidden = false] - if element should be hidden.
- * @property {number} [props.index = 0] - index which is passed in `data-index` attribute.
+ * @property {number} [props.dataId = 0] - dataId which is passed in `data-id` attribute.
  * @return {Array} React propTypes
  */
 Button.propTypes = {
@@ -58,19 +53,14 @@ Button.propTypes = {
         PropTypes.node,
         PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.func, PropTypes.node])),
     ]),
-    hidden: PropTypes.bool,
-    href: PropTypes.string,
-    index: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    dataId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     styling: PropTypes.array,
-    target: PropTypes.string,
     variant: PropTypes.oneOf(['primary', 'secondary', 'alert']),
     onClick: PropTypes.func,
 };
 
 Button.defaultProps = {
-    hidden: false,
-    index: 0,
-    target: '_blank',
+    dataId: 0,
     variant: 'primary',
 };
 

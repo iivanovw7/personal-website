@@ -8,7 +8,7 @@ import { CSSProp } from 'styled-components';
 
 import StyledNavLink from './StyledNavLink';
 
-export interface NavLinkProps {
+export interface INavLinkProps {
     /** Navigation link address. */
     link: string;
     /** Navigation link text. */
@@ -35,7 +35,7 @@ export interface NavLinkProps {
  * @return {ReactElement<JSX.Element>} React component with children.
  * @constructor
  */
-function NavLink(props: NavLinkProps): ReactElement<JSX.Element> {
+function NavLink(props: INavLinkProps): ReactElement<JSX.Element> {
     const {
         icon = null,
         exact = true,

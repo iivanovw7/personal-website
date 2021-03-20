@@ -26,6 +26,7 @@ const Article = styled.article<TArticleProps>`
     ${styleMixins.vertAlignFlex()};
     ${({ error }) => error && `
         ${styleMixins.absoluteCentred()};
+        padding-top: ${base.topBarHeight * 2}rem;
         width: 100%;
     `}
     ${respondToMedia[mediaKey('md')]`

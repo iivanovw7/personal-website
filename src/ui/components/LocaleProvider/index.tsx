@@ -3,10 +3,10 @@
  * @module ui/components/LocaleProvider
  * @author Igor Ivanov
  */
+import { createSelector } from '@reduxjs/toolkit';
 import React, { Children, memo, ReactNode } from 'react';
 import { IntlProvider } from 'react-intl';
 import { connect } from 'react-redux';
-import { createSelector } from 'reselect';
 
 import { DEFAULT_LOCALE } from './model/constants';
 import { makeSelectLocale } from './model/selectors';

@@ -13,12 +13,7 @@ const StyledButton = styled.button.attrs(({ index }) => ({ 'data-index': index }
   border: none;
   color: ${btnTextColor};
   ${(props) => props.styling};
-  opacity: ${(props) => (props.hide
-        ? '0'
-        : '1'
-    )};
   outline: none;
-  transition: opacity 0.5s ease-in-out;
 
   &:hover {
     cursor: pointer;

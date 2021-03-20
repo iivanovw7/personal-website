@@ -9,6 +9,8 @@ import Link from '../../elements/Link';
 
 import messages from './model/messages';
 
+const { errorMessage, reloadText } = messages;
+
 /**
  * Reloads browser page
  * @param {SyntheticEvent | Event} eventData
@@ -27,8 +29,6 @@ function handleReloadClick(eventData) {
  * @constructor
  */
 function ErrorFallback() {
-    const { errorMessage, reloadText } = messages;
-
     return (
         <div>
             <FormattedMessage id={errorMessage.id} defaultMessage={errorMessage.defaultMessage} />

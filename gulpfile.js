@@ -68,6 +68,20 @@ gulp.task('copyProdFavicon', async function copyProdFavicon() {
 });
 
 /**
+ * Copying loader background image.
+ * @function
+ * @return {Promise} gulp task
+ */
+gulp.task('copyLoaderBackground', async function copyProdFavicon() {
+    await new Promise((resolve) => {
+        gulp.src('./assets/img/background.webp')
+            .pipe(gulp.dest('./dist/assets/img/'))
+            .on('end', resolve)
+            .on('error', handleError);
+    });
+});
+
+/**
  * Creates build folder archive in dist folder
  * @function
  * @return {Function} gulp task
@@ -135,6 +149,7 @@ gulp.task(
         'copyRootFiles',
         'copySvgFiles',
         'copyProdFavicon',
+        'copyLoaderBackground',
         'criticalCSS',
         'createZip'
     )

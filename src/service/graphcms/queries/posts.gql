@@ -1,33 +1,12 @@
-query GetPosts($skip: Int, $first: Int) {
-    posts(skip: $skip, first: $first, orderBy: createdAt_DESC) {
-        ...Author
-        createdAt
-        date
-        excerpt
-        id
-        subject
-        tags
-        title
-        updatedAt
-    }
-}
-
-query GetPost($postId: ID!) {
-    post(where: { id: $postId }) {
-        ...Author
-        content {
-            html
-        }
-        basicText
-        createdAt
-        date
-        excerpt
-        id
-        subject
-        tags
-        title
-        updatedAt
-    }
+fragment CorePostFields on Post {
+    createdAt
+    date
+    excerpt
+    id
+    subject
+    tags
+    title
+    updatedAt
 }
 
 fragment Author on Post {
@@ -36,3 +15,56 @@ fragment Author on Post {
         name
     }
 }
+
+query GetPosts($skip: Int, $first: Int, $tags: [String!], $text: String!) {
+    posts(
+        skip: $skip,
+        first: $first,
+        orderBy: createdAt_DESC,
+    ) {
+        ...Author
+        ...CorePostFields
+    }
+}
+
+query GetPostsByTag($skip: Int, $first: Int, $tags: [String!]) {
+    posts(
+        skip: $skip,
+        first: $first,
+        orderBy: createdAt_DESC,
+        where: {
+            tags_contains_all: $tags
+        }
+    ) {
+        ...Author
+        ...CorePostFields
+    }
+}
+
+query GetPostByText($skip: Int, $first: Int, $text: String!) {
+    posts(
+        skip: $skip,
+        first: $first,
+        orderBy: createdAt_DESC,
+        where: { OR: [
+            { title_contains: $text },
+            { subject_contains: $text },
+            { slug_contains: $text }
+        ] }
+    ) {
+        ...Author
+        ...CorePostFields
+    }
+}
+
+query GetPost($postId: ID!) {
+    post(where: { id: $postId }) {
+        content {
+            html
+        }
+        ...Author
+        ...CorePostFields
+    }
+}
+
+

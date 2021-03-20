@@ -12,6 +12,7 @@
             "esnext.intl"
         ],
         "allowJs": true,
+        "baseUrl": "src",
         "checkJs": false,
         "module": "commonjs",
         "target": "es6",

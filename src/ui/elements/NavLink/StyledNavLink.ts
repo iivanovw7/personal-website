@@ -11,10 +11,10 @@ import { styleMixins } from '../../styles/mixins';
 import { btnBackground } from '../../styles/theme/buttons';
 import { navLinkTextColor, navLinkTextColorActive, navLinkBackgroundHover } from '../../styles/theme/links';
 
-import { NavLinkProps } from './index';
+import { INavLinkProps } from './index';
 
 const activeClassName = 'active';
-const StyledNavLink = styled(NavLink).attrs({ activeClassName })<PartialAndNullable<NavLinkProps>>`
+const StyledNavLink = styled(NavLink).attrs({ activeClassName })<PartialAndNullable<INavLinkProps>>`
     align-items: center;
     background-color: transparent;
     border: 1px solid ${navLinkTextColor};

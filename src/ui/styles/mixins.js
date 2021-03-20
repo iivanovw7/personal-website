@@ -72,6 +72,11 @@ export const styleMixins = {
         align-items: ${align};
         display: flex;
     `,
+    justifyAlignFlex: (justify = 'unset', align = 'unset') => css`
+        align-items: ${align};
+        display: flex;
+        justify-content: ${justify},
+    `,
     // eslint-disable-next-line max-params
     focusOutline: (color, colorActive = color, width = '0.154rem', style = 'solid') => css`
         outline: none;
@@ -134,7 +139,7 @@ export const styleMixins = {
      * @param {number} [fontWeight = 300] font weight.
      * @return {Array} css properties
      */
-    fontSize: (size = 1, lineHeight = 1, fontWeight = typography.regular) => css`
+    fontSize: (size = 1, lineHeight = size, fontWeight = typography.regular) => css`
         font-size: ${size}rem;
         font-weight: ${fontWeight};
         line-height: ${lineHeight}rem;

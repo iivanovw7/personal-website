@@ -2,7 +2,7 @@
  * Module contains posts list component.
  * @module ui/containers/Posts/Grid
  */
-import React, { FC, memo, useRef } from 'react';
+import React, { memo, useRef } from 'react';
 import { injectIntl, IntlShape, WrappedComponentProps } from 'react-intl';
 import { connect } from 'react-redux';
 
@@ -11,12 +11,13 @@ import { getText } from '../../../../locale';
 import TagCloud from '../../../components/TagCloud';
 import H6 from '../../../elements/H6';
 import NavLink from '../../../elements/NavLink';
-import { routes as routesPaths } from '../../../routes';
-import { makeSelectLocation } from '../../App/model/selectors';
+import { basePath } from '../../../routes';
+import { selectLocation } from '../../App/model/selectors';
 
 import Bar from './Bar';
 import Cell from './Cell';
 import Container from './Container';
+import LinkStyles from './LinkStyles';
 
 export interface IPostProps {
     /** [hasMore = false] - `true` if there are new posts to load and `else` otherwise. */
@@ -37,14 +38,14 @@ export interface IPostProps {
  * @return {JSX.Element} React component with children.
  * @constructor
  */
-const Grid: FC<IPostProps> = (props: IPostProps & WrappedComponentProps) => {
+function Grid(props: IPostProps & WrappedComponentProps) {
     const { hasMore = false, posts = [], location: appLocation } = props;
     const listRef = useRef(null);
 
     return (
         <Container ref={listRef} hasMore={hasMore}>
-            {posts.map((post) => {
-                const { id, title, tags, subject } = post;
+            {posts.map((post: Post) => {
+                const { id, title, tags = [], subject } = post;
 
                 return (
                     <Cell key={id}>
@@ -56,9 +57,10 @@ const Grid: FC<IPostProps> = (props: IPostProps & WrappedComponentProps) => {
                                 variant="secondary"
                                 exact={false}
                                 location={appLocation}
-                                link={`${routesPaths.posts}/${id}`}
+                                link={`${String(basePath.post)}/${id}`}
                                 icon="read_more"
                                 text={getText('read_more', props)}
+                                styling={LinkStyles}
                             />
                         </Bar>
                     </Cell>
@@ -66,7 +68,7 @@ const Grid: FC<IPostProps> = (props: IPostProps & WrappedComponentProps) => {
             })}
         </Container>
     );
-};
+}
 
 
 /**
@@ -79,7 +81,7 @@ const Grid: FC<IPostProps> = (props: IPostProps & WrappedComponentProps) => {
  */
 const mapStateToProps = (state) => {
     return {
-        location: makeSelectLocation(state),
+        location: selectLocation(state),
     };
 };
 

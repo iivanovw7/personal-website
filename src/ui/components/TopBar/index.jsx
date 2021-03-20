@@ -10,7 +10,7 @@ import { injectIntl } from 'react-intl';
 
 import config from '../../../config';
 import useMedia from '../../../utils/hooks/useMedia';
-import { basePath } from '../../routes';
+import { menuPath } from '../../routes';
 import { breakpoints } from '../../styles/settings';
 import NavLinks from '../Navigation/NavLinks';
 
@@ -50,7 +50,7 @@ function TopBar(props) {
             </Block>
             {showNavigation && (
                 <Block>
-                    <NavLinks routes={basePath} intl={intl} />
+                    <NavLinks routes={menuPath} intl={intl} />
                 </Block>
             )}
             <Block>{Children.toArray(children)}</Block>
