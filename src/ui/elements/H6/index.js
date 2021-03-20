@@ -6,9 +6,9 @@
 import styled from 'styled-components';
 
 const H6 = styled.h6`
-    font-size: 1.1em;
-    margin-bottom: 0.24em;
-    margin-top: 1.12em;
+    font-size: 1.1rem;
+    margin-bottom: 0.24rem;
+    margin-top: 1.12rem;
 `;
 
 export default H6;

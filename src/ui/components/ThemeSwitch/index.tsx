@@ -3,34 +3,53 @@
  * @module ui/components/ThemeSwitch
  * @author Igor Ivanov
  */
-import { compose } from '@reduxjs/toolkit';
+import { compose, createSelector } from '@reduxjs/toolkit';
 import * as PropTypes from 'prop-types';
-import React, { memo } from 'react';
+import React, { Dispatch, memo, ReactElement } from 'react';
 import { connect } from 'react-redux';
-import { createSelector } from 'reselect';
 
 import Dark from '../../../../assets/svg/theme/moon.svg';
 import Light from '../../../../assets/svg/theme/sun.svg';
 import { DARK_THEME, LIGHT_THEME } from '../../../config/constants';
 import Switch from '../../elements/Switch';
-import { changeTheme } from '../ThemeProvider/model';
+import { ChangeTheme, Theme, changeTheme } from '../ThemeProvider/model';
 import { DEFAULT_THEME } from '../ThemeProvider/model/constants';
 import { makeSelectTheme } from '../ThemeProvider/model/selectors';
 
 import { isDarkTheme } from './model/utils';
 import SwitchStyles from './SwitchStyles';
 
+interface IThemeSwitchProps {
+    /**
+     * Theme change handler.
+     * @param theme
+     */
+    onThemeChange: (theme: Theme) => void;
+    /**
+     * String represents current application theme.
+     * @type {string}
+     */
+    theme: string;
+}
+
+interface IDispatchProps extends Pick<IThemeSwitchProps, 'onThemeChange'> {
+    /**
+     * Dispatches action.
+     */
+    dispatch: Dispatch<ChangeTheme>;
+}
+
 /**
  * Creates ThemeSwitch component.
  * @method
  *
- * @param {Object.<module:ui/components/ThemeSwitch~propTypes>} props
+ * @param {IDispatchProps} props
  *  contains component props
- *  @see {@link module:components/ThemeSwitch~PropTypes}
+ *
  * @return {Node} React component with children.
  * @constructor
  */
-function ThemeSwitch(props) {
+function ThemeSwitch(props: IThemeSwitchProps): ReactElement {
     const { theme, onThemeChange } = props;
 
     /**
@@ -38,7 +57,6 @@ function ThemeSwitch(props) {
      * @return {*} return onLocaleChange handles with new theme name.
      */
     function handleChange() {
-        // prettier-ignore
         return onThemeChange(isDarkTheme(theme)
             ? LIGHT_THEME
             : DARK_THEME
@@ -67,8 +85,8 @@ function ThemeSwitch(props) {
  * @return {Array} React propTypes
  */
 ThemeSwitch.propTypes = {
-    theme: PropTypes.string,
     onThemeChange: PropTypes.func.isRequired,
+    theme: PropTypes.string,
 };
 
 ThemeSwitch.defaultProps = {
@@ -81,9 +99,12 @@ ThemeSwitch.defaultProps = {
  * @see {@link module:ui/containers/ThemeSwitch/model/selectors}
  * @return {Function} selector
  */
-export const mapStateToProps = createSelector(makeSelectTheme(), (theme) => ({
-    theme,
-}));
+export const mapStateToProps = createSelector(
+    makeSelectTheme(),
+    (theme: Theme) => {
+        return { theme };
+    }
+);
 
 /**
  * Function mapping dispatch to props.
@@ -92,9 +113,9 @@ export const mapStateToProps = createSelector(makeSelectTheme(), (theme) => ({
  * @param {Function} dispatch method.
  * @return {Object} redux container
  */
-export function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch: Dispatch<ChangeTheme>): IDispatchProps {
     return {
-        onThemeChange: (theme) => dispatch(changeTheme(theme)),
+        onThemeChange: (theme: Theme) => dispatch(changeTheme(theme)),
         dispatch,
     };
 }
@@ -102,4 +123,4 @@ export function mapDispatchToProps(dispatch) {
 const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
 export default compose(withConnect, memo)(ThemeSwitch);
-// export { ThemeSwitch as OriginalThemeSwitch };
+export { ThemeSwitch as OriginalThemeSwitch };

@@ -11,6 +11,8 @@ import { colorSet } from '../../styles/settings';
 
 const { gradients } = colorSet;
 
+/* eslint-disable no-magic-numbers */
+
 const Separator = styled.div`
     height: ${(props) => props.height || 0.1}em;
     ${linearGradient({
@@ -21,5 +23,7 @@ const Separator = styled.div`
     width: 100%;
     z-index: ${zIndex.Separator};
 `;
+
+/* eslint-enable no-magic-numbers */
 
 export default Separator;

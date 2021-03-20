@@ -3,13 +3,13 @@
  * @module _/gulpfile.js
  * @author Igor Ivanov
  */
-const fs = require('fs');
-
 const critical = require('critical').stream;
 const gulp = require('gulp');
 const rename = require('gulp-rename');
 const zip = require('gulp-zip');
 const args = require('minimist')(process.argv.slice(2));
+
+const fs = require('fs');
 
 /**
  * Handling gulp error, breaks task execution and trows an error
@@ -30,7 +30,7 @@ gulp.task('createFilePaths', async function createFilePaths() {
     const folders = ['dist', 'dist/assets', 'dist/assets/svg', 'dist/assets/img', 'dist/assets/public'];
 
     folders.forEach((dir) => {
-        if (!fs.existsSync(dir)) {
+        if (! fs.existsSync(dir)) {
             fs.mkdirSync(dir);
             // eslint-disable-next-line no-console
             console.log('📁folder created:', dir);
@@ -68,6 +68,20 @@ gulp.task('copyProdFavicon', async function copyProdFavicon() {
 });
 
 /**
+ * Copying loader background image.
+ * @function
+ * @return {Promise} gulp task
+ */
+gulp.task('copyLoaderBackground', async function copyProdFavicon() {
+    await new Promise((resolve) => {
+        gulp.src('./assets/img/background.webp')
+            .pipe(gulp.dest('./dist/assets/img/'))
+            .on('end', resolve)
+            .on('error', handleError);
+    });
+});
+
+/**
  * Creates build folder archive in dist folder
  * @function
  * @return {Function} gulp task
@@ -76,7 +90,7 @@ gulp.task('createZip', async function createZip() {
     const flag = args.zip;
     await new Promise((resolve) => {
         if (flag && flag !== 'false') {
-            // prettier-ignore
+            // eslint-disable-next-line no-negated-condition
             const fileName = `${flag !== 'true'
                 ? flag
                 : 'archive'}.zip`;
@@ -103,7 +117,7 @@ gulp.task('criticalCSS', async function criticalCSS() {
                     base: 'dist/',
                     inline: true,
                     css: ['./assets/css/critical.css'],
-                }),
+                })
             )
             .pipe(gulp.dest('dist'))
             .on('end', resolve)
@@ -135,7 +149,8 @@ gulp.task(
         'copyRootFiles',
         'copySvgFiles',
         'copyProdFavicon',
+        'copyLoaderBackground',
         'criticalCSS',
-        'createZip',
-    ),
+        'createZip'
+    )
 );

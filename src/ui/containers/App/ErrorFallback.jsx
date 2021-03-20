@@ -9,6 +9,8 @@ import Link from '../../elements/Link';
 
 import messages from './model/messages';
 
+const { errorMessage, reloadText } = messages;
+
 /**
  * Reloads browser page
  * @param {SyntheticEvent | Event} eventData
@@ -17,7 +19,6 @@ import messages from './model/messages';
 function handleReloadClick(eventData) {
     eventData.preventDefault();
     eventData.stopPropagation();
-    // eslint-disable-next-line no-restricted-globals
     location.reload();
 }
 
@@ -28,8 +29,6 @@ function handleReloadClick(eventData) {
  * @constructor
  */
 function ErrorFallback() {
-    const { errorMessage, reloadText } = messages;
-
     return (
         <div>
             <FormattedMessage id={errorMessage.id} defaultMessage={errorMessage.defaultMessage} />

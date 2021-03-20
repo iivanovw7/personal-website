@@ -10,7 +10,7 @@ import { injectIntl } from 'react-intl';
 
 import config from '../../../config';
 import useMedia from '../../../utils/hooks/useMedia';
-import { basePath } from '../../routes';
+import { menuPath } from '../../routes';
 import { breakpoints } from '../../styles/settings';
 import NavLinks from '../Navigation/NavLinks';
 
@@ -40,7 +40,7 @@ function TopBar(props) {
         // Media queries
         [`(min-width: ${breakpoints.sm}px)`],
         [true],
-        false,
+        false
     );
 
     return (
@@ -50,7 +50,7 @@ function TopBar(props) {
             </Block>
             {showNavigation && (
                 <Block>
-                    <NavLinks routes={basePath} intl={intl} />
+                    <NavLinks routes={menuPath} intl={intl} />
                 </Block>
             )}
             <Block>{Children.toArray(children)}</Block>
@@ -67,7 +67,6 @@ function TopBar(props) {
  * @return {Array} React propTypes
  */
 TopBar.propTypes = {
-    // eslint-disable-next-line react/no-unused-prop-types
     intl: PropTypes.object.isRequired,
     children: PropTypes.oneOfType([
         PropTypes.func,

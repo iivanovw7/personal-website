@@ -29,7 +29,7 @@ export type HttpMethodMap = {
  * @readonly
  * @type {{HEAD: string, DELETE: string, POST: string, GET: string, PUT: string, PATCH: string}}
  */
-export const httpMethodMap = {
+export const httpMethodMap: HttpMethodMap = {
     GET: 'GET',
     POST: 'POST',
     HEAD: 'HEAD',
@@ -46,9 +46,9 @@ export const ACTION_REMOVE_MESSAGES: Readonly<string> = 'ACTION_REMOVE_MESSAGES'
 export const ACTION_ADD_MESSAGES: Readonly<string> = 'ACTION_ADD_MESSAGES';
 
 export type LogModeMap = {
-    ERROR: string;
-    DEBUG: string;
-    OFF: string;
+    LOGGER_ERROR: string;
+    LOGGER_DEBUG: string;
+    LOGGER_OFF: string;
 };
 
 /**
@@ -56,23 +56,29 @@ export type LogModeMap = {
  * @readonly
  * @type {{ERROR: string, DEBUG: string, OFF: string}}
  */
-export const logModeMap = {
+export const logModeMap: LogModeMap = {
     LOGGER_ERROR: 'error',
     LOGGER_DEBUG: 'debug',
     LOGGER_OFF: 'off',
 };
 
-// export type LogModeMapKeys = keyof LogModeMap;
+export type LogLevelMap = {
+    SUCCESS: string;
+    INFO: string;
+    DEBUG: string;
+    ERROR: string;
+    WARNING: string;
+};
 
 /**
  * Log messages map.
  * @readonly
- * @type {{SUCCESS: symbol, ERROR: symbol, INFO: symbol, DEBUG: symbol, WARNING: symbol}}
+ * @type {{SUCCESS: string, ERROR: string, INFO: string, DEBUG: string, WARNING: string}}
  */
-export const logLevelMap = {
-    SUCCESS: Symbol('success'),
-    INFO: Symbol('info'),
-    DEBUG: Symbol('debug'),
-    ERROR: Symbol('error'),
-    WARNING: Symbol('warning'),
+export const logLevelMap: LogLevelMap = {
+    SUCCESS: 'success',
+    INFO: 'info',
+    DEBUG: 'debug',
+    ERROR: 'error',
+    WARNING: 'warning',
 };

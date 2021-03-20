@@ -2,7 +2,7 @@
  * Module contains date related functions.
  * @module utils/date
  */
-/* eslint-disable import/prefer-default-export */
+
 /**
  * Converts timestamp in formatted date
  * @param {Date} timestamp, using "new Date()" by default
@@ -26,6 +26,10 @@ export function formatLoggerDate(timestamp = new Date()) {
         date.mm = `0${date.mm}`;
     }
 
-    return `[${date.dd}/${date.mm}/${date.yyyy}][${date.hh}-${date.min}-${date.ss}]`;
+    if (date.ss < 10) {
+        date.ss = `0${date.ss}`;
+    }
+
+    return `[${date.dd}/${date.mm}/${date.yyyy}][${date.hh}:${date.min}:${date.ss}]`;
 }
-/* eslint-enable import/prefer-default-export */
+

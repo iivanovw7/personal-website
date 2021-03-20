@@ -3,9 +3,16 @@
  * @module ui/components/Switch/Wrapper
  * @author Igor Ivanov
  */
-import styled from 'styled-components';
+import styled, { CSSProp } from 'styled-components';
 
-const Wrapper = styled.label`
+import { PartialAndNullable } from '../../../types/util';
+
+type WrapperProps = PartialAndNullable<{
+    variant: string;
+    styling: CSSProp
+}>;
+
+const Wrapper = styled.label<WrapperProps>`
     display: inline-block;
     height: 1.5rem;
     margin: 0 auto;
@@ -16,3 +23,5 @@ const Wrapper = styled.label`
 `;
 
 export default Wrapper;
+
+

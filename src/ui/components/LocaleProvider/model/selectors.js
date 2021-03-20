@@ -3,7 +3,7 @@
  * @module ui/components/LocaleProvider/model/selectors
  * @author Igor Ivanov
  */
-import { createSelector } from 'reselect';
+import { createSelector } from '@reduxjs/toolkit';
 
 import { initState } from './index';
 
@@ -28,6 +28,6 @@ const selectLocale = (state) => state.language.locale || initState.locale;
  * @method
  * @return {Function} creates new locale selector.
  */
-const makeSelectLocale = () => createSelector(selectLanguage, (languageState) => languageState.locale);
+const makeSelectLocale = createSelector(selectLanguage, (languageState) => languageState.locale);
 
 export { selectLanguage, selectLocale, makeSelectLocale };

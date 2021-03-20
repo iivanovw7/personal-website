@@ -3,11 +3,10 @@
  * @module components/LocaleSwitch
  * @author Igor Ivanov
  */
-import { compose } from '@reduxjs/toolkit';
+import { compose, createSelector } from '@reduxjs/toolkit';
 import * as PropTypes from 'prop-types';
 import React, { memo } from 'react';
 import { connect } from 'react-redux';
-import { createSelector } from 'reselect';
 
 import Button from '../../elements/Button';
 import { changeLocale } from '../LocaleProvider/model';
@@ -40,24 +39,27 @@ function LocaleSwitch(props) {
         return onLocaleChange(localeKey);
     }
 
+    /* eslint-disable new-cap */
+
     return (
         <Button variant="primary" styling={ButtonStyles} onClick={handleClick}>
             {LocaleImage(localeData)}
         </Button>
     );
+    /* eslint-enable new-cap */
 }
 
 /**
  * @name propTypes
  * @type {Object}
  * @param {Object} props - React PropTypes
- * @property {string} [props.locale = 'en'] - locale string.
  * @property {Function} props.onLocaleChange - locale change handler.
+ * @property {string} [props.locale = 'en'] - locale string.
  * @return {Array} React propTypes
  */
 LocaleSwitch.propTypes = {
-    locale: PropTypes.string,
     onLocaleChange: PropTypes.func.isRequired,
+    locale: PropTypes.string,
 };
 
 LocaleSwitch.defaultProps = {
@@ -70,9 +72,10 @@ LocaleSwitch.defaultProps = {
  * @see {@link module:containers/LocaleProvider/model/selectors}
  * @return {Function} selector
  */
-const mapStateToProps = createSelector(makeSelectLocale(), (locale) => ({
-    locale,
-}));
+const mapStateToProps = createSelector(
+    makeSelectLocale,
+    (locale) => ({ locale }) // eslint-disable-line
+);
 
 /**
  * Function mapping dispatch to props.

@@ -7,11 +7,10 @@
 import { DARK_THEME, LIGHT_THEME } from '../../../../config/constants';
 import envProperties from '../../../../utils/env';
 
-// prettier-ignore
 /**
  * Default locale.
  * @constant {string}
  */
-export const DEFAULT_THEME = envProperties.isDarkTheme // eslint-disable-line import/prefer-default-export
+export const DEFAULT_THEME = envProperties.isDarkTheme
     ? DARK_THEME
     : LIGHT_THEME;

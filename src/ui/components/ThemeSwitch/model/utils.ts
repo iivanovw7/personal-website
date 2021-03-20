@@ -5,4 +5,4 @@
  */
 import { DARK_THEME } from '../../../../config/constants';
 
-export const isDarkTheme = (theme) => theme === DARK_THEME; // eslint-disable-line
+export const isDarkTheme = (theme: string) => theme === DARK_THEME; // eslint-disable-line

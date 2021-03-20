@@ -7,8 +7,8 @@ import { compose, map, pipe, prop, pickBy, toPairs } from 'ramda';
 import React from 'react';
 
 import { isNotEmptyString } from '../../../utils/helpers';
-import Button from '../../elements/Button';
 import Icon from '../../elements/Icon';
+import Link from '../../elements/Link';
 
 import SocialButtonStyles from './SocialButtonStyles';
 
@@ -27,9 +27,9 @@ const SocialOptions = pipe(prop('social'), pickBy(isNotEmptyString), toPairs);
  * @constructor
  */
 const SocialButtonElement = (el) => (
-    <Button variant="primary" key={el[0]} href={el[1]} target="_self" styling={SocialButtonStyles}>
+    <Link variant="primary" key={el[0]} href={el[1]} target="_self" styling={SocialButtonStyles}>
         <Icon path={`social/${el[0]}`} />
-    </Button>
+    </Link>
 );
 
 export default compose(map(SocialButtonElement), SocialOptions);

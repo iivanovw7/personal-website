@@ -22,6 +22,7 @@ import NavLinkStyles from './NavLinkStyles';
  */
 const NavLinkComponent = (item, intl) => (
     <NavLink
+        exact={false}
         variant="primary"
         key={item[0]}
         styling={NavLinkStyles}
@@ -45,7 +46,10 @@ const NavigationOptions = pipe(pickBy(isNotEmptyString), toPairs);
  * @param {Object} intl - react-intl object provides access to localization methods.
  * @return {JSX.Element[]} list of navigation links.
  */
-const mapNavItems = ({ routes, intl }) =>
-    map((item) => NavLinkComponent(item, intl), NavigationOptions(routes));
+const mapNavItems = ({ routes, intl }) => { // eslint-disable-line arrow-body-style
+    // eslint-disable-next-line new-cap
+    return map((item) => NavLinkComponent(item, intl), NavigationOptions(routes));
+};
 
+// eslint-disable-next-line arrow-body-style
 export default pipe((props) => ({ routes: props.routes, intl: props.intl }), mapNavItems);

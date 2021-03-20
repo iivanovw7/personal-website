@@ -12,11 +12,25 @@ export const basePath = {
     /**
      * Base path.
      */
-    base: '', // replaced with empty string in order to be skipped during navigation link creation '/'
+    base: '',
     /**
      * Posts path.
      */
     posts: '/posts',
+    /**
+     * Post path.
+     */
+    post: '/posts/view',
+};
+
+/**
+ * Contains menu path map.
+ * @readonly
+ * @enum {string}
+ */
+export const menuPath = {
+    /** Posts link path */
+    posts: basePath.posts
 };
 
 /**
@@ -34,7 +48,46 @@ export const routes = {
      */
     posts: basePath.posts,
     /**
+     * Post route.
+     */
+    post: `${basePath.post}/:postId`,
+    /**
      * Posts search route.
      */
     postsSearch: `${basePath.posts}/search:query`,
 };
+
+/**
+ * Verifies if area belongs to path.
+ * @param {string} areaPath - area to be verified.
+ * @param {string} path - location path.
+ * @return {boolean}
+ *      Returns `true` if passed areaPath belongs to passed `path` parameter, and `false` otherwise.
+ */
+export function isAreaPath(areaPath, path) {
+    const areaPathWithSlash = `${areaPath}/`;
+
+    return `${path}/`.substring(0, areaPathWithSlash.length) === areaPathWithSlash;
+}
+
+/**
+ * Verifies if passed `path` is posts `path`.
+ *
+ * @param {string} path - location path.
+ * @return {boolean}
+ *      Returns `true` if passed `path` belongs to posts `path`.
+ */
+export function isPostsAreaPath(path) {
+    return isAreaPath(basePath.posts, path);
+}
+
+/**
+ * Verifies if passed `path` string belongs to post path.
+ *
+ * @param {string} path - location path.
+ * @return {boolean}
+ *      Returns `true` if passed `path` belongs to post `path`.
+ */
+export function isPostAreaPath(path) {
+    return isAreaPath(basePath.post, path);
+}

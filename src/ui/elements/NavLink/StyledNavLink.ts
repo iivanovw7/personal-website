@@ -6,12 +6,15 @@
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
+import { PartialAndNullable } from '../../../types/util';
 import { styleMixins } from '../../styles/mixins';
 import { btnBackground } from '../../styles/theme/buttons';
 import { navLinkTextColor, navLinkTextColorActive, navLinkBackgroundHover } from '../../styles/theme/links';
 
+import { INavLinkProps } from './index';
+
 const activeClassName = 'active';
-const StyledNavLink = styled(NavLink).attrs({ activeClassName })`
+const StyledNavLink = styled(NavLink).attrs({ activeClassName })<PartialAndNullable<INavLinkProps>>`
     align-items: center;
     background-color: transparent;
     border: 1px solid ${navLinkTextColor};
@@ -26,7 +29,7 @@ const StyledNavLink = styled(NavLink).attrs({ activeClassName })`
     text-decoration: none;
     transition: background-color 0.2s ease-in-out;
     ${/* sc-custom */ (props) => props.styling};
-    ${/* sc-custom */ styleMixins.focusBoxShadow('2px', 'transparent', btnBackground)};
+    ${/* sc-custom */ styleMixins.focusBoxShadow('0.1rem', 'transparent', navLinkTextColor)};
 
     &:hover {
         background-color: ${navLinkBackgroundHover};

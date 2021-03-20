@@ -1,6 +1,5 @@
 import { keyframes } from 'styled-components';
 
-// eslint-disable-next-line import/prefer-default-export
 export const keyframesFadeInTop = keyframes`
   0% {
     opacity: 0;

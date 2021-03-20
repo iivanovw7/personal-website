@@ -1,10 +1,14 @@
-// eslint-disable-next-line no-undef
 module.exports = {
-    extends: [],
+    'extends': [
+        'ts-guard/react'
+    ],
     overrides: [
         {
             files: ['**/*.ts', '**/*.tsx'],
-            extends: [],
+            'extends': [
+                'ts-guard/react',
+                'ts-guard/ext'
+            ],
             globals: {
                 JSX: 'readonly',
             },
@@ -15,14 +19,25 @@ module.exports = {
                     jsx: true,
                 },
                 project: ['../tsconfig.eslint.json'],
-                // eslint-disable-next-line no-undef
                 tsconfigRootDir: __dirname,
             },
             rules: {
                 '@typescript-eslint/no-unsafe-call': 0,
                 '@typescript-eslint/no-unsafe-assignment': 0,
                 '@typescript-eslint/no-unsafe-member-access': 0,
-                '@typescript-eslint/import/extensions': 0,
+                '@typescript-eslint/naming-convention': 0,
+                'react/prop-types': 0,
+            },
+            settings: {
+                'import/extensions': ['d.ts'],
+                'import/resolver': {
+                    node: {
+                        extensions: ['d.ts'],
+                    },
+                    'typescript': {
+                        'alwaysTryTypes': true
+                    },
+                },
             },
         },
     ],

@@ -7,7 +7,8 @@ import theme from 'styled-theming';
 
 import { colorSet } from '../settings';
 
-// eslint-disable-next-line import/prefer-default-export
+/* eslint-disable no-magic-numbers */
+
 export const inputBackground = theme.variants('mode', 'variant', {
     primary: {
         light: lighten(0.15, colorSet.dark.inputColorPrimary),
@@ -18,3 +19,5 @@ export const inputBackground = theme.variants('mode', 'variant', {
         dark: colorSet.dark.textColorPrimary,
     },
 });
+
+/* eslint-enable no-magic-numbers */

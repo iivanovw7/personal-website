@@ -3,11 +3,12 @@
  * @module _/config/webpack.dev.js
  * @author Igor Ivanov
  */
-const path = require('path');
 
 const CopyPlugin = require('copy-webpack-plugin');
 const webpack = require('webpack');
 const { merge } = require('webpack-merge');
+
+const path = require('path');
 
 const common = require('./webpack.common.js');
 

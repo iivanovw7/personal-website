@@ -3,9 +3,11 @@
  * @module ui/containers/ThemeProvider/model/selectors
  * @author Igor Ivanov
  */
-import { createSelector } from 'reselect';
+import { createSelector, OutputSelector } from '@reduxjs/toolkit';
 
-import { initState, ThemeProviderState } from './index';
+import { RootState } from '../../../store/combineReducers';
+
+import { ThemeProviderState } from './index';
 
 /**
  * Selector to the theme domain.
@@ -13,14 +15,14 @@ import { initState, ThemeProviderState } from './index';
  * @param {Object} state - application state.
  * @return {string} theme - application theme selector.
  */
-const selectTheme = (state): ThemeProviderState => state.theme || initState;
+const selectTheme = (state: RootState): ThemeProviderState => state.theme;
 
 /**
  * Select application theme mode.
  * @method
  * @return {Function} creates new theme selector.
  */
-const makeSelectTheme = () =>
+const makeSelectTheme = (): OutputSelector<RootState, string, (res: ThemeProviderState) => string> =>
     createSelector(selectTheme, (themeState: ThemeProviderState) => themeState.theme);
 
 export { selectTheme, makeSelectTheme };

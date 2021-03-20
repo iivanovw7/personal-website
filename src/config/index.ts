@@ -7,8 +7,7 @@ import { DARK_THEME, logModeMap } from './constants';
 
 export type RunningMode = 'test' | 'production' | 'development';
 
-// eslint-disable-next-line no-undef
-export const runningMode = CONFIG || 'development';
+export const runningMode = CONFIG;
 
 const settings = {
     /**
@@ -67,7 +66,7 @@ const settings = {
          */
         requestTimeout: 10000,
         /**
-         * GraphCMS url.
+         * GraphCMS `url`.
          * @type {string}
          */
         graphCmsUrl: 'https://api-eu-central-1.graphcms.com/v2/cki24xt1fy3b701z94v4gh9rp/master',
@@ -95,7 +94,7 @@ const settings = {
     }
 
     Object.assign(object, { logLevel });
-    // eslint-disable-next-line no-undef
+
 })(settings, runningMode);
 
 export default settings;

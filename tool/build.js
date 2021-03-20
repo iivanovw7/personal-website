@@ -7,7 +7,6 @@ const webpack = require('webpack');
 
 const config = require('../config/webpack/webpack.prod.js');
 
-// eslint-disable-next-line no-unused-vars
 webpack(config, function handler(err, stats) {
     if (err) {
         // eslint-disable-next-line no-console
@@ -16,13 +15,14 @@ webpack(config, function handler(err, stats) {
             // eslint-disable-next-line no-console
             console.error(err.details);
         }
-    } else {
+    }
+    else {
         // eslint-disable-next-line no-console
         console.log(
             stats.toString({
                 chunks: false, // Makes the build much quieter
                 colors: true, // Shows colors in the console
-            }),
+            })
         );
 
         if (stats.hasErrors()) {

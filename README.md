@@ -1,6 +1,5 @@
 ## personal-website
 
-
 Webpage client application.
 Uses [graphcms](https://graphcms.com/).
 
@@ -34,7 +33,6 @@ Technologies used
 - [Webpack Dev Server](https://webpack.js.org/configuration/dev-server/)
 - [Gulp](https://gulpjs.com/)
 - [ESLint](https://eslint.org)
-- [Prettier](https://prettier.io/)
 - [stylelint](https://stylelint.io)
 - [typescript](https://www.typescriptlang.org/)
 
@@ -88,8 +86,6 @@ Contains information about configuration files.
 
 `./.nvmrc` -- contains current Node.js version.
 
-`./.prettier` -- contains prettier configuration.
-
 `./.stylelintrc` -- contains stylelint configuration.
 
 `./.env` -- contains API auth keys.
@@ -130,7 +126,8 @@ Contains information about configuration files.
 - ~~Setup linting~~ <br/>
 - ~~Add localization~~ <br/>
 - ~~Add locale toggle~~ <br/>
-- Move all src folder to ts <br />
+- Migrate all src folder to ts <br />
+- Migrate to Typedoc <br />
 - Add unit tests <br />
 - Add e2e test <br />
 - Posts lazy loading <br/>

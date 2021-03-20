@@ -3,8 +3,6 @@
  * @module _/config/webpack.common.js
  * @author Igor Ivanov
  */
-const path = require('path');
-
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const dotenv = require('dotenv');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -14,6 +12,8 @@ const webpack = require('webpack');
 const DashboardPlugin = require('webpack-dashboard/plugin');
 const { StatsWriterPlugin } = require('webpack-stats-plugin');
 
+const path = require('path');
+
 const env = dotenv.config().parsed;
 
 /**
@@ -22,12 +22,12 @@ const env = dotenv.config().parsed;
  * @type {{}}
  */
 const envKeys = Object.keys(env).reduce((prev, next) => {
-    // eslint-disable-next-line no-param-reassign
     prev[`process.env.${next}`] = JSON.stringify(env[next]);
+
     return prev;
 }, {});
 
-// eslint-disable-next-line no-console, no-undef
+// eslint-disable-next-line no-console
 console.log('cli-env-variables:', JSON.stringify(args, null, 4), '\n');
 
 // TODO Add offline support with https://developers.google.com/web/tools/workbox
@@ -111,7 +111,7 @@ module.exports = {
     },
     entry: {
         index: {
-            import: './src/app.js',
+            'import': './src/app.tsx',
             dependOn: 'shared',
         },
         shared: 'core-js',
@@ -140,10 +140,11 @@ module.exports = {
     ],
     // prettier-ignore
     devtool: sourceMaps
-        ? "inline-source-map"
+        ? 'inline-source-map'
         : false,
     output: {
         filename: 'assets/js/[name].bundle.js',
         path: path.resolve(__dirname, '../../dist'),
+        publicPath: '/',
     },
 };

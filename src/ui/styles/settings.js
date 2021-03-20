@@ -81,17 +81,17 @@ export const logoColor = '#ea4949';
  */
 export const colorSet = {
     gradients: {
-        first: 'rgba(250, 241, 8, 1)',
-        second: 'rgba(176, 14, 14, 1)',
-        third: 'rgba(224, 0, 255, 1)',
+        first: 'rgba(224, 0, 255, 1)',
+        second: 'rgba(250, 241, 8, 1)',
+        third: 'rgba(176, 14, 14, 1)',
     },
     tagBtnBgColors: [
         '#B565A7',
-        '#5B5EA6',
-        '#DD4132',
+        '#2e37a3',
+        '#b15f0f',
         '#6B5B95',
-        '#282C34',
-        '#00A591',
+        '#191f32',
+        '#01786a',
         '#69d641',
         '#ecdb54',
         '#BC70A4',
@@ -119,7 +119,7 @@ export const colorSet = {
         inputBackgroundPrimary: '#fffaf0',
         inputColorPrimary: '#1e2227',
         colorPrimary: '#3d6fe2',
-        colorSecondary: 'rgba(166,246,46, 0.95)',
+        colorSecondary: 'rgb(166,246,46)',
         colorAlert: 'rgb(234,53,53)',
         textColorPrimary: '#f0f8ff',
         textColorSecondary: '#1e2227',
@@ -133,7 +133,7 @@ export const colorSet = {
         inputBackgroundPrimary: '#1e2227',
         inputColorPrimary: '#fffaf0',
         colorPrimary: '#0037b6',
-        colorSecondary: '#d2c323',
+        colorSecondary: 'rgb(96,160,0)',
         colorAlert: 'rgb(234,53,53)',
         textColorPrimary: '#1e2227',
         textColorSecondary: '#f0f8ff',
@@ -183,8 +183,14 @@ export const breakpoints = {
  */
 export const typography = {
     light: 100,
-    regular: 300,
+    regular: 400,
     bold: 600,
     baseFontFamily: 'Nunito Sans, sans-serif',
     datesFontFamily: 'Inconsolata, monospace',
 };
+
+/**
+ * Default fade timeout.
+ * @type {number}
+ */
+export const FADE_TIMEOUT = 500;

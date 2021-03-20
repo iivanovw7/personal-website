@@ -5,5 +5,6 @@
     "pw.common.error": "Что то пошло не так.",
     "pw.common.reload": "Обновить страницу",
     "pw.common.defaultTitle": "Иванов Игорь",
-    "pw.common.defaultDescription": "моя страница"
+    "pw.common.defaultDescription": "моя страница",
+    "pw.common.noResults": "Ничего не найдено"
 }

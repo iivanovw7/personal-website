@@ -13,8 +13,6 @@ export const initState = {
     wait: 0,
 };
 
-/* eslint-disable no-param-reassign, no-plusplus */
-
 /**
  *  Combines functions of createAction and createReducer of application.
  *  @return {Object}
@@ -43,5 +41,3 @@ const appSlice = createSlice({
 export const { startWait, stopWait, completeWait } = appSlice.actions;
 
 export default appSlice.reducer;
-
-/* eslint-enable no-param-reassign, no-plusplus */

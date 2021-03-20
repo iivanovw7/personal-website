@@ -7,6 +7,8 @@ import theme from 'styled-theming';
 
 import { colorSet } from '../settings';
 
+/* eslint-disable no-magic-numbers */
+
 export const btnLighten = theme.variants('mode', 'variant', {
     primary: {
         light: lighten(0.2, colorSet.light.colorPrimary),
@@ -51,6 +53,8 @@ export const btnBackground = theme.variants('mode', 'variant', {
         dark: colorSet.dark.colorAlert,
     },
 });
+
+/* eslint-enable no-magic-numbers */
 
 // export const arrowBackground = theme.variants('mode', 'variant', {
 //     primary: {
@@ -97,5 +101,6 @@ export const linkColor = theme('mode', {
 
 export const linkColorSecondary = theme('mode', {
     light: colorSet.light.linkColor,
+    // eslint-disable-next-line no-magic-numbers
     dark: lighten(0.1, colorSet.dark.colorAlert),
 });

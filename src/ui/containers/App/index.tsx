@@ -15,15 +15,17 @@ import { Route, Switch } from 'react-router-dom';
 
 import { logLevelMap } from '../../../config/constants';
 import { getText } from '../../../locale';
+import Logger from '../../../log';
 import { client } from '../../../service/graphcms/apolloClient';
-import Logger from '../../../utils/logger';
 import LocaleSwitch from '../../components/LocaleSwitch';
+import ScrollTop from '../../components/ScrollTop';
 import ThemeSwitch from '../../components/ThemeSwitch';
 import TopBar from '../../components/TopBar';
 import { routes as routesPaths } from '../../routes';
-import history from '../../routes/history';
+import appHistory from '../../routes/history';
 import GlobalStyle from '../../styles/global';
 import NotFoundPage from '../NotFoundPage';
+import PostComponent from '../Post';
 import Posts from '../Posts';
 
 import ErrorFallback from './ErrorFallback';
@@ -32,6 +34,8 @@ import messages from './model/messages';
 import { makeSelectApp } from './model/selectors';
 import { hideWaitScreen, showWaitScreen } from './model/util';
 import Section from './Section';
+
+const logger = Logger.getInstance();
 
 /**
  * Main application component.
@@ -48,13 +52,14 @@ function App(props: PropTypes.InferProps<typeof App.propTypes>): ReactElement<JS
     const { defaultTitle, defaultDescription } = messages;
 
     useEffect(() => {
-        history.push(routesPaths.posts);
+        appHistory.push(routesPaths.posts);
     }, []);
 
     useEffect(() => {
         if (wait) {
             showWaitScreen();
-        } else {
+        }
+        else {
             hideWaitScreen();
         }
     }, [wait]);
@@ -64,18 +69,16 @@ function App(props: PropTypes.InferProps<typeof App.propTypes>): ReactElement<JS
      * @param {Error} error - app Error object.
      * @param {string} info - string represents componentStack.
      */
-    function handleError(error, info): void {
-        Logger.send({
+    function handleError(error: Error, info): void {
+        logger.send({
             type: logLevelMap.ERROR,
-            message: `Application error: ${error}, componentStack: ${info}`,
+            message: `Application error: ${error.stack || ''}, componentStack: ${info as string}`,
         });
     }
 
     return (
         <ErrorBoundary FallbackComponent={ErrorFallback} onError={handleError}>
-            <ApolloProvider
-                // @ts-ignore
-                client={client}>
+            <ApolloProvider client={client}>
                 <Helmet titleTemplate="%s" defaultTitle={getText(defaultTitle, props)}>
                     <meta name="description" content={getText(defaultDescription, props)} />
                 </Helmet>
@@ -85,12 +88,12 @@ function App(props: PropTypes.InferProps<typeof App.propTypes>): ReactElement<JS
                 </TopBar>
                 <Section>
                     <Switch>
-                        <Route exact path={routesPaths.base} component={Posts} />
                         <Route exact path={routesPaths.posts} component={Posts} />
-                        <Route exact path={routesPaths.postsSearch} component={Posts} />
+                        <Route path={routesPaths.post} component={PostComponent} />
                         <Route component={NotFoundPage} />
                     </Switch>
                     <GlobalStyle />
+                    <ScrollTop />
                 </Section>
             </ApolloProvider>
         </ErrorBoundary>
@@ -135,11 +138,11 @@ const mapStateToProps = (state) => {
  * @param {Function} dispatch method.
  * @return {Object} redux container
  */
-export function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) { // eslint-disable-line
     return {
-        onStartWait: () => dispatch(startWait),
-        onStopWait: () => dispatch(stopWait),
-        onCompleteWait: () => dispatch(completeWait),
+        onStartWait: () => dispatch(startWait), // eslint-disable-line
+        onStopWait: () => dispatch(stopWait), // eslint-disable-line
+        onCompleteWait: () => dispatch(completeWait), // eslint-disable-line
         dispatch,
     };
 }

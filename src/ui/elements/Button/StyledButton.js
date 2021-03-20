@@ -7,20 +7,13 @@ import styled from 'styled-components';
 
 import { btnBackground, btnTextColor } from '../../styles/theme/buttons';
 
-// prettier-ignore
-const StyledButton = styled.button.attrs(({ index }) => ({
-    'data-index': index,
-}))`
+// eslint-disable-next-line
+const StyledButton = styled.button.attrs(({ index }) => ({ 'data-index': index }))`
   background-color: ${btnBackground};
   border: none;
   color: ${btnTextColor};
   ${(props) => props.styling};
-  opacity: ${(props) => (props.hide
-        ? '0'
-        : '1'
-    )};
   outline: none;
-  transition: opacity 0.5s ease-in-out;
 
   &:hover {
     cursor: pointer;
