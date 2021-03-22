@@ -7,7 +7,7 @@ import { fromPairs } from 'ramda';
 import { css } from 'styled-components';
 
 import { keyframesFadeInTop } from './keyframes';
-import { base, breakpoints, colorSet, typography } from './settings';
+import { base, breakpoints, colorSet, TRANSITION_TIMEOUT, typography } from './settings';
 
 const { datesFontFamily } = typography;
 
@@ -78,15 +78,16 @@ export const styleMixins = {
         justify-content: ${justify},
     `,
     // eslint-disable-next-line max-params
-    focusOutline: (color, colorActive = color, width = '0.154rem', style = 'solid') => css`
+    focusOutline: (color, colorActive = color, offset = '0rem', width = '0.154rem', style = 'solid') => css`
         outline: none;
+        outline-offset: ${offset};
         transition: outline 0.4s;
 
-        &:focus {
+        &:focus-visible {
             outline: ${width} ${style} ${color};
         }
 
-        &:focus:hover {
+        &:focus-visible:hover {
             outline: ${width} ${style} ${colorActive};
         }
     `,
@@ -95,11 +96,12 @@ export const styleMixins = {
         borderColor = 'transparent',
         borderFocus = colorSet.textColorPrimary
     ) => css`
-        box-shadow: 0 0 0 ${border} ${borderColor};
+        box-shadow: inset 0 0 0 ${border} ${borderColor};
+        outline-offset: 0;
         transition: box-shadow 0.4s;
 
         &:focus {
-            box-shadow: 0 0 0 ${border} ${borderFocus};
+            box-shadow: inset 0 0 0 ${border} ${borderFocus};
             outline: none;
         }
     `,
@@ -122,7 +124,7 @@ export const styleMixins = {
             position: absolute;
             top: 0;
             transform: scale(10, 10);
-            transition: transform 0.5s, opacity 1s;
+            transition: transform ${TRANSITION_TIMEOUT}s, opacity 1s;
             width: 100%;
         }
 
@@ -148,7 +150,7 @@ export const styleMixins = {
         font-family: ${family}, Fallback, sans-serif;
     `,
     fadeInTop: () => css`
-        animation: ${keyframesFadeInTop} ease 0.5s;
+        animation: ${keyframesFadeInTop} ease ${TRANSITION_TIMEOUT}s;
         animation-fill-mode: forwards;
         animation-iteration-count: 1;
         transform-origin: 50% 50%;

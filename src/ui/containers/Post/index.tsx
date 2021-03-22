@@ -21,7 +21,7 @@ import TagCloud from '../../components/TagCloud';
 import H1 from '../../elements/H1';
 import H2 from '../../elements/H2';
 import Paragraph from '../../elements/Paragraph';
-import Separator from '../../elements/Separator';
+import Separator, { ContentStyling } from '../../elements/Separator';
 import Spinner from '../../elements/Spinner';
 import { isPostsAreaPath } from '../../routes';
 import commonMessages from '../App/model/messages';
@@ -33,7 +33,6 @@ import CreatedAtStyles from './CreatedAtStyles';
 import postMessages from './model/messages';
 import formattedPostText from './model/util';
 import ReadingTimeStyles from './ReadingTimeStyles';
-import SeparatorStyles from './SeparatorStyles';
 
 const { noResults } = commonMessages;
 const { readingTime, publishedAt } = postMessages;
@@ -101,7 +100,7 @@ const PostComponent: FC<IPostProps> = (props: IPostProps) => {
                         })}
                     </Paragraph>
                     <TagCloud tags={tags} />
-                    <Separator styling={SeparatorStyles} />
+                    <Separator styling={ContentStyling} />
                     <Paragraph dangerouslySetInnerHTML={{ __html: formattedPostText(html) }} />
                 </Box>
             );

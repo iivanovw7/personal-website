@@ -42,7 +42,6 @@ function TagButton(props): ReactElement {
 
     const Styles = css`
         background-color: ${colorSet.tagBtnBgColors[colorIndex]};
-        border: 1px solid ${colorSet.tagBtnTextColors[colorIndex]};
         color: ${colorSet.tagBtnTextColors[colorIndex]};
         ${TagButtonStyles};
         ${styling};

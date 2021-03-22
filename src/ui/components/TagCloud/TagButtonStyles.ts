@@ -6,20 +6,19 @@
 import { css } from 'styled-components';
 
 import { styleMixins } from '../../styles/mixins';
-
-const TAG_FONTSIZE = 0.88;
+import { typography } from '../../styles/settings';
+import { textColor } from '../../styles/theme/typography';
 
 const TagButtonStyles = css`
-    border-radius: 0.32rem;
-    margin: 0.25rem 0.32rem 0.25rem 0;
-    ${styleMixins.fontSize(TAG_FONTSIZE)};
-    ${styleMixins.focusBoxShadow()};
+    border: none;
+    border-radius: 0.16rem;
+    margin: 0.32rem 0.64rem 0.32rem 0;
+    ${styleMixins.fontSize(typography.small)};
+    ${styleMixins.focusOutline(textColor, textColor, '0.24rem')};
     padding: 0.34rem;
-    transition: transform 0.2s;
 
-    &:hover,
-    &:focus {
-        transform: translateY(-0.3rem);
+    &:hover {
+        text-decoration: underline;
     }
 `;
 

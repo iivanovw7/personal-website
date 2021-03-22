@@ -12,7 +12,7 @@ import Dark from '../../../../assets/svg/theme/moon.svg';
 import Light from '../../../../assets/svg/theme/sun.svg';
 import { DARK_THEME, LIGHT_THEME } from '../../../config/constants';
 import Switch from '../../elements/Switch';
-import { ChangeTheme, Theme, changeTheme } from '../ThemeProvider/model';
+import { ChangeTheme, changeTheme, Theme } from '../ThemeProvider/model';
 import { DEFAULT_THEME } from '../ThemeProvider/model/constants';
 import { makeSelectTheme } from '../ThemeProvider/model/selectors';
 
@@ -67,11 +67,11 @@ function ThemeSwitch(props: IThemeSwitchProps): ReactElement {
         <Switch
             themeSwitch
             variant="primary"
-            checked={isDarkTheme(theme)}
-            styling={SwitchStyles}
-            onChange={handleChange}
-            checkedImg={Dark}
-            uncheckedImg={Light}
+            checked={ isDarkTheme(theme) }
+            styling={ SwitchStyles }
+            onChange={ handleChange }
+            checkedImg={ Dark }
+            uncheckedImg={ Light }
         />
     );
 }

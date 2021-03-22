@@ -21,7 +21,7 @@ import LocaleSwitch from '../../components/LocaleSwitch';
 import ScrollTop from '../../components/ScrollTop';
 import ThemeSwitch from '../../components/ThemeSwitch';
 import TopBar from '../../components/TopBar';
-import { routes as routesPaths } from '../../routes';
+import { isHomePath, routes as routesPaths } from '../../routes';
 import appHistory from '../../routes/history';
 import GlobalStyle from '../../styles/global';
 import NotFoundPage from '../NotFoundPage';
@@ -29,9 +29,9 @@ import PostComponent from '../Post';
 import Posts from '../Posts';
 
 import ErrorFallback from './ErrorFallback';
-import { startWait, stopWait, completeWait } from './model';
+import { completeWait, startWait, stopWait } from './model';
 import messages from './model/messages';
-import { makeSelectApp } from './model/selectors';
+import { makeSelectApp, selectLocation } from './model/selectors';
 import { hideWaitScreen, showWaitScreen } from './model/util';
 import Section from './Section';
 
@@ -48,11 +48,14 @@ const logger = Logger.getInstance();
  * @constructor
  */
 function App(props: PropTypes.InferProps<typeof App.propTypes>): ReactElement<JSX.Element> {
-    const { wait } = props;
+    const { wait, location: appLocation } = props;
     const { defaultTitle, defaultDescription } = messages;
 
     useEffect(() => {
-        appHistory.push(routesPaths.posts);
+        // Temporarily: redirects from home path to posts.
+        if (isHomePath(appLocation.pathname)) {
+            appHistory.push(routesPaths.posts);
+        }
     }, []);
 
     useEffect(() => {
@@ -72,15 +75,15 @@ function App(props: PropTypes.InferProps<typeof App.propTypes>): ReactElement<JS
     function handleError(error: Error, info): void {
         logger.send({
             type: logLevelMap.ERROR,
-            message: `Application error: ${error.stack || ''}, componentStack: ${info as string}`,
+            message: `Application error: ${ error.stack || '' }, componentStack: ${ String(info) }`,
         });
     }
 
     return (
-        <ErrorBoundary FallbackComponent={ErrorFallback} onError={handleError}>
-            <ApolloProvider client={client}>
-                <Helmet titleTemplate="%s" defaultTitle={getText(defaultTitle, props)}>
-                    <meta name="description" content={getText(defaultDescription, props)} />
+        <ErrorBoundary FallbackComponent={ ErrorFallback } onError={ handleError }>
+            <ApolloProvider client={ client }>
+                <Helmet titleTemplate="%s" defaultTitle={ getText(defaultTitle, props) }>
+                    <meta name="description" content={ getText(defaultDescription, props) } />
                 </Helmet>
                 <TopBar>
                     <ThemeSwitch />
@@ -88,9 +91,10 @@ function App(props: PropTypes.InferProps<typeof App.propTypes>): ReactElement<JS
                 </TopBar>
                 <Section>
                     <Switch>
-                        <Route exact path={routesPaths.posts} component={Posts} />
-                        <Route path={routesPaths.post} component={PostComponent} />
-                        <Route component={NotFoundPage} />
+                        <Route exact path={ routesPaths.home } component={ Posts } />
+                        <Route exact path={ routesPaths.posts } component={ Posts } />
+                        <Route path={ routesPaths.post } component={ PostComponent } />
+                        <Route component={ NotFoundPage } />
                     </Switch>
                     <GlobalStyle />
                     <ScrollTop />
@@ -110,6 +114,7 @@ function App(props: PropTypes.InferProps<typeof App.propTypes>): ReactElement<JS
 App.propTypes = {
     // eslint-disable-next-line react/no-unused-prop-types
     intl: PropTypes.object.isRequired,
+    location: PropTypes.any.isRequired,
     wait: PropTypes.bool.isRequired,
 };
 
@@ -128,6 +133,7 @@ const mapStateToProps = (state) => {
 
     return {
         wait,
+        location: selectLocation(state),
     };
 };
 

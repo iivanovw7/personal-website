@@ -143,6 +143,11 @@ export const colorSet = {
         linkHighlight: '#a8ecff',
         linkColor: 'rgba(5,62,177,0.95)',
     },
+    // Base colors palette: https://materialuicolors.co/
+    baseColors: {
+        grey100: '#F5F5F5',
+        grey700: '#616161'
+    }
 };
 
 /**
@@ -175,11 +180,12 @@ export const breakpoints = {
  * @property {number} bold
  * @property {string} baseFontFamily
  * @property {string} fallbackFontFamily
+ * @property {number} small - small text size in `rem`.
  */
 
 /**
  * Typography set.
- * @type {module:config/styles~typography}
+ * @type {module:ui/config/styles~typography}
  */
 export const typography = {
     light: 100,
@@ -187,6 +193,7 @@ export const typography = {
     bold: 600,
     baseFontFamily: 'Nunito Sans, sans-serif',
     datesFontFamily: 'Inconsolata, monospace',
+    small: 0.88,
 };
 
 /**
@@ -194,3 +201,5 @@ export const typography = {
  * @type {number}
  */
 export const FADE_TIMEOUT = 500;
+
+export const TRANSITION_TIMEOUT = 0.4;

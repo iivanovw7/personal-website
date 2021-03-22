@@ -19,8 +19,10 @@ import { getText } from '../../../locale';
 import { isNilOrEmpty } from '../../../utils/helpers';
 import ErrorMessage from '../../components/ErrorMessage';
 import Paragraph from '../../components/ErrorMessage/Paragraph';
+import Search from '../../components/Search';
 import TagButton from '../../components/TagCloud/TagButton';
 import Collapse from '../../elements/Collapse';
+import Separator, { ContentStyling } from '../../elements/Separator';
 import Spinner from '../../elements/Spinner';
 import commonMessages from '../App/model/messages';
 import { selectLocation } from '../App/model/selectors';
@@ -119,14 +121,16 @@ function PostsComponent(props: IPostsProps): ReactElement {
 
     return (
         <Article error={ error }>
-            <Collapse isOpen={ hasTags } styling={ HeaderCollapseStyles } >
-                { hasTags && (
-                    <Header>
-                        { localizedText(searchByTags) }
+            <Header>
+                <Collapse isOpen={ hasTags } styling={ HeaderCollapseStyles } >
+                    { localizedText(searchByTags) }
+                    { hasTags && (
                         <TagButton text={ tags[0] } onClick={ handleTagClick } styling={ HeaderTagStyles } />
-                    </Header>
-                ) }
-            </Collapse>
+                    ) }
+                </Collapse>
+                <Search id="pw-posts-search" />
+            </Header>
+            <Separator styling={ContentStyling} />
             <Content
                 error={ error }
                 loading={ loading }
