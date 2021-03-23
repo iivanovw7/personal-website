@@ -38,4 +38,5 @@ export const Input = styled.input<TInputProps>`
 export const Span = styled.span`
     color: ${ inputValidation };
     font-size: 0.7em;
+    margin-left: 0.467rem;
 `;

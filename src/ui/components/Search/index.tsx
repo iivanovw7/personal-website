@@ -3,9 +3,10 @@
  * @module ui/components/Search
  * @author Igor Ivanov
  */
-import React, { memo, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 
 import { useTextInput } from '../../../utils/hooks';
+import { validateInput, VALIDATION } from '../../../utils/validation';
 import Icon from '../../elements/Icon';
 import TextInput from '../../elements/TextInput';
 
@@ -17,21 +18,34 @@ export interface ISearchProps {
     label?: string;
 }
 
+const debounceTimeout = 50;
+
 // eslint-disable-next-line
 function Search(props: ISearchProps) {
     const [focused, setFocused] = useState<boolean>(false);
+    const [validation, setValidation] = useState<string>('');
     const { id, label = 'Search' } = props;
-    const { bind: bindSearch } = useTextInput('');
+    const { value: search, bind: bindSearch } = useTextInput({
+        initialValue: '',
+        debounceTimeout,
+        validation,
+        onBlur: () => setFocused(false),
+        onFocus: () => setFocused(true),
+    });
+    const validationParams = {
+        key: VALIDATION.search,
+        value: search,
+        handler: setValidation
+    };
 
-    // eslint-disable-next-line require-jsdoc
-    function handleBlur() {
-        setFocused(false);
-    }
 
-    // eslint-disable-next-line require-jsdoc
-    function handleFocus() {
-        setFocused(true);
-    }
+    useEffect(() => {
+        if (search && ! validateInput(validationParams)) {
+            // eslint-disable-next-line no-console
+            console.log(search);
+        }
+
+    }, [search]);
 
     return (
         <TextInput
@@ -39,8 +53,6 @@ function Search(props: ISearchProps) {
             label={ label }
             type="search"
             variant="primary"
-            onFocus={handleFocus}
-            onBlur={handleBlur}
             styling={ Input }
             stylingLabel={ Label }
             {...bindSearch}

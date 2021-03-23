@@ -7,7 +7,7 @@ import { fromPairs } from 'ramda';
 import { css } from 'styled-components';
 
 import { keyframesFadeInTop } from './keyframes';
-import { base, breakpoints, colorSet, TRANSITION_TIMEOUT, typography } from './settings';
+import { base, breakpoints, colorSet, timeouts, typography } from './settings';
 
 const { datesFontFamily } = typography;
 
@@ -124,7 +124,7 @@ export const styleMixins = {
             position: absolute;
             top: 0;
             transform: scale(10, 10);
-            transition: transform ${TRANSITION_TIMEOUT}s, opacity 1s;
+            transition: transform ${timeouts.transition}s, opacity 1s;
             width: 100%;
         }
 
@@ -150,7 +150,7 @@ export const styleMixins = {
         font-family: ${family}, Fallback, sans-serif;
     `,
     fadeInTop: () => css`
-        animation: ${keyframesFadeInTop} ease ${TRANSITION_TIMEOUT}s;
+        animation: ${keyframesFadeInTop} ease ${timeouts.transition}s;
         animation-fill-mode: forwards;
         animation-iteration-count: 1;
         transform-origin: 50% 50%;

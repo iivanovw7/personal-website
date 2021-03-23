@@ -15,7 +15,7 @@ export interface ITextInputProps {
     /** Input `id`. */
     id: string;
     /** Validation text. */
-    validate?: string;
+    validation?: string;
     /** Label text. */
     label?: string;
     /** Input type [ type = 'text' ] */
@@ -27,9 +27,9 @@ export interface ITextInputProps {
     /** onChange event handler. */
     onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
     /** onFocus event handler. */
-    onFocus: () => void;
+    onFocus?: () => void;
     /** onBlur event handler. */
-    onBlur: () => void;
+    onBlur?: () => void;
     /** Placeholder text. */
     placeholder?: string;
     /** If input should gain focus on mouse enter. */
@@ -54,7 +54,7 @@ function TextInput(props: ITextInputProps) {
     const {
         label,
         children,
-        validate,
+        validation,
         id,
         placeholder,
         onChange,
@@ -87,7 +87,7 @@ function TextInput(props: ITextInputProps) {
             onMouseEnter={ handleMouseEnter }
         >
             { label }
-            <Span>{ validate }</Span>
+            <Span>{ validation }</Span>
             <Input
                 type={ type }
                 id={ id }

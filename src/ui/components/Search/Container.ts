@@ -7,7 +7,7 @@ import styled from 'styled-components';
 
 import { PartialAndNullable } from '../../../types/util';
 import { TVariant } from '../../elements/TextInput';
-import { TRANSITION_TIMEOUT } from '../../styles/settings';
+import { timeouts } from '../../styles/settings';
 import { inputBorderColor, inputBorderFocusColor } from '../../styles/theme/inputs';
 
 type TContainerProps = PartialAndNullable<{
@@ -31,7 +31,7 @@ const Container = styled.div<TContainerProps>`
             : inputBorderColor
         ) };
         display: block;
-        transition: color ${TRANSITION_TIMEOUT}s;
+        transition: color ${timeouts.transition}s;
     }
 `;
 
