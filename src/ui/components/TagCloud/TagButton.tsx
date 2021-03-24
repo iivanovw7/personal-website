@@ -11,7 +11,7 @@ import { v4 as uuidv4 } from 'uuid';
 import Button from '../../elements/Button';
 import { colorSet } from '../../styles/settings';
 
-import TagButtonStyles from './TagButtonStyles';
+import TagButtonStyles from './Styles';
 
 /**
  * Defines tag button color depending on word length.
@@ -42,7 +42,6 @@ function TagButton(props): ReactElement {
 
     const Styles = css`
         background-color: ${colorSet.tagBtnBgColors[colorIndex]};
-        border: 1px solid ${colorSet.tagBtnTextColors[colorIndex]};
         color: ${colorSet.tagBtnTextColors[colorIndex]};
         ${TagButtonStyles};
         ${styling};

@@ -3,6 +3,8 @@
  * @module config/constants
  */
 
+import { LogLevelMap, LogModeMap, HttpMethodMap } from '../types/common';
+
 /**
  * Dark UI theme setting.
  * @type {string}
@@ -14,15 +16,6 @@ export const LIGHT_THEME: Readonly<string> = 'light';
  * @type {string}
  */
 export const DARK_THEME: Readonly<string> = 'dark';
-
-export type HttpMethodMap = {
-    GET: string;
-    POST: string;
-    HEAD: string;
-    DELETE: string;
-    PUT: string;
-    PATCH: string;
-};
 
 /**
  * Http methods map.
@@ -45,12 +38,6 @@ export const ACTION_SELECT_LOG: Readonly<string> = 'ACTION_SELECT_LOG';
 export const ACTION_REMOVE_MESSAGES: Readonly<string> = 'ACTION_REMOVE_MESSAGES';
 export const ACTION_ADD_MESSAGES: Readonly<string> = 'ACTION_ADD_MESSAGES';
 
-export type LogModeMap = {
-    LOGGER_ERROR: string;
-    LOGGER_DEBUG: string;
-    LOGGER_OFF: string;
-};
-
 /**
  * Logger mode map
  * @readonly
@@ -60,14 +47,6 @@ export const logModeMap: LogModeMap = {
     LOGGER_ERROR: 'error',
     LOGGER_DEBUG: 'debug',
     LOGGER_OFF: 'off',
-};
-
-export type LogLevelMap = {
-    SUCCESS: string;
-    INFO: string;
-    DEBUG: string;
-    ERROR: string;
-    WARNING: string;
 };
 
 /**
@@ -82,3 +61,10 @@ export const logLevelMap: LogLevelMap = {
     ERROR: 'error',
     WARNING: 'warning',
 };
+
+/**
+ * Contains possible validation config keys.
+ */
+export enum VALIDATION {
+    search = 'search'
+}

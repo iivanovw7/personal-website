@@ -11,12 +11,68 @@ import { colorSet } from '../settings';
 
 export const inputBackground = theme.variants('mode', 'variant', {
     primary: {
+        light: lighten(0.15, colorSet.dark.inputBackgroundPrimary),
+        dark: darken(0.04, colorSet.dark.inputBackgroundPrimary),
+    },
+    secondary: {
+        light: colorSet.dark.inputBackgroundPrimary,
+        dark: colorSet.dark.inputBackgroundPrimary,
+    },
+    disabled: {
+        light: colorSet.baseColors.grey700,
+        dark: colorSet.baseColors.grey700,
+    }
+});
+
+export const inputBorderColor = theme.variants('mode', 'variant', {
+    primary: {
+        light: colorSet.light.textColorPrimary,
+        dark: colorSet.dark.textColorPrimary,
+    },
+    secondary: {
+        light: colorSet.light.colorSecondary,
+        dark: colorSet.dark.colorSecondary,
+    },
+    disabled: {
+        light: colorSet.baseColors.grey700,
+        dark: colorSet.baseColors.grey700,
+    }
+});
+
+export const inputBorderFocusColor = theme.variants('mode', 'variant', {
+    primary: {
+        light: colorSet.light.colorPrimary,
+        dark: colorSet.dark.colorPrimary,
+    },
+    secondary: {
+        light: colorSet.light.colorSecondary,
+        dark: colorSet.dark.colorSecondary,
+    },
+    disabled: {
+        light: colorSet.baseColors.grey700,
+        dark: colorSet.baseColors.grey700,
+    }
+});
+
+export const inputText = theme.variants('mode', 'variant', {
+    primary: {
         light: lighten(0.15, colorSet.dark.inputColorPrimary),
         dark: darken(0.04, colorSet.dark.inputColorPrimary),
     },
     secondary: {
-        light: colorSet.dark.textColorPrimary,
-        dark: colorSet.dark.textColorPrimary,
+        light: colorSet.dark.inputColorPrimary,
+        dark: colorSet.dark.inputColorPrimary,
+    },
+});
+
+export const inputValidation = theme.variants('mode', 'variant', {
+    primary: {
+        light: colorSet.dark.colorAlert,
+        dark: colorSet.dark.colorAlert,
+    },
+    secondary: {
+        light: colorSet.dark.colorAlert,
+        dark: colorSet.dark.colorAlert,
     },
 });
 

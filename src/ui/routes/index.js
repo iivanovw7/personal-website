@@ -10,9 +10,9 @@
  */
 export const basePath = {
     /**
-     * Base path.
+     * Home path.
      */
-    base: '',
+    home: '/',
     /**
      * Posts path.
      */
@@ -40,9 +40,9 @@ export const menuPath = {
  */
 export const routes = {
     /**
-     * Base route.
+     * Home route.
      */
-    base: basePath.base,
+    home: basePath.home,
     /**
      * Posts route.
      */
@@ -56,6 +56,17 @@ export const routes = {
      */
     postsSearch: `${basePath.posts}/search:query`,
 };
+
+
+/**
+ * Determines if passed path if home or not.
+ * @param {string} path - location path.
+ * @return {boolean}
+ *      Returns `true` if passed path equals application home path.
+ */
+export function isHomePath(path) {
+    return path === basePath.home;
+}
 
 /**
  * Verifies if area belongs to path.

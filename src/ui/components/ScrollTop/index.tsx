@@ -11,9 +11,9 @@ import { useScrollPosition } from '../../../utils/hooks/useScrollPosition';
 import { MILLISECONDS_IN_SECOND } from '../../../utils/time';
 import Button from '../../elements/Button';
 import Portal from '../../elements/Portal';
-import { FADE_TIMEOUT } from '../../styles/settings';
+import { timeouts } from '../../styles/settings';
 
-import ButtonStyles from './ButtonStyles';
+import ButtonStyles from './Styles';
 
 /**
  * Scroll value required to be passed before `scrollTop` button shows up.
@@ -79,7 +79,7 @@ function ScrollTopButton(): ReactElement {
             <Transition
                 in={ visible }
                 appear
-                timeout={ FADE_TIMEOUT }
+                timeout={ timeouts.fade }
                 mountOnEnter
                 unmountOnExit
                 onEnter={ handleOnEnter }>
@@ -87,7 +87,7 @@ function ScrollTopButton(): ReactElement {
                     const Styles = css`
                         ${ButtonStyles};
                         opacity: ${opacityFromState(state)};
-                        transition: ${`opacity ${FADE_TIMEOUT / MILLISECONDS_IN_SECOND}s ease`};
+                        transition: ${`opacity ${timeouts.fade / MILLISECONDS_IN_SECOND}s ease`};
                     `;
 
                     return (

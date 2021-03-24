@@ -3,7 +3,8 @@
  * @module log
  */
 import config from '../config';
-import { logLevelMap, logModeMap, LogModeMap, LogLevelMap } from '../config/constants';
+import { logLevelMap, logModeMap } from '../config/constants';
+import { LogModeMap, LogLevelMap } from '../types/common';
 import { formatLoggerDate } from '../utils/date';
 
 const { ERROR, DEBUG, SUCCESS, INFO, WARNING } = logLevelMap;

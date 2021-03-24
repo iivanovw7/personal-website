@@ -39,12 +39,6 @@ export const base = {
 };
 
 /**
- * Application logo fill color.
- * @type {string}
- */
-export const logoColor = '#ea4949';
-
-/**
  * Theme color description.
  * Same set is equal for dark and light themes.
  * @typedef {Object} module:config/styles~themeSet
@@ -143,11 +137,16 @@ export const colorSet = {
         linkHighlight: '#a8ecff',
         linkColor: 'rgba(5,62,177,0.95)',
     },
+    // Base colors palette: https://materialuicolors.co/
+    baseColors: {
+        grey100: '#F5F5F5',
+        grey700: '#616161'
+    }
 };
 
 /**
  * Application breakpoints set.
- * @typedef {Object} module:config/styles~breakpoints
+ * @typedef {Object} module:ui/config/styles~breakpoints
  * @property {number} xs
  * @property {number} sm
  * @property {number} md
@@ -157,7 +156,7 @@ export const colorSet = {
 
 /**
  * Breakpoints in `px`.
- * @type {module:config/styles~breakpoints}
+ * @type {module:ui/config/styles~breakpoints}
  */
 export const breakpoints = {
     xs: 480,
@@ -169,17 +168,18 @@ export const breakpoints = {
 
 /**
  * Application typography set.
- * @typedef {Object} module:config/styles~typography
+ * @typedef {Object} module:ui/config/styles~typography
  * @property {number} light
  * @property {number} regular
  * @property {number} bold
  * @property {string} baseFontFamily
  * @property {string} fallbackFontFamily
+ * @property {number} small - small text size in `rem`.
  */
 
 /**
  * Typography set.
- * @type {module:config/styles~typography}
+ * @type {module:ui/config/styles~typography}
  */
 export const typography = {
     light: 100,
@@ -187,10 +187,21 @@ export const typography = {
     bold: 600,
     baseFontFamily: 'Nunito Sans, sans-serif',
     datesFontFamily: 'Inconsolata, monospace',
+    small: 0.88,
 };
 
 /**
- * Default fade timeout.
- * @type {number}
+ * Application typography set.
+ * @typedef {Object} module:ui/config/styles~timeouts
+ * @property {number} fade
+ * @property {number} transition
  */
-export const FADE_TIMEOUT = 500;
+
+/**
+ * Timeouts.
+ * @type {module:ui/config/styles~timeouts}
+ */
+export const timeouts = {
+    fade: 500,
+    transition: 0.4
+};

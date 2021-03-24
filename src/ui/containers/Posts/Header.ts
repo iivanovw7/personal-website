@@ -15,8 +15,10 @@ type THeaderProps = PartialAndNullable<{
 const Header = styled.div<THeaderProps>`
     color: ${textColor};
     flex-direction: row;
+    height: 100%;
     ${styleMixins.justifyAlignFlex('flex-start', 'center')};
     padding: 1rem 0;
+    width: 100%;
 `;
 
 export const HeaderCollapseStyles = css`

@@ -15,6 +15,10 @@ export const scope = 'pw.common.posts';
  * @return {Function} defines messages set.
  */
 export default defineMessages({
+    searchTitle: {
+        id: `${scope}.searchTitle`,
+        defaultMessage: 'Search'
+    },
     searchByTags: {
         id: `${scope}.searchByTags`,
         defaultMessage: 'Search by tags: '
