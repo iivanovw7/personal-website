@@ -3,6 +3,8 @@
  * @module utils/codePrettify
  */
 
+import config from '../config';
+
 /**
  * Prettifies code samples.
  */
@@ -14,6 +16,6 @@ export function runCodePrettify() {
     script.type = 'text/javascript';
     script.async = true;
 
-    script.src = 'https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?skin=sunburst';
+    script.src = config.net.codePrettifyUrl;
     (head || body).appendChild(script);
 }

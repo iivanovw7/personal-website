@@ -13,7 +13,7 @@ import Button from '../../elements/Button';
 import Portal from '../../elements/Portal';
 import { timeouts } from '../../styles/settings';
 
-import ButtonStyles from './ButtonStyles';
+import ButtonStyles from './Styles';
 
 /**
  * Scroll value required to be passed before `scrollTop` button shows up.

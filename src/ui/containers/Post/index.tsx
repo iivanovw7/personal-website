@@ -69,39 +69,36 @@ const PostComponent: FC<IPostProps> = (props: IPostProps) => {
     const Content = cond([
         [prop('error'), always(<ErrorMessage />)],
         [prop('loading'), always(<Spinner />)],
-        [pipe(prop('post'), isNilOrEmpty), always(<p>{localizedText(noResults)}</p>)],
+        [pipe(prop('post'), isNilOrEmpty), always(<p>{ localizedText(noResults) }</p>)],
         [T, ({ post }: IPost) => {
             const { title, subject, createdAt, tags, content } = post;
             const { html } = content;
             const createdAtDate = dayjs(createdAt);
+
             runCodePrettify();
 
             return (
                 <Box>
-                    <H1>{title}</H1>
-                    <H2>{subject}</H2>
-                    {createdAtDate.isValid() && (
-                        <Paragraph styling={CreatedAtStyles}>
-                            {localizedText(publishedAt)}
+                    <H1>{ title }</H1>
+                    <H2>{ subject }</H2>
+                    { createdAtDate.isValid() && (
+                        <Paragraph styling={ CreatedAtStyles }>
+                            { localizedText(publishedAt) }
                             <span>
-                                {createdAtDate.format('DD MMM YYYY HH:MM A')}
+                                { createdAtDate.format('DD MMM YYYY HH:MM A') }
                             </span>
                         </Paragraph>
-                    )}
-                    <Paragraph styling={ReadingTimeStyles}>
-                        {localizedText(readingTime, {
+                    ) }
+                    <Paragraph styling={ ReadingTimeStyles }>
+                        { localizedText(readingTime, {
                             // eslint-disable-next-line react/display-name
-                            span: (text: string) => (
-                                <span>
-                                    {text}
-                                </span>
-                            ),
-                            minutes: textReadingTime(html.length)
-                        })}
+                            span: (text: string) => <span>{ text }</span>,
+                            minutes: textReadingTime(html.length),
+                        }) }
                     </Paragraph>
-                    <TagCloud tags={tags} />
-                    <Separator styling={ContentStyling} />
-                    <Paragraph dangerouslySetInnerHTML={{ __html: formattedPostText(html) }} />
+                    <TagCloud tags={ tags } />
+                    <Separator styling={ ContentStyling } />
+                    <Paragraph dangerouslySetInnerHTML={ { __html: formattedPostText(html) } } />
                 </Box>
             );
         }],
@@ -109,13 +106,13 @@ const PostComponent: FC<IPostProps> = (props: IPostProps) => {
 
     return isPostsPath
         ? (
-            <Container error={error}>
+            <Container error={ error }>
                 <Content
-                    error={error}
-                    loading={loading}
-                    post={data
+                    error={ error }
+                    loading={ loading }
+                    post={ data
                         ? data.post
-                        : null} />
+                        : null } />
             </Container>
         )
         : <ErrorMessage />;

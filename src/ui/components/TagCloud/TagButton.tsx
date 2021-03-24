@@ -11,7 +11,7 @@ import { v4 as uuidv4 } from 'uuid';
 import Button from '../../elements/Button';
 import { colorSet } from '../../styles/settings';
 
-import TagButtonStyles from './TagButtonStyles';
+import TagButtonStyles from './Styles';
 
 /**
  * Defines tag button color depending on word length.

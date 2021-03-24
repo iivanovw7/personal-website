@@ -35,7 +35,7 @@ import postsMessages from './model/messages';
 import { makeSelectPostsSearchText, makeSelectPostsTags } from './model/selectors';
 
 const { noResults } = commonMessages;
-const { searchByTags } = postsMessages;
+const { searchByTags, searchBySubject } = postsMessages;
 
 const defaultSkip = 0;
 const defaultFirst = 48;
@@ -128,7 +128,7 @@ function PostsComponent(props: IPostsProps): ReactElement {
                         <TagButton text={ tags[0] } onClick={ handleTagClick } styling={ HeaderTagStyles } />
                     ) }
                 </Collapse>
-                <Search id="pw-posts-search" />
+                <Search id="pw-posts-search" label={localizedText(searchBySubject)} />
             </Header>
             <Separator styling={ContentStyling} />
             <Content

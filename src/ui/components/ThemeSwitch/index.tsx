@@ -17,7 +17,7 @@ import { DEFAULT_THEME } from '../ThemeProvider/model/constants';
 import { makeSelectTheme } from '../ThemeProvider/model/selectors';
 
 import { isDarkTheme } from './model/utils';
-import SwitchStyles from './SwitchStyles';
+import SwitchStyles from './Styles';
 
 interface IThemeSwitchProps {
     /**

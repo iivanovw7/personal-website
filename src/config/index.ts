@@ -70,6 +70,11 @@ const settings = {
          * @type {string}
          */
         graphCmsUrl: 'https://api-eu-central-1.graphcms.com/v2/cki24xt1fy3b701z94v4gh9rp/master',
+        /**
+         * Google code `pretiffy` cdn url with params.
+         * @type {string}
+         */
+        codePrettifyUrl: 'https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?skin=sunburst'
     },
 };
 
