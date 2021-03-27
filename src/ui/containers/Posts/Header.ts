@@ -6,27 +6,41 @@
 import styled, { css } from 'styled-components';
 
 import { PartialAndNullable } from '../../../types/util';
-import { styleMixins } from '../../styles/mixins';
+import { styleMixins, respondToMedia, mediaKey } from '../../styles/mixins';
+import { fadePrimaryBg } from '../../styles/theme/background';
 import { textColor } from '../../styles/theme/typography';
+
+const { justifyAlignFlex } = styleMixins;
 
 type THeaderProps = PartialAndNullable<{
 }>;
 
 const Header = styled.div<THeaderProps>`
     color: ${textColor};
-    flex-direction: row;
-    height: 100%;
-    ${styleMixins.justifyAlignFlex('flex-start', 'center')};
+    flex-direction: column;
+    min-height: 6rem;
+    ${justifyAlignFlex('center', 'flex-start')};
+    ${respondToMedia[mediaKey('sm')]`
+        flex-direction: row;
+        ${justifyAlignFlex('space-between', 'center')};
+    `};
     padding: 1rem 0;
     width: 100%;
 `;
 
 export const HeaderCollapseStyles = css`
-    width: 100%;
+    background: ${fadePrimaryBg};
+    border-radius: 0.25rem;
+    margin: 0.389rem 0.889rem 0.389rem 0;
+    padding: 0.389rem 0.889rem;
+
+    > span {
+        margin-right: 0.76rem;
+    }
 `;
 
 export const HeaderTagStyles = css`
-    margin-left: 1rem;
+    margin-right: 0.76rem;
 `;
 
 export default Header;

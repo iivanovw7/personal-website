@@ -138,7 +138,6 @@ module.exports = {
         }),
         new webpack.DefinePlugin(envKeys),
     ],
-    // prettier-ignore
     devtool: sourceMaps
         ? 'inline-source-map'
         : false,

@@ -4120,8 +4120,8 @@ export type AuthorFragment = (
 export type GetPostsQueryVariables = Exact<{
   skip?: Maybe<Scalars['Int']>;
   first?: Maybe<Scalars['Int']>;
+  search?: Maybe<Scalars['String']>;
   tags?: Maybe<Array<Scalars['String']> | Scalars['String']>;
-  text: Scalars['String'];
 }>;
 
 
@@ -4205,8 +4205,13 @@ export const AuthorFragmentDoc = gql`
 }
     `;
 export const GetPostsDocument = gql`
-    query GetPosts($skip: Int, $first: Int, $tags: [String!], $text: String!) {
-  posts(skip: $skip, first: $first, orderBy: createdAt_DESC) {
+    query GetPosts($skip: Int, $first: Int, $search: String, $tags: [String!]) {
+  posts(
+    skip: $skip
+    first: $first
+    orderBy: createdAt_DESC
+    where: {AND: [{OR: [{title_contains: $search}, {subject_contains: $search}, {slug_contains: $search}]}, {tags_contains_all: $tags}]}
+  ) {
     ...Author
     ...CorePostFields
   }
@@ -4228,12 +4233,12 @@ ${CorePostFieldsFragmentDoc}`;
  *   variables: {
  *      skip: // value for 'skip'
  *      first: // value for 'first'
+ *      search: // value for 'search'
  *      tags: // value for 'tags'
- *      text: // value for 'text'
  *   },
  * });
  */
-export function useGetPostsQuery(baseOptions: Apollo.QueryHookOptions<GetPostsQuery, GetPostsQueryVariables>) {
+export function useGetPostsQuery(baseOptions?: Apollo.QueryHookOptions<GetPostsQuery, GetPostsQueryVariables>) {
         return Apollo.useQuery<GetPostsQuery, GetPostsQueryVariables>(GetPostsDocument, baseOptions);
       }
 export function useGetPostsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetPostsQuery, GetPostsQueryVariables>) {
@@ -4329,10 +4334,10 @@ export type GetPostByTextQueryResult = Apollo.QueryResult<GetPostByTextQuery, Ge
 export const GetPostDocument = gql`
     query GetPost($postId: ID!) {
   post(where: {id: $postId}) {
-    ...Author
     content {
       html
     }
+    ...Author
     ...CorePostFields
   }
 }

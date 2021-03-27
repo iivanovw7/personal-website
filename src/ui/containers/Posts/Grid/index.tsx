@@ -17,7 +17,7 @@ import { selectLocation } from '../../App/model/selectors';
 import Bar from './Bar';
 import Cell from './Cell';
 import Container from './Container';
-import LinkStyles from './LinkStyles';
+import { LinkIconStyles, LinkTitleStyles, LinkTitleH6Styles } from './Styles';
 
 export interface IPostProps {
     /** [hasMore = false] - `true` if there are new posts to load and `else` otherwise. */
@@ -49,7 +49,14 @@ function Grid(props: IPostProps & WrappedComponentProps) {
 
                 return (
                     <Cell key={id}>
-                        <H6>{title}</H6>
+                        <NavLink
+                            variant="title"
+                            exact={false}
+                            location={appLocation}
+                            link={`${String(basePath.post)}/${id}`}
+                            styles={LinkTitleStyles}>
+                            <H6 styles={LinkTitleH6Styles}>{title}</H6>
+                        </NavLink>
                         <p>{subject}</p>
                         <Bar>
                             <TagCloud tags={tags} />
@@ -60,7 +67,7 @@ function Grid(props: IPostProps & WrappedComponentProps) {
                                 link={`${String(basePath.post)}/${id}`}
                                 icon="read_more"
                                 text={getText('read_more', props)}
-                                styling={LinkStyles}
+                                styles={LinkIconStyles}
                             />
                         </Bar>
                     </Cell>

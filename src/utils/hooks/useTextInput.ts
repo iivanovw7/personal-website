@@ -8,6 +8,7 @@ export interface IUseTextInput {
     bind: {
         value: string;
         onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+        focused?: boolean;
         onBlur?: () => void;
         onFocus?: () => void;
         validation?: string;
@@ -17,13 +18,14 @@ export interface IUseTextInput {
 type TUseInputParams = {
     initialValue: string;
     debounceTimeout?: number | null;
+    focused?: boolean;
     onBlur?: () => void;
     onFocus?: () => void;
     validation?: string;
 };
 
 const useTextInput = (params: TUseInputParams): IUseTextInput => {
-    const { initialValue, debounceTimeout, onBlur, onFocus, validation } = params;
+    const { initialValue, debounceTimeout, focused, onBlur, onFocus, validation } = params;
     const [value, setValue] = useState<string>(initialValue);
     const debounced = (debounceTimeout && debounce(setValue, debounceTimeout)) || setValue;
 
@@ -38,6 +40,7 @@ const useTextInput = (params: TUseInputParams): IUseTextInput => {
                 debounced(event.target.value);
             },
             onBlur,
+            focused,
             onFocus,
             validation
         }

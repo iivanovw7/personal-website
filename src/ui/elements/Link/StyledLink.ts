@@ -4,10 +4,13 @@
  */
 import styled from 'styled-components';
 
+import { PartialAndNullable } from '../../../types/util';
 import { styleMixins } from '../../styles/mixins';
 import { linkColor } from '../../styles/theme/links';
 
-const StyledLink = styled.a`
+import { ILinkProps } from './index';
+
+const StyledLink = styled.a<PartialAndNullable<ILinkProps>>`
     color: ${linkColor};
     ${styleMixins.focusOutline(linkColor)}
     ${(props) => props.styling};

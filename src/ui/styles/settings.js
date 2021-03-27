@@ -6,7 +6,7 @@
 /**
  * Base application styles configuration.
  * Same set is equal for dark and light themes.
- * @typedef {Object} module:config/styles~base
+ * @typedef {Object} module:ui/config/styles~base
  * @property {number} topBarHeight - application top bar height in `rem`;
  * @property {number} headerHeight - application header height in `rem`;
  * @property {number} footerHeight - application footer height in `rem`;
@@ -16,7 +16,7 @@
 
 /**
  * Base application styles configuration.
- * @type {module:config/styles~base}
+ * @type {module:ui/config/styles~base}
  */
 export const base = {
     topBarHeight: 3.7,
@@ -61,17 +61,17 @@ export const base = {
  * Same set is equal for dark and light themes.
  * @typedef {Object} module:config/styles~colorSet
  * @property {Object} dark
- *  @see {@link module:config/styles~themeSet}
+ *  @see {@link module:ui/config/styles~themeSet}
  * @property {Object} light
- *  @see {@link module:config/styles~themeSet}
+ *  @see {@link module:ui/config/styles~themeSet}
  */
 
 /**
  * Application color scheme set.
  * @type {Object}
  * @param {Object} gradients contains set of colors used in gradients.
- * @param {module:config/styles~colorSet} dark
- * @param {module:config/styles~colorSet} light
+ * @param {module:ui/config/styles~colorSet} dark
+ * @param {module:ui/config/styles~colorSet} light
  */
 export const colorSet = {
     gradients: {
@@ -131,8 +131,8 @@ export const colorSet = {
         colorAlert: 'rgb(234,53,53)',
         textColorPrimary: '#1e2227',
         textColorSecondary: '#f0f8ff',
-        mainBackgroundPrimary: '#fffaf0',
-        headerBackgroundPrimary: '#fffaf0',
+        mainBackgroundPrimary: '#ffeac4',
+        headerBackgroundPrimary: '#fff7e6',
         headerBackgroundSecondary: '#fffaf0',
         linkHighlight: '#a8ecff',
         linkColor: 'rgba(5,62,177,0.95)',
@@ -140,8 +140,8 @@ export const colorSet = {
     // Base colors palette: https://materialuicolors.co/
     baseColors: {
         grey100: '#F5F5F5',
-        grey700: '#616161'
-    }
+        grey700: '#616161',
+    },
 };
 
 /**
@@ -173,7 +173,7 @@ export const breakpoints = {
  * @property {number} regular
  * @property {number} bold
  * @property {string} baseFontFamily
- * @property {string} fallbackFontFamily
+ * @property {string} datesFontFamily
  * @property {number} small - small text size in `rem`.
  */
 
@@ -188,6 +188,7 @@ export const typography = {
     baseFontFamily: 'Nunito Sans, sans-serif',
     datesFontFamily: 'Inconsolata, monospace',
     small: 0.88,
+    h6: 1.1,
 };
 
 /**
@@ -203,5 +204,21 @@ export const typography = {
  */
 export const timeouts = {
     fade: 500,
-    transition: 0.4
+    transition: 0.4,
+};
+
+/**
+ * Application opacity rates set.
+ * @typedef {Object} module:ui/config/styles~opacity
+ * @property {number} mainBackground
+ */
+
+/**
+ * Opacity rates.
+ * @type {module:ui/config/styles~opacity}
+ */
+export const opacity = {
+    mainBackground: 0.8,
+    navLinkLight: 0.8,
+    navLinkDark: 0.9,
 };

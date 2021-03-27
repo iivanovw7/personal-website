@@ -9,6 +9,8 @@ export type RunningMode = 'test' | 'production' | 'development';
 
 export const runningMode = CONFIG;
 
+const { LOGGER_ERROR, LOGGER_DEBUG, LOGGER_OFF } = logModeMap;
+
 const settings = {
     /**
      * Log level, can be set to below options:
@@ -17,7 +19,7 @@ const settings = {
      *  - off   [no logging]
      * @type {string}
      */
-    logLevel: logModeMap.LOGGER_ERROR,
+    logLevel: LOGGER_ERROR,
     /**
      * Theme config.
      * @type {string}
@@ -43,7 +45,7 @@ const settings = {
         twitter: 'https://twitter.com/_IvanovIgor',
         youtube: '',
         github: 'https://github.com/iivanovw7',
-        telegram: 'https://t.me/iivanov7',
+        telegram: 'https://t.me/iivanovw7',
     },
     /**
      * Network config.
@@ -89,13 +91,13 @@ const settings = {
  *
  */
 (function merge(object: typeof settings, mode: RunningMode): void {
-    let logLevel = logModeMap.LOGGER_ERROR;
+    let logLevel = LOGGER_ERROR;
 
     if (mode === 'test') {
-        logLevel = logModeMap.LOGGER_OFF;
+        logLevel = LOGGER_OFF;
     }
     if (mode === 'development') {
-        logLevel = logModeMap.LOGGER_DEBUG;
+        logLevel = LOGGER_DEBUG;
     }
 
     Object.assign(object, { logLevel });

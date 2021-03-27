@@ -10,7 +10,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { Post } from '../../../generated/graphcms-schema';
 import { selectLocation } from '../../containers/App/model/selectors';
-import { setTags, TSetTags } from '../../containers/Posts/model';
+import { setTags, TModifyTags } from '../../containers/Posts/model';
 import { basePath, isPostAreaPath } from '../../routes';
 import appHistory from '../../routes/history';
 
@@ -28,7 +28,7 @@ interface ITagCloudProps {
 
 interface IDispatchProps extends Pick<ITagCloudProps, 'onTagClick'> {
     /** Dispatches action. */
-    dispatch: Dispatch<TSetTags>;
+    dispatch: Dispatch<TModifyTags>;
 }
 
 /**
@@ -102,7 +102,7 @@ const mapStateToProps = (state) => {
  * @param {Function} dispatch method.
  * @return {Object} redux container
  */
-export function mapDispatchToProps(dispatch: Dispatch<TSetTags>): IDispatchProps {
+export function mapDispatchToProps(dispatch: Dispatch<TModifyTags>): IDispatchProps {
     return {
         onTagClick: (tag: string) => dispatch(setTags([tag])),
         dispatch,

@@ -7,16 +7,18 @@ import theme from 'styled-theming';
 
 import { colorSet } from '../settings';
 
+const { dark, light } = colorSet;
+
 /* eslint-disable no-magic-numbers */
 
 export const iconBorderColor = theme('mode', {
-    dark: darken(0.1, colorSet.dark.mainBackgroundPrimary),
-    light: darken(0.8, colorSet.light.mainBackgroundPrimary),
+    dark: darken(0.1, dark.mainBackgroundPrimary),
+    light: darken(0.8, light.mainBackgroundPrimary),
 });
 
 export const topBarBorderColor = theme('mode', {
-    dark: lighten(0.05, colorSet.dark.headerBackgroundSecondary),
-    light: lighten(0.4, colorSet.dark.headerBackgroundSecondary),
+    dark: lighten(0.05, dark.headerBackgroundSecondary),
+    light: lighten(0.4, dark.headerBackgroundSecondary),
 });
 
 /* eslint-enable no-magic-numbers */

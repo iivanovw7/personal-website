@@ -10,7 +10,7 @@ import { styleMixins } from '../../../styles/mixins';
 const Bar = styled.div`
     flex-direction: row;
     justify-content: space-between;
-    ${styleMixins.vertAlignFlex()};
+    ${styleMixins.vertAlignFlex('flex-end')};
 `;
 
 export default Bar;

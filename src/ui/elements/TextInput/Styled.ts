@@ -11,17 +11,17 @@ import { inputBackground, inputText, inputValidation } from '../../styles/theme/
 import { TVariant } from './index';
 
 type TLabelProps = PartialAndNullable<{
-    styling?: CSSProp;
+    styles?: CSSProp;
     ref: any // eslint-disable-line
 }>;
 
 type TInputProps = {
-    styling?: CSSProp;
+    styles?: CSSProp;
     variant: TVariant;
 };
 
 export const Label = styled.label<TLabelProps>`
-    ${(props) => props.styling};
+    ${(props) => props.styles};
     width: 100%;
 `;
 
@@ -31,7 +31,7 @@ export const Input = styled.input<TInputProps>`
     color: ${ inputText };
     font-size: 0.7em;
     margin-top: 0.5em;
-    ${(props) => props.styling};
+    ${(props) => props.styles};
     padding: 0.5em;
 `;
 

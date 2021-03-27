@@ -7,35 +7,37 @@ import theme from 'styled-theming';
 
 import { colorSet } from '../settings';
 
+const { dark, light } = colorSet;
+
 export const switchHandleColor = theme.variants('mode', 'variant', {
     primary: {
-        dark: colorSet.dark.textColorPrimary,
-        light: colorSet.light.headerBackgroundPrimary,
+        dark: dark.textColorPrimary,
+        light: light.headerBackgroundPrimary,
     },
     secondary: {
-        dark: colorSet.dark.textColorPrimary,
-        light: colorSet.light.textColorPrimary,
+        dark: dark.textColorPrimary,
+        light: light.textColorPrimary,
     },
 });
 
 export const switchFocusColor = theme.variants('mode', 'variant', {
     primary: {
-        dark: colorSet.dark.colorPrimary,
-        light: colorSet.light.colorPrimary,
+        dark: dark.colorPrimary,
+        light: light.colorPrimary,
     },
     secondary: {
-        dark: colorSet.dark.textColorPrimary,
-        light: colorSet.light.textColorPrimary,
+        dark: dark.textColorPrimary,
+        light: light.textColorPrimary,
     },
 });
 
 export const switchBackgroundColor = theme.variants('mode', 'variant', {
     primary: {
-        dark: colorSet.dark.headerBackgroundSecondary,
-        light: colorSet.dark.headerBackgroundSecondary,
+        dark: dark.headerBackgroundSecondary,
+        light: dark.headerBackgroundSecondary,
     },
     secondary: {
-        dark: colorSet.dark.colorSecondary,
-        light: colorSet.light.colorSecondary,
+        dark: dark.colorSecondary,
+        light: light.colorSecondary,
     },
 });

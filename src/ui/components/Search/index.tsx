@@ -24,6 +24,8 @@ export interface ISearchProps {
     intl: IntlShape;
     /** Search field label. */
     label?: string;
+    /** Function called on every search string change. */
+    onInputChange: (value: string) => void;
 }
 
 /** Input debounce delay. */
@@ -35,11 +37,12 @@ const { [VALIDATION.search]: searchValidationMessage } = defineValidationMessage
 function Search(props: ISearchProps): ReactElement {
     const [focused, setFocused] = useState<boolean>(false);
     const [validation, setValidation] = useState<string>('');
-    const { id, label = 'Search' } = props;
+    const { id, label = 'Search', onInputChange } = props;
     const { value: search, bind: bindSearch } = useTextInput({
         initialValue: '',
         debounceTimeout,
         validation,
+        focused,
         onBlur: () => setFocused(false),
         onFocus: () => setFocused(true),
     });
@@ -70,7 +73,10 @@ function Search(props: ISearchProps): ReactElement {
 
     useEffect(() => {
         if (search && ! validateInput(validationParams)) {
-            // console.log(validation);
+            onInputChange(search);
+        }
+        else {
+            onInputChange('');
         }
 
     }, [search]);
@@ -81,8 +87,8 @@ function Search(props: ISearchProps): ReactElement {
             label={ label }
             type="search"
             variant="primary"
-            styling={ Input }
-            stylingLabel={ Label }
+            styles={ Input }
+            stylesLabel={ Label }
             { ...bindSearch }
         >
             <Container variant="primary" focused={ focused }>

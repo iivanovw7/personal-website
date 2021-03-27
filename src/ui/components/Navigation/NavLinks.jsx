@@ -25,7 +25,7 @@ const NavLinkComponent = (item, intl) => (
         exact={false}
         variant="primary"
         key={item[0]}
-        styling={NavLinkStyles}
+        styles={NavLinkStyles}
         link={item[1]}
         text={getText(messages[item[0]], { intl })}
     />

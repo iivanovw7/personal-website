@@ -6,10 +6,7 @@
 import React, { memo, ReactElement } from 'react';
 import { CSSProp } from 'styled-components';
 
-import Checkbox from './Checkbox';
-import Container from './Container';
-import Handle from './Handle';
-import Wrapper from './Wrapper';
+import { Checkbox, Container, Handle, Wrapper } from './Styled';
 
 interface ISwitchProps {
     /** If switch is enabled. */

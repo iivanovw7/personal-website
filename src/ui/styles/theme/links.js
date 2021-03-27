@@ -7,69 +7,83 @@ import theme from 'styled-theming';
 
 import { colorSet } from '../settings';
 
+const { dark, light } = colorSet;
+
 /* eslint-disable no-magic-numbers */
 
 export const linkColor = theme.variants('mode', 'variant', {
     primary: {
-        dark: `${colorSet.dark.colorPrimary}`,
-        light: `${colorSet.light.colorPrimary}`,
+        dark: `${dark.colorPrimary}`,
+        light: `${light.colorPrimary}`,
     },
     secondary: {
-        dark: `${colorSet.dark.colorSecondary}`,
-        light: `${colorSet.light.colorSecondary}`,
+        dark: `${dark.colorSecondary}`,
+        light: `${light.colorSecondary}`,
     },
     alert: {
-        dark: `${colorSet.dark.colorAlert}`,
-        light: `${colorSet.light.colorAlert}`,
+        dark: `${dark.colorAlert}`,
+        light: `${light.colorAlert}`,
     },
 });
 
 export const linkColorLighten = theme.variants('mode', 'variant', {
     primary: {
-        dark: lighten(0.2, colorSet.dark.colorPrimary),
-        light: lighten(0.2, colorSet.light.colorPrimary),
+        dark: lighten(0.2, dark.colorPrimary),
+        light: lighten(0.2, light.colorPrimary),
     },
     secondary: {
-        dark: lighten(0.2, colorSet.dark.colorSecondary),
-        light: lighten(0.2, colorSet.light.colorSecondary),
+        dark: lighten(0.2, dark.colorSecondary),
+        light: lighten(0.2, light.colorSecondary),
     },
     alert: {
-        dark: lighten(0.2, colorSet.dark.colorAlert),
-        light: lighten(0.2, colorSet.light.colorAlert),
+        dark: lighten(0.2, dark.colorAlert),
+        light: lighten(0.2, light.colorAlert),
     },
 });
 
 export const navLinkTextColor = theme.variants('mode', 'variant', {
     primary: {
-        light: colorSet.light.colorPrimary,
-        dark: colorSet.dark.colorPrimary,
+        light: light.colorPrimary,
+        dark: dark.colorPrimary,
     },
     secondary: {
-        light: colorSet.light.textColorPrimary,
-        dark: colorSet.dark.textColorPrimary,
+        light: light.textColorPrimary,
+        dark: dark.textColorPrimary,
     },
+    title: {
+        light: light.colorPrimary,
+        dark: dark.colorSecondary,
+    }
 });
 
 export const navLinkTextColorActive = theme.variants('mode', 'variant', {
     primary: {
-        light: colorSet.dark.textColorPrimary,
-        dark: colorSet.dark.textColorPrimary,
+        light: dark.textColorPrimary,
+        dark: dark.textColorPrimary,
     },
     secondary: {
-        light: colorSet.dark.textColorPrimary,
-        dark: colorSet.dark.textColorPrimary,
+        light: dark.textColorPrimary,
+        dark: dark.textColorPrimary,
     },
+    title: {
+        light: dark.textColorPrimary,
+        dark: dark.textColorPrimary,
+    }
 });
 
 export const navLinkBackgroundHover = theme.variants('mode', 'variant', {
     primary: {
-        light: transparentize(0.9, colorSet.dark.colorPrimary),
-        dark: transparentize(0.8, colorSet.dark.colorPrimary),
+        light: transparentize(0.9, dark.colorPrimary),
+        dark: transparentize(0.8, dark.colorPrimary),
     },
     secondary: {
-        light: transparentize(0.9, colorSet.light.textColorPrimary),
-        dark: transparentize(0.8, colorSet.dark.textColorPrimary),
+        light: transparentize(0.9, light.textColorPrimary),
+        dark: transparentize(0.8, dark.textColorPrimary),
     },
+    title: {
+        light: transparentize(0.9, light.textColorPrimary),
+        dark: transparentize(0.8, dark.textColorPrimary),
+    }
 });
 
 /* eslint-enable no-magic-numbers */
