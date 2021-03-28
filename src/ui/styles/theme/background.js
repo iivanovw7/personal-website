@@ -22,7 +22,7 @@ export const topBarBg = theme('mode', {
 
 export const fadePrimaryBg = theme('mode', {
     dark: transparentize(mainBackground, dark.colorPrimary),
-    light: transparentize(mainBackground, light.colorPrimary),
+    light: `${light.headerBackgroundPrimary}`,
 });
 
 export const mainBgInverse = theme('mode', {

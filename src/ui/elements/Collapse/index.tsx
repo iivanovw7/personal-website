@@ -9,7 +9,7 @@ import { CSSProp } from 'styled-components';
 
 import { usePrevious, useScrollHeight } from '../../../utils/hooks';
 
-import CollapsibleWrapper from './CollapsibleWrapper';
+import Styled from './Styled';
 
 interface ICollapseProps {
     /** Collapse children. */
@@ -49,9 +49,9 @@ function Collapse(props: ICollapseProps): ReactElement {
     };
 
     return (
-        <CollapsibleWrapper ref={ ref } style={ style } styling={ styling }>
+        <Styled ref={ ref } style={ style } styling={ styling }>
             { Children.toArray(children) }
-        </CollapsibleWrapper>
+        </Styled>
     );
 }
 

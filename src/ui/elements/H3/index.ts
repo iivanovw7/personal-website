@@ -8,13 +8,13 @@ import styled, { CSSProp } from 'styled-components';
 import { PartialAndNullable } from '../../../types/util';
 
 type H3Props = PartialAndNullable<{
-    styling?: CSSProp
+    styles?: CSSProp
 }>;
 
 const H3 = styled.h3<H3Props>`
     font-size: 1.4rem;
     margin-bottom: 0.25rem;
-    ${(props) => props.styling};
+    ${(props) => props.styles};
 `;
 
 export default H3;

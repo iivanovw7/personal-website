@@ -18,6 +18,7 @@ const ButtonStyles = css`
     margin: 0.5rem;
     ${styleMixins.vertAlignFlex()};
     ${styleMixins.focusBoxShadow()};
+    ${styleMixins.withDropShadows('md')};
     padding: 0;
     right: 1rem;
     width: 2.25rem;

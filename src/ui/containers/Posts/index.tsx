@@ -22,12 +22,11 @@ import Spinner from '../../elements/Spinner';
 import commonMessages from '../App/model/messages';
 import { selectLocation } from '../App/model/selectors';
 
-import Article from './Article';
 import Grid from './Grid/Loadable';
-import Header, { HeaderTagStyles, HeaderCollapseStyles } from './Header';
 import { removeTags, TModifyTags, setSearchText, TModifySearchText, TPostsTags } from './model';
 import postsMessages from './model/messages';
 import { makeSelectPostsSearchText, makeSelectPostsTags } from './model/selectors';
+import { Article, Header, HeaderTagStyles, HeaderCollapseStyles } from './Styled';
 
 const { noResults } = commonMessages;
 const { searchByTags, searchBySubject } = postsMessages;

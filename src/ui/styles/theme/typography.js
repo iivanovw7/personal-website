@@ -38,3 +38,8 @@ export const headerColor = theme.variants('mode', 'variant', {
         light: light.colorSecondary,
     },
 });
+
+export const titleColor = theme('mode', {
+    light: `${light.colorPrimary}`,
+    dark: `${dark.colorSecondary}`,
+});

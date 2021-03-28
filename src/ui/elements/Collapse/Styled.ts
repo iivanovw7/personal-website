@@ -1,6 +1,6 @@
 /**
- * Module styles for collapse component
- * @module ui/elements/Collapse/StyledCollapse
+ * Module styles for collapse component.
+ * @module ui/elements/Collapse/Styled
  * @author Igor Ivanov
  */
 import { animated } from 'react-spring';
@@ -13,9 +13,9 @@ type TCollapseProps = PartialAndNullable<{
     ref: any // eslint-disable-line
 }>;
 
-const CollapsibleWrapper = styled(animated.div)<TCollapseProps>`
+const Styled = styled(animated.div)<TCollapseProps>`
     ${(props) => props.styling};
     overflow: hidden;
 `;
 
-export default CollapsibleWrapper;
+export default Styled;

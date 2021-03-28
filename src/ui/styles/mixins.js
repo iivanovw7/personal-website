@@ -154,6 +154,20 @@ export const styleMixins = {
         animation-iteration-count: 1;
         transform-origin: 50% 50%;
     `,
+    withDropShadows: (type = 'xs') => {
+        switch (type) {
+            case 'xs':
+                return css`box-shadow: 0 2px 4px 0 rgba(0,0,0,0.10)`;
+            case 'md':
+                return css`box-shadow: 0 4px 8px 0 rgba(0,0,0,0.12), 0 2px 4px 0 rgba(0,0,0,0.08)`;
+            case 'lg':
+                return css`box-shadow: 0 15px 30px 0 rgba(0,0,0,0.11), 0 5px 15px 0 rgba(0,0,0,0.08)`;
+            case 'photo':
+                return css`box-shadow: 0 15px 30px 0 rgba(0,0,0,0.11), 0 5px 15px 0 rgba(0,0,0,0.8)`;
+            default:
+                return css`box-shadow: 0 4px 8px 0 rgba(0,0,0,0.12), 0 2px 4px 0 rgba(0,0,0,0.08)`;
+        }
+    },
     /**
      * Scroll bar size and color customization.
      *

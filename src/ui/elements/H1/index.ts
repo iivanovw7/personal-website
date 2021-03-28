@@ -3,15 +3,20 @@
  * @module ui/elements/H1
  * @author Igor Ivanov
  */
-import styled from 'styled-components';
+import styled, { CSSProp } from 'styled-components';
 
+import { PartialAndNullable } from '../../../types/util';
 import { colorSecondary } from '../../styles/theme/colors';
 
-const H1 = styled.h1`
+type H1Props = PartialAndNullable<{
+    styles?: CSSProp
+}>;
+
+const H1 = styled.h1<H1Props>`
     color: ${colorSecondary};
     font-size: 2rem;
     margin-bottom: 0.25rem;
-    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+    ${(props) => props.styles};
 `;
 
 export default H1;

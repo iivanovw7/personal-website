@@ -14,10 +14,7 @@ import NavLink from '../../../elements/NavLink';
 import { basePath } from '../../../routes';
 import { selectLocation } from '../../App/model/selectors';
 
-import Bar from './Bar';
-import Cell from './Cell';
-import Container from './Container';
-import { LinkIconStyles, LinkTitleStyles, LinkTitleH6Styles } from './Styles';
+import { Bar, Cell, GridContainer, LinkIconStyles, LinkTitleStyles, LinkTitleH6Styles } from './Styled';
 
 export interface IPostProps {
     /** [hasMore = false] - `true` if there are new posts to load and `else` otherwise. */
@@ -43,7 +40,7 @@ function Grid(props: IPostProps & WrappedComponentProps) {
     const listRef = useRef(null);
 
     return (
-        <Container ref={listRef} hasMore={hasMore}>
+        <GridContainer ref={listRef} hasMore={hasMore}>
             {posts.map((post: Post) => {
                 const { id, title, tags = [], subject } = post;
 
@@ -73,7 +70,7 @@ function Grid(props: IPostProps & WrappedComponentProps) {
                     </Cell>
                 );
             })}
-        </Container>
+        </GridContainer>
     );
 }
 

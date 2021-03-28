@@ -4134,38 +4134,6 @@ export type GetPostsQuery = (
   )> }
 );
 
-export type GetPostsByTagQueryVariables = Exact<{
-  skip?: Maybe<Scalars['Int']>;
-  first?: Maybe<Scalars['Int']>;
-  tags?: Maybe<Array<Scalars['String']> | Scalars['String']>;
-}>;
-
-
-export type GetPostsByTagQuery = (
-  { __typename?: 'Query' }
-  & { posts: Array<(
-    { __typename?: 'Post' }
-    & AuthorFragment
-    & CorePostFieldsFragment
-  )> }
-);
-
-export type GetPostByTextQueryVariables = Exact<{
-  skip?: Maybe<Scalars['Int']>;
-  first?: Maybe<Scalars['Int']>;
-  text: Scalars['String'];
-}>;
-
-
-export type GetPostByTextQuery = (
-  { __typename?: 'Query' }
-  & { posts: Array<(
-    { __typename?: 'Post' }
-    & AuthorFragment
-    & CorePostFieldsFragment
-  )> }
-);
-
 export type GetPostQueryVariables = Exact<{
   postId: Scalars['ID'];
 }>;
@@ -4247,90 +4215,6 @@ export function useGetPostsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<G
 export type GetPostsQueryHookResult = ReturnType<typeof useGetPostsQuery>;
 export type GetPostsLazyQueryHookResult = ReturnType<typeof useGetPostsLazyQuery>;
 export type GetPostsQueryResult = Apollo.QueryResult<GetPostsQuery, GetPostsQueryVariables>;
-export const GetPostsByTagDocument = gql`
-    query GetPostsByTag($skip: Int, $first: Int, $tags: [String!]) {
-  posts(
-    skip: $skip
-    first: $first
-    orderBy: createdAt_DESC
-    where: {tags_contains_all: $tags}
-  ) {
-    ...Author
-    ...CorePostFields
-  }
-}
-    ${AuthorFragmentDoc}
-${CorePostFieldsFragmentDoc}`;
-
-/**
- * __useGetPostsByTagQuery__
- *
- * To run a query within a React component, call `useGetPostsByTagQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetPostsByTagQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetPostsByTagQuery({
- *   variables: {
- *      skip: // value for 'skip'
- *      first: // value for 'first'
- *      tags: // value for 'tags'
- *   },
- * });
- */
-export function useGetPostsByTagQuery(baseOptions?: Apollo.QueryHookOptions<GetPostsByTagQuery, GetPostsByTagQueryVariables>) {
-        return Apollo.useQuery<GetPostsByTagQuery, GetPostsByTagQueryVariables>(GetPostsByTagDocument, baseOptions);
-      }
-export function useGetPostsByTagLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetPostsByTagQuery, GetPostsByTagQueryVariables>) {
-          return Apollo.useLazyQuery<GetPostsByTagQuery, GetPostsByTagQueryVariables>(GetPostsByTagDocument, baseOptions);
-        }
-export type GetPostsByTagQueryHookResult = ReturnType<typeof useGetPostsByTagQuery>;
-export type GetPostsByTagLazyQueryHookResult = ReturnType<typeof useGetPostsByTagLazyQuery>;
-export type GetPostsByTagQueryResult = Apollo.QueryResult<GetPostsByTagQuery, GetPostsByTagQueryVariables>;
-export const GetPostByTextDocument = gql`
-    query GetPostByText($skip: Int, $first: Int, $text: String!) {
-  posts(
-    skip: $skip
-    first: $first
-    orderBy: createdAt_DESC
-    where: {OR: [{title_contains: $text}, {subject_contains: $text}, {slug_contains: $text}]}
-  ) {
-    ...Author
-    ...CorePostFields
-  }
-}
-    ${AuthorFragmentDoc}
-${CorePostFieldsFragmentDoc}`;
-
-/**
- * __useGetPostByTextQuery__
- *
- * To run a query within a React component, call `useGetPostByTextQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetPostByTextQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetPostByTextQuery({
- *   variables: {
- *      skip: // value for 'skip'
- *      first: // value for 'first'
- *      text: // value for 'text'
- *   },
- * });
- */
-export function useGetPostByTextQuery(baseOptions: Apollo.QueryHookOptions<GetPostByTextQuery, GetPostByTextQueryVariables>) {
-        return Apollo.useQuery<GetPostByTextQuery, GetPostByTextQueryVariables>(GetPostByTextDocument, baseOptions);
-      }
-export function useGetPostByTextLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetPostByTextQuery, GetPostByTextQueryVariables>) {
-          return Apollo.useLazyQuery<GetPostByTextQuery, GetPostByTextQueryVariables>(GetPostByTextDocument, baseOptions);
-        }
-export type GetPostByTextQueryHookResult = ReturnType<typeof useGetPostByTextQuery>;
-export type GetPostByTextLazyQueryHookResult = ReturnType<typeof useGetPostByTextLazyQuery>;
-export type GetPostByTextQueryResult = Apollo.QueryResult<GetPostByTextQuery, GetPostByTextQueryVariables>;
 export const GetPostDocument = gql`
     query GetPost($postId: ID!) {
   post(where: {id: $postId}) {
