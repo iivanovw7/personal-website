@@ -6,10 +6,12 @@
 import styled from 'styled-components';
 
 import { mediaKey, respondToMedia, styleMixins } from '../../styles/mixins';
+import { textColor } from '../../styles/theme/typography';
 
 /* eslint-disable @typescript-eslint/no-magic-numbers */
 
 const Paragraph = styled.p`
+    color: ${textColor};
     margin-bottom: 0.857rem;
     ${respondToMedia[mediaKey('lg')]`
         ${styleMixins.fontSize(1.429, 1.929)};

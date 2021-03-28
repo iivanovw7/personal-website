@@ -7,35 +7,37 @@ import theme from 'styled-theming';
 
 import { colorSet } from '../settings';
 
+const { dark, light } = colorSet;
+
 /* eslint-disable no-magic-numbers */
 
 export const btnLighten = theme.variants('mode', 'variant', {
     primary: {
-        light: lighten(0.2, colorSet.light.colorPrimary),
-        dark: lighten(0.2, colorSet.dark.colorPrimary),
+        light: lighten(0.2, light.colorPrimary),
+        dark: lighten(0.2, dark.colorPrimary),
     },
     secondary: {
-        light: lighten(0.2, colorSet.light.colorSecondary),
-        dark: lighten(0.2, colorSet.dark.colorSecondary),
+        light: lighten(0.2, light.colorSecondary),
+        dark: lighten(0.2, dark.colorSecondary),
     },
     alert: {
-        light: lighten(0.1, colorSet.light.colorAlert),
-        dark: lighten(0.1, colorSet.dark.colorAlert),
+        light: lighten(0.1, light.colorAlert),
+        dark: lighten(0.1, dark.colorAlert),
     },
 });
 
 export const btnTextColor = theme.variants('mode', 'variant', {
     primary: {
-        light: colorSet.dark.textColorPrimary,
-        dark: colorSet.dark.textColorPrimary,
+        light: dark.textColorPrimary,
+        dark: dark.textColorPrimary,
     },
     secondary: {
-        light: colorSet.dark.textColorPrimary,
-        dark: colorSet.dark.textColorPrimary,
+        light: dark.textColorPrimary,
+        dark: dark.textColorPrimary,
     },
     alert: {
-        light: colorSet.dark.textColorPrimary,
-        dark: colorSet.dark.textColorPrimary,
+        light: dark.textColorPrimary,
+        dark: dark.textColorPrimary,
     },
 });
 

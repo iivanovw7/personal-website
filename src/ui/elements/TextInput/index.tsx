@@ -14,6 +14,8 @@ export interface ITextInputProps {
     children?: ReactNode;
     /** Input `id`. */
     id: string;
+    /** Flag determines if input is being focused, only used if onFocus is defined. */
+    focused?: boolean;
     /** Validation text. */
     validation?: string;
     /** Label text. */
@@ -35,9 +37,9 @@ export interface ITextInputProps {
     /** If input should gain focus on mouse enter. */
     focusOnMouseEnter?: boolean;
     /** Additional css styles assigned to input element. */
-    styling?: CSSProp;
+    styles?: CSSProp;
     /** Additional css styles assigned to label element. */
-    stylingLabel?: CSSProp;
+    stylesLabel?: CSSProp;
     /** Input variant */
     variant?: TVariant;
 }
@@ -54,6 +56,7 @@ function TextInput(props: ITextInputProps) {
     const {
         label,
         children,
+        focused,
         validation,
         id,
         placeholder,
@@ -62,13 +65,14 @@ function TextInput(props: ITextInputProps) {
         onBlur,
         value,
         onInput,
-        styling,
-        stylingLabel,
+        styles,
+        stylesLabel,
         focusOnMouseEnter = false,
         type = 'text',
         variant = 'primary'
     } = props;
     const inputRef = React.createRef<HTMLInputElement>();
+    const showValidation = (onFocus && focused) || ! onFocus;
 
     /**
      * Handles input mouse enter.
@@ -83,18 +87,20 @@ function TextInput(props: ITextInputProps) {
         <Label
             ref={ inputRef }
             htmlFor={ id }
-            styling={ stylingLabel }
+            styles={ stylesLabel }
             onMouseEnter={ handleMouseEnter }
         >
             { label }
-            <Span>{ validation }</Span>
+            { showValidation && (
+                <Span>{ validation }</Span>
+            ) }
             <Input
                 type={ type }
                 id={ id }
                 variant={ variant }
                 placeholder={ placeholder }
                 value={ value }
-                styling={ styling }
+                styles={ styles }
                 onChange={ onChange }
                 onInput={ onInput }
                 onFocus={ onFocus }

@@ -6,7 +6,7 @@ import { mix } from 'polished';
 import { fromPairs } from 'ramda';
 import { css } from 'styled-components';
 
-import { keyframesFadeInTop } from './keyframes';
+import { fadeInTop } from './keyframes';
 import { base, breakpoints, colorSet, timeouts, typography } from './settings';
 
 const { datesFontFamily } = typography;
@@ -26,8 +26,8 @@ const { datesFontFamily } = typography;
  */
 export const respondToMedia = Object.keys(breakpoints).reduce((accumulator, label) => {
     accumulator[label] = (...args) => css`
-        @media (min-width: ${breakpoints[label]}px) {
-            ${css(...args)};
+        @media (min-width: ${ breakpoints[label] }px) {
+            ${ css(...args) };
         }
     `;
 
@@ -69,26 +69,25 @@ export const zIndex = assignIndexes(base.zIndexes);
 
 export const styleMixins = {
     vertAlignFlex: (align = 'center') => css`
-        align-items: ${align};
+        align-items: ${ align };
         display: flex;
     `,
     justifyAlignFlex: (justify = 'unset', align = 'unset') => css`
-        align-items: ${align};
+        align-items: ${ align };
         display: flex;
-        justify-content: ${justify},
+        justify-content: ${ justify };
     `,
     // eslint-disable-next-line max-params
     focusOutline: (color, colorActive = color, offset = '0rem', width = '0.154rem', style = 'solid') => css`
         outline: none;
-        outline-offset: ${offset};
-        transition: outline 0.4s;
+        outline-offset: ${ offset };
 
         &:focus-visible {
-            outline: ${width} ${style} ${color};
+            outline: ${ width } ${ style } ${ color };
         }
 
         &:focus-visible:hover {
-            outline: ${width} ${style} ${colorActive};
+            outline: ${ width } ${ style } ${ colorActive };
         }
     `,
     focusBoxShadow: (
@@ -96,12 +95,12 @@ export const styleMixins = {
         borderColor = 'transparent',
         borderFocus = colorSet.textColorPrimary
     ) => css`
-        box-shadow: inset 0 0 0 ${border} ${borderColor};
+        box-shadow: inset 0 0 0 ${ border } ${ borderColor };
         outline-offset: 0;
         transition: box-shadow 0.4s;
 
         &:focus {
-            box-shadow: inset 0 0 0 ${border} ${borderFocus};
+            box-shadow: inset 0 0 0 ${ border } ${ borderFocus };
             outline: none;
         }
     `,
@@ -109,7 +108,7 @@ export const styleMixins = {
         overflow: hidden;
         position: relative;
         transform: translate3d(0, 0, 0);
-        z-index: ${zIndex.Ripples});
+        z-index: ${ zIndex.Ripples });
 
         &:after {
             background-image: radial-gradient(circle, #ffffff 10%, transparent 10.01%);
@@ -124,7 +123,7 @@ export const styleMixins = {
             position: absolute;
             top: 0;
             transform: scale(10, 10);
-            transition: transform ${timeouts.transition}s, opacity 1s;
+            transition: transform ${ timeouts.transition }s, opacity 1s;
             width: 100%;
         }
 
@@ -142,19 +141,33 @@ export const styleMixins = {
      * @return {Array} css properties
      */
     fontSize: (size = 1, lineHeight = size, fontWeight = typography.regular) => css`
-        font-size: ${size}rem;
-        font-weight: ${fontWeight};
-        line-height: ${lineHeight}rem;
+        font-size: ${ size }rem;
+        font-weight: ${ fontWeight };
+        line-height: ${ lineHeight }rem;
     `,
     fontFamily: (family = datesFontFamily) => css`
-        font-family: ${family}, Fallback, sans-serif;
+        font-family: ${ family }, Fallback, sans-serif;
     `,
     fadeInTop: () => css`
-        animation: ${keyframesFadeInTop} ease ${timeouts.transition}s;
+        animation: ${ fadeInTop } ease ${ timeouts.transition }s;
         animation-fill-mode: forwards;
         animation-iteration-count: 1;
         transform-origin: 50% 50%;
     `,
+    withDropShadows: (type = 'xs') => {
+        switch (type) {
+            case 'xs':
+                return css`box-shadow: 0 2px 4px 0 rgba(0,0,0,0.10)`;
+            case 'md':
+                return css`box-shadow: 0 4px 8px 0 rgba(0,0,0,0.12), 0 2px 4px 0 rgba(0,0,0,0.08)`;
+            case 'lg':
+                return css`box-shadow: 0 15px 30px 0 rgba(0,0,0,0.11), 0 5px 15px 0 rgba(0,0,0,0.08)`;
+            case 'photo':
+                return css`box-shadow: 0 15px 30px 0 rgba(0,0,0,0.11), 0 5px 15px 0 rgba(0,0,0,0.8)`;
+            default:
+                return css`box-shadow: 0 4px 8px 0 rgba(0,0,0,0.12), 0 2px 4px 0 rgba(0,0,0,0.08)`;
+        }
+    },
     /**
      * Scroll bar size and color customization.
      *
@@ -169,30 +182,33 @@ export const styleMixins = {
         backgroundColor = mix('0.3', '#1e2227', '#fffaf0')
     ) => css`
         /* stylelint-disable */
+
         & {
-            scrollbar-face-color: ${foregroundColor};
-            scrollbar-track-color: ${backgroundColor};
+            scrollbar-face-color: ${ foregroundColor };
+            scrollbar-track-color: ${ backgroundColor };
         }
+
         /* stylelint-enable */
+
         &::-webkit-scrollbar {
-            height: ${size}px;
-            width: ${size}px;
+            height: ${ size }px;
+            width: ${ size }px;
         }
 
         &::-webkit-scrollbar-thumb {
-            background: ${foregroundColor};
+            background: ${ foregroundColor };
         }
 
         &::-webkit-scrollbar-track {
-            background: ${backgroundColor};
+            background: ${ backgroundColor };
         }
 
-        scrollbar-color: ${foregroundColor} ${backgroundColor};
+        scrollbar-color: ${ foregroundColor } ${ backgroundColor };
         scrollbar-width: thin;
     `,
     /**
      * Centers element with position absolute.
-     * @return {Array} css properties
+     * @return {CSSProp} css properties
      */
     absoluteCentred: () => css`
         left: 50%;
@@ -207,8 +223,8 @@ export const styleMixins = {
      * @return {Array} css properties
      */
     emphasizedText: (textColor, bgColor) => css`
-        background-color: ${bgColor};
-        color: ${textColor};
+        background-color: ${ bgColor };
+        color: ${ textColor };
         opacity: 0.8;
         padding: 0.1em;
     `,
@@ -218,7 +234,7 @@ export const styleMixins = {
      * @return {Array} css properties
      */
     fluidWidth: (maxWidth = '2rem') => css`
-        max-width: ${maxWidth};
+        max-width: ${ maxWidth };
         width: 100%;
     `,
     /**
@@ -228,24 +244,24 @@ export const styleMixins = {
      * @param {number} [border = 0.1] width in `rem`.
      * @return {Array} css properties
      */
-    cross: (color, size = 1, border = 0.1 /* eslint-disable-line */ ) => css`
-        height: ${size}rem;
-        width: ${size}rem;
+    cross: (color, size = 1, border = 0.1 /* eslint-disable-line */) => css`
+        height: ${ size }rem;
+        width: ${ size }rem;
 
         &::after {
-            border-left: ${border}rem solid ${color};
+            border-left: ${ border }rem solid ${ color };
             content: '';
-            height: ${size}rem;
-            left: calc(${size}rem * 0.4);
+            height: ${ size }rem;
+            left: calc(${ size }rem * 0.4);
             position: absolute;
             transform: rotate(45deg);
         }
 
         &::before {
-            border-left: ${border}rem solid ${color};
+            border-left: ${ border }rem solid ${ color };
             content: '';
-            height: ${size}rem;
-            left: calc(${size}rem * 0.4);
+            height: ${ size }rem;
+            left: calc(${ size }rem * 0.4);
             position: absolute;
             transform: rotate(-45deg);
         }

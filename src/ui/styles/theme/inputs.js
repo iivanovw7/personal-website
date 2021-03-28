@@ -7,35 +7,37 @@ import theme from 'styled-theming';
 
 import { colorSet } from '../settings';
 
+const { dark, light, baseColors } = colorSet;
+
 /* eslint-disable no-magic-numbers */
 
 export const inputBackground = theme.variants('mode', 'variant', {
     primary: {
-        light: lighten(0.15, colorSet.dark.inputBackgroundPrimary),
-        dark: darken(0.04, colorSet.dark.inputBackgroundPrimary),
+        light: lighten(0.15, dark.inputBackgroundPrimary),
+        dark: darken(0.04, dark.inputBackgroundPrimary),
     },
     secondary: {
-        light: colorSet.dark.inputBackgroundPrimary,
-        dark: colorSet.dark.inputBackgroundPrimary,
+        light: dark.inputBackgroundPrimary,
+        dark: dark.inputBackgroundPrimary,
     },
     disabled: {
-        light: colorSet.baseColors.grey700,
-        dark: colorSet.baseColors.grey700,
+        light: baseColors.grey700,
+        dark: baseColors.grey700,
     }
 });
 
 export const inputBorderColor = theme.variants('mode', 'variant', {
     primary: {
-        light: colorSet.light.textColorPrimary,
-        dark: colorSet.dark.textColorPrimary,
+        light: light.textColorPrimary,
+        dark: dark.textColorPrimary,
     },
     secondary: {
-        light: colorSet.light.colorSecondary,
-        dark: colorSet.dark.colorSecondary,
+        light: light.colorSecondary,
+        dark: dark.colorSecondary,
     },
     disabled: {
-        light: colorSet.baseColors.grey700,
-        dark: colorSet.baseColors.grey700,
+        light: baseColors.grey700,
+        dark: baseColors.grey700,
     }
 });
 

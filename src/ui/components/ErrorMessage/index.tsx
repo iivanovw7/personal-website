@@ -36,7 +36,7 @@ function ErrorMessage(props: ErrorMessageProps): ReactNode {
 
     return (
         <Container>
-            <H3 styling={HeaderStyles}>{title}</H3>
+            <H3 styles={HeaderStyles}>{title}</H3>
             <Paragraph>{message}</Paragraph>
         </Container>
     );

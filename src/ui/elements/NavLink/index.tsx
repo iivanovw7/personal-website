@@ -3,28 +3,32 @@
  * @module ui/elements/NavLink
  * @author Igor Ivanov
  */
-import React, { memo, ReactElement } from 'react';
+import React, { Children, memo, ReactElement, ReactNode } from 'react';
 import { CSSProp } from 'styled-components';
 
 import StyledNavLink from './StyledNavLink';
 
+export type TVariant = 'primary' | 'secondary' | 'title';
+
 export interface INavLinkProps {
+    /** Input children, eg search span, header and etc. */
+    children?: ReactNode;
     /** Navigation link address. */
     link: string;
     /** Navigation link text. */
-    text: string;
+    text?: string;
     /** Defines `exact` link. */
     exact?: boolean;
     /** Material icon string. */
     icon?: string;
     /** Styles variant option.  */
-    variant?: 'primary' | 'secondary';
+    variant?: TVariant;
     /** Defines `strict` link. */
     strict?: boolean;
     /** Object represents router `location`. */
     location?: Location;
     /** Additional styles. */
-    styling?: CSSProp;
+    styles?: CSSProp;
 }
 
 /**
@@ -37,12 +41,13 @@ export interface INavLinkProps {
  */
 function NavLink(props: INavLinkProps): ReactElement<JSX.Element> {
     const {
+        children = [],
         icon = null,
         exact = true,
-        text,
+        text = '',
         variant = 'primary',
         link,
-        styling,
+        styles,
         location: appLocation,
         strict = false
     } = props;
@@ -53,10 +58,13 @@ function NavLink(props: INavLinkProps): ReactElement<JSX.Element> {
             strict={strict}
             variant={variant}
             location={appLocation}
-            styling={styling}
+            styles={styles}
+            icon={icon}
+            text={text}
             to={link}>
             {icon && <i className="material-icons">{icon}</i>}
             {text}
+            {Children.toArray(children)}
         </StyledNavLink>
     );
 }

@@ -3,31 +3,31 @@
  * @module utils/helpers
  */
 import {
-    equals,
-    both,
+    __,
+    addIndex,
     any,
     anyPass,
+    ap,
+    both,
     complement,
+    curry,
+    equals,
+    filter,
+    find as ramdaFind,
+    is,
     isEmpty,
     isNil,
-    __,
-    path,
-    ap,
-    curry,
-    useWith,
-    split,
-    filter,
-    map,
-    of,
-    is,
-    // eslint-disable-next-line no-shadow
-    find,
-    propEq,
-    uniqBy,
-    prop,
-    zipObj,
-    values,
     keys,
+    map as ramdaMap,
+    of,
+    path,
+    prop,
+    propEq,
+    split,
+    uniqBy,
+    useWith,
+    values,
+    zipObj,
 } from 'ramda';
 
 /**
@@ -104,7 +104,7 @@ export const paths = curry((ps, obj) => ap([path(__, obj)], ps));
  * Parses dot paths, used in propsDotPath
  * @func dotPath
  * @memberOf {module:utils/helpers~propsDotPath}
- * @type {f1}
+ * @type {function}
  */
 const dotPath = useWith(path, [split('.')]);
 
@@ -120,7 +120,7 @@ const dotPath = useWith(path, [split('.')]);
  * // => [ 1, 2 ]
  * @return {Array} array of props
  */
-export const propsDotPath = useWith(ap, [map(dotPath), of]);
+export const propsDotPath = useWith(ap, [ramdaMap(dotPath), of]);
 
 /**
  * Finds and returns first element that has `id` by default,
@@ -130,7 +130,7 @@ export const propsDotPath = useWith(ap, [map(dotPath), of]);
  * @return {Function|*}
  *  should return found object in case there is a match
  */
-export const findByPropValue = (id, key = 'id') => find(propEq(key, id));
+export const findByPropValue = (id, key = 'id') => ramdaFind(propEq(key, id));
 
 /**
  * Removes duplicates from array of Objects by `id`.
@@ -150,6 +150,12 @@ export const uniqById = uniqBy(prop('id'), __);
  */
 export const hasPropValue = (key, value) => filter(any(propEq(key, value)));
 
-export const mapKeys = curry((fn, obj) => zipObj(map(fn, keys(obj)), values(obj)));
+export const mapKeys = curry((fn, obj) => zipObj(ramdaMap(fn, keys(obj)), values(obj)));
+
+/**
+ * Makes indexed map ot of usual ramda map function;
+ * @type {function}
+ */
+export const mapIndexed = addIndex(ramdaMap);
 
 /* eslint-enable react-hooks/rules-of-hooks */

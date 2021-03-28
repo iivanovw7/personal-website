@@ -6,12 +6,14 @@ import theme from 'styled-theming';
 
 import { colorSet } from '../settings';
 
+const { dark, light } = colorSet;
+
 export const colorPrimary = theme('mode', {
-    dark: `${colorSet.dark.colorPrimary}`,
-    light: `${colorSet.light.colorPrimary}`,
+    dark: `${dark.colorPrimary}`,
+    light: `${light.colorPrimary}`,
 });
 
 export const colorSecondary = theme('mode', {
-    dark: `${colorSet.dark.colorSecondary}`,
-    light: `${colorSet.light.colorSecondary}`,
+    dark: `${dark.colorSecondary}`,
+    light: `${light.colorSecondary}`,
 });

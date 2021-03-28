@@ -4,19 +4,14 @@
  */
 import { useQuery } from '@apollo/client';
 import { compose } from '@reduxjs/toolkit';
-import { always, cond, pipe, prop, T } from 'ramda';
+import { always, cond, pipe, prop, T, ifElse } from 'ramda';
 import React, { Dispatch, memo, ReactElement, SyntheticEvent } from 'react';
 import { injectIntl, IntlShape } from 'react-intl';
 import { connect } from 'react-redux';
 
-import {
-    GetPostByTextDocument,
-    GetPostsByTagDocument,
-    GetPostsDocument,
-    Post,
-} from '../../../generated/graphcms-schema';
+import { GetPostsDocument, Post } from '../../../generated/graphcms-schema';
 import { getText } from '../../../locale';
-import { isNilOrEmpty } from '../../../utils/helpers';
+import { isNilOrEmpty, mapIndexed } from '../../../utils/helpers';
 import ErrorMessage from '../../components/ErrorMessage';
 import Paragraph from '../../components/ErrorMessage/Paragraph';
 import Search from '../../components/Search';
@@ -27,12 +22,11 @@ import Spinner from '../../elements/Spinner';
 import commonMessages from '../App/model/messages';
 import { selectLocation } from '../App/model/selectors';
 
-import Article from './Article';
 import Grid from './Grid/Loadable';
-import Header, { HeaderTagStyles, HeaderCollapseStyles } from './Header';
-import { setTags, TSetTags } from './model';
+import { removeTags, TModifyTags, setSearchText, TModifySearchText, TPostsTags } from './model';
 import postsMessages from './model/messages';
 import { makeSelectPostsSearchText, makeSelectPostsTags } from './model/selectors';
+import { Article, Header, HeaderTagStyles, HeaderCollapseStyles } from './Styled';
 
 const { noResults } = commonMessages;
 const { searchByTags, searchBySubject } = postsMessages;
@@ -55,31 +49,18 @@ export interface IPostsProps {
     skip: number;
     /** Lists of tags used in posts filter. */
     tags: string[];
-    /** tag click handler, sets tag name as posts filter condition. */
-    onTagClick: (tag?: string) => void;
+    /** Tag click handler, sets tag name as posts filter condition. */
+    onTagClick: (tags: TPostsTags) => void;
     /** Posts search text. */
     search: string;
+    /** Search text handler, update search query parameter. */
+    onTextSearch: (text: string) => void;
 }
 
-interface IDispatchProps extends Pick<IPostsProps, 'onTagClick'> {
+interface IDispatchProps extends Pick<IPostsProps, 'onTagClick' | 'onTextSearch'> {
     /** Dispatches action. */
-    dispatch: Dispatch<TSetTags>;
+    dispatch: Dispatch<TModifyTags | TModifySearchText>;
 }
-
-/* eslint-disable arrow-body-style */
-
-/**
- * Defines which query to use depending on passes `props` object.
- * @param {IPostsProps} props - component props.
- * @return {Object} returns object with query and additional parameters.
- */
-const getQuery = cond([
-    [prop('tags'), (props: IPostsProps) => ({ type: GetPostsByTagDocument, params: { tags: props.tags } })],
-    [prop('search'), (props: IPostsProps) => ({ type: GetPostByTextDocument, params: { text: props.search } })],
-    [T, always({ type: GetPostsDocument })],
-]);
-
-/* eslint-enable arrow-body-style */
 
 /**
  * Creates Posts component.
@@ -89,14 +70,13 @@ const getQuery = cond([
  * @constructor
  */
 function PostsComponent(props: IPostsProps): ReactElement {
-    const { skip = defaultSkip, first = defaultFirst, tags, onTagClick } = props;
+    const { skip = defaultSkip, first = defaultFirst, tags, onTagClick, search, onTextSearch } = props;
     const localizedText = (message) => getText(message, props) as string;
     const hasTags = Boolean(tags.length);
-    const postsQuery = getQuery(props);
 
     // https://github.com/apollographql/apollo-client/issues/6209
-    const { data, loading, error } = useQuery(postsQuery.type, {
-        variables: { skip, first, ...postsQuery.params },
+    const { data, loading, error } = useQuery(GetPostsDocument, {
+        variables: { skip, first, search, tags },
         fetchPolicy: 'cache-and-network',
     });
 
@@ -116,19 +96,36 @@ function PostsComponent(props: IPostsProps): ReactElement {
      */
     function handleTagClick(eventData: SyntheticEvent) {
         eventData.preventDefault();
-        onTagClick();
+        const tagData = eventData.currentTarget.getAttribute('data-id');
+
+        onTagClick(tagData
+            ? [tagData]
+            : []
+        );
     }
+
+    const tagsList = ifElse(
+        always(hasTags),
+        mapIndexed((item: unknown, index: number) => (
+            <TagButton text={ String(item) } key={ index } onClick={ handleTagClick } styling={ HeaderTagStyles } />
+        )),
+        always(null)
+    );
 
     return (
         <Article error={ error }>
             <Header>
-                <Collapse isOpen={ hasTags } styling={ HeaderCollapseStyles } >
-                    { localizedText(searchByTags) }
-                    { hasTags && (
-                        <TagButton text={ tags[0] } onClick={ handleTagClick } styling={ HeaderTagStyles } />
-                    ) }
-                </Collapse>
-                <Search id="pw-posts-search" label={localizedText(searchBySubject)} />
+                <div>
+                    <Collapse isOpen={ hasTags } styling={ HeaderCollapseStyles } >
+                        <span>{ localizedText(searchByTags) }</span>
+                        { tagsList(tags) }
+                    </Collapse>
+                </div>
+                <Search
+                    id="pw-posts-search"
+                    label={localizedText(searchBySubject)}
+                    onInputChange={onTextSearch}
+                />
             </Header>
             <Separator styling={ContentStyling} />
             <Content
@@ -164,13 +161,13 @@ const mapStateToProps = (state) => {
  * @param {Function} dispatch method.
  * @return {Object} redux container
  */
-export function mapDispatchToProps(dispatch: Dispatch<TSetTags>): IDispatchProps {
+export function mapDispatchToProps(dispatch: Dispatch<TModifyTags | TModifySearchText>): IDispatchProps {
     return {
-        onTagClick: (tag?: string) => {
-            dispatch(setTags(tag
-                ? [tag]
-                : [])
-            );
+        onTagClick: (tags: TPostsTags) => {
+            dispatch(removeTags(tags));
+        },
+        onTextSearch: (text: string) => {
+            dispatch(setSearchText(text));
         },
         dispatch,
     };

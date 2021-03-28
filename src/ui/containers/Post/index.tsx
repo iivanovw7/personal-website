@@ -27,12 +27,9 @@ import { isPostsAreaPath } from '../../routes';
 import commonMessages from '../App/model/messages';
 import { selectLocation } from '../App/model/selectors';
 
-import Box from './Box';
-import Container from './Container';
-import CreatedAtStyles from './CreatedAtStyles';
 import postMessages from './model/messages';
 import formattedPostText from './model/util';
-import ReadingTimeStyles from './ReadingTimeStyles';
+import { Box, Container, CreatedAtStyles, ReadingTimeStyles, TitleStyles } from './Styled';
 
 const { noResults } = commonMessages;
 const { readingTime, publishedAt } = postMessages;
@@ -79,7 +76,7 @@ const PostComponent: FC<IPostProps> = (props: IPostProps) => {
 
             return (
                 <Box>
-                    <H1>{ title }</H1>
+                    <H1 styles={TitleStyles}>{ title }</H1>
                     <H2>{ subject }</H2>
                     { createdAtDate.isValid() && (
                         <Paragraph styling={ CreatedAtStyles }>

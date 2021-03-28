@@ -5,7 +5,7 @@
  */
 import styled from 'styled-components';
 
-import { zIndex } from '../../styles/mixins';
+import { zIndex, styleMixins } from '../../styles/mixins';
 import { base, colorSet } from '../../styles/settings';
 import { topBarBg } from '../../styles/theme/background';
 
@@ -26,6 +26,7 @@ const Container = styled.header`
     flex-direction: row;
     height: ${base.topBarHeight}em;
     justify-content: space-between;
+    ${styleMixins.withDropShadows('xs')};
     position: fixed;
     top: 0;
     width: 100%;
