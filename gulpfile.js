@@ -3,7 +3,6 @@
  * @module _/gulpfile.js
  * @author Igor Ivanov
  */
-const critical = require('critical').stream;
 const gulp = require('gulp');
 const rename = require('gulp-rename');
 const zip = require('gulp-zip');
@@ -91,27 +90,6 @@ gulp.task('createZip', async function createZip() {
 });
 
 /**
- * Adds inline critical css styles
- * @function
- * @return {Promise} gulp task
- */
-gulp.task('criticalCSS', async function criticalCSS() {
-    await new Promise((resolve) => {
-        gulp.src('dist/*.html')
-            .pipe(
-                critical({
-                    base: 'dist/',
-                    inline: true,
-                    css: ['./assets/css/critical.css'],
-                })
-            )
-            .pipe(gulp.dest('dist'))
-            .on('end', resolve)
-            .on('error', handleError);
-    });
-});
-
-/**
  * Copying all files that should be placed in application root folder
  * @function
  * @return {Promise} gulp task
@@ -135,7 +113,6 @@ gulp.task(
         'copyRootFiles',
         'copySvgFiles',
         'copyProdFavicon',
-        'criticalCSS',
         'createZip'
     )
 );

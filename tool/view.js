@@ -4,9 +4,11 @@
 
 const LocalWebServer = require('local-web-server');
 
+const defaultAppPort = 4426;
+
 const webServer = LocalWebServer.create({
     directory: './dist',
-    port: 4426,
+    port: process.env.DIST_PORT || defaultAppPort,
     logFormat: 'dev',
     spa: 'index.html',
 });

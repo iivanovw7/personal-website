@@ -64,13 +64,96 @@ Technologies used
 ---
 ### Configuration
 
-The movie database API key ([TMDB](https://www.themoviedb.org/settings/api)) is needed to run this application:
+---
+#### Application posts
+DEV and DIST ports could be defined inside `./env` file as described below: <br />
+```javascript
+DEV_PORT=XXXX
+DIST_PORT=XXXX
+```
+Default ports 4425 and 4426 are going to be used otherwise. <br />
 
-Any access keys or tokens should be stored in application root folder inside `./.env` in the similar way:
+---
+#### API tokens
+
+The movie database API key ([TMDB](https://www.themoviedb.org/settings/api)) is needed to run this application:
+Any access keys or tokens could be stored in application root folder inside `./.env` in the similar way:
 ```
 SOME_TOKEN=...
 ```
 
+---
+#### Docker configuration
+Set up `DIST_PORT` in `.env` file.
+Set up `DIST_PORT` for docker container: <br />
+`cd docker` <br />
+`nano config.sh` <br />
+Exposed ports should be listed as follows in any order: <br />
+```dockerfile
+PORTS=(7425) # Ports list to be exposed
+CONTAINER_NAME='personal-wesite'
+```
+`Ctrl + X` to save changes <br />
+`nano scripts.sh` <br />
+
+Then you probably will need to make it executable: <br />
+All scripts separately: <br />
+`sudo chmod +x ./build.sh` <br />
+`sudo chmod +x ./config.sh` <br />
+`sudo chmod +x ./helpers.sh` <br />
+Or docker the folder itself: <br />
+`cd ..` <br />
+`sudo -R chmod +x docker` <br />
+To run application container: <br />
+`./build.sh` <br />
+In that case script will find containers listening to configured ports, <br />
+remove them, then build new one and execute it. <br />
+
+---
+##### Nginx configuration
+Example Nginx config could be used to run application: <br />
+(`letsencrypt` service is used in example in order to run application on `https` ) <br />
+
+```
+server {
+    listen 80;
+    listen [::]:80;
+    server_name domain-name www.domain-name.com;
+    return 301 https://domain-name.com$request_uri;
+}
+
+server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+    server_name domain-name.com www.domain-name.com;
+    access_log /var/log/nginx/admin-console.cf;
+    ssl on;
+    ssl_certificate /etc/letsencrypt/live/domain-name.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/domain-name.com/privkey.pem;
+    include snippets/ssl-params.conf;
+    gzip on;
+    gzip_comp_level 5;
+    gzip_min_length 256;
+    gzip_proxied any;
+    gzip_types;
+    ...
+    REST CONFIG
+    ...
+    text/x-component;
+    text/x-cross-domain-policy;
+
+    location / {
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header HOST $http_host;
+        proxy_set_header X-NginX-Proxy true;
+        proxy_pass http://domain-name.com:[PORT];
+        proxy_redirect off;
+    }
+}
+```
+
+---
+#### Additional configuration using CLI
 
 Additional arguments could be added to `npm run dev`, `npm run dev:dashboard`, `npm run build` after `--`:
 * `--source-maps` {string | false} [false] - creates [source maps](https://webpack.js.org/configuration/devtool/).
@@ -97,6 +180,10 @@ Contains information about configuration files.
 `./config/webpack` -- contains webpack config files.
 
 `./doc/` -- folder contains additional readme files included in JSDoc.
+
+`./docker/` -- folder contains scripts for building and executing app in docker container.
+
+`./Dockerfile/` -- file contains docker configuration.
 
 `./gulpfile.js` -- contains gulp config.
 

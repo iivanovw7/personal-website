@@ -4,6 +4,7 @@
  */
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
+import '../assets/css/critical.css';
 import '../assets/css/sanitize.css';
 
 import { ConnectedRouter } from 'connected-react-router';
