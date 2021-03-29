@@ -12,6 +12,8 @@ const path = require('path');
 
 const common = require('./webpack.common.js');
 
+const defaultDevPort = 4425;
+
 module.exports = merge(common, {
     mode: 'development',
     devtool: 'inline-source-map',
@@ -36,7 +38,7 @@ module.exports = merge(common, {
     devServer: {
         historyApiFallback: true,
         contentBase: './',
-        port: 4425,
+        port: process.env.DEV_PORT || defaultDevPort,
         hot: true,
     },
 });

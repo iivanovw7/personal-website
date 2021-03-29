@@ -5,6 +5,7 @@
  */
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const dotenv = require('dotenv');
+const HtmlInlineCSSWebpackPlugin = require('html-inline-css-webpack-plugin')['default'];
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const args = require('minimist')(process.argv.slice(2));
@@ -135,6 +136,15 @@ module.exports = {
             filename: 'assets/css/[name].bundle.css',
             chunkFilename: 'assets/css/chunk-[id].css',
             ignoreOrder: true, // Enable to remove warnings about conflicting order
+        }),
+        new HtmlInlineCSSWebpackPlugin({
+            filter: function filter(fileName) {
+                return fileName.match(/^\/?critical(?:css)?\.css$/i) || fileName === 'index.html';
+            },
+            replace: {
+                target: '</title>',
+                position: 'after'
+            }
         }),
         new webpack.DefinePlugin(envKeys),
     ],
