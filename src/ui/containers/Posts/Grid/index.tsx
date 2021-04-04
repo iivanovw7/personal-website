@@ -6,7 +6,7 @@ import React, { memo, useRef } from 'react';
 import { injectIntl, IntlShape, WrappedComponentProps } from 'react-intl';
 import { connect } from 'react-redux';
 
-import { Post } from '../../../../generated/graphcms-schema';
+import { PostEdge } from '../../../../generated/graphcms-schema';
 import { getText } from '../../../../locale';
 import TagCloud from '../../../components/TagCloud';
 import H6 from '../../../elements/H6';
@@ -24,7 +24,7 @@ export interface IPostProps {
     /** `react-intl` object provides access  to localization methods. */
     intl: IntlShape;
     /** [posts = []] - list of posts to show. */
-    posts?: Post[];
+    posts?: Array<PostEdge>;
 }
 
 /**
@@ -41,8 +41,8 @@ function Grid(props: IPostProps & WrappedComponentProps) {
 
     return (
         <GridContainer ref={listRef} hasMore={hasMore}>
-            {posts.map((post: Post) => {
-                const { id, title, tags = [], subject } = post;
+            {posts.map((post: PostEdge) => {
+                const { id, title, tags = [], subject } = post.node;
 
                 return (
                     <Cell key={id}>

@@ -2,7 +2,6 @@
  * Module contains post main component.
  * @module ui/containers/Post
  */
-import { useQuery } from '@apollo/client';
 import { compose } from '@reduxjs/toolkit';
 import dayjs from 'dayjs';
 import { always, cond, pipe, prop, T } from 'ramda';
@@ -10,7 +9,7 @@ import React, { FC, memo } from 'react';
 import { injectIntl } from 'react-intl';
 import { connect } from 'react-redux';
 
-import { GetPostDocument, Post } from '../../../generated/graphcms-schema';
+import { Post, useGetPostQuery } from '../../../generated/graphcms-schema';
 import { getText } from '../../../locale';
 import { runCodePrettify } from '../../../utils/codePrettify';
 import { isNilOrEmpty } from '../../../utils/helpers';
@@ -57,7 +56,7 @@ const PostComponent: FC<IPostProps> = (props: IPostProps) => {
     const localizedText = (message, values?) => getText(message, props, values) as string;
 
     // https://github.com/apollographql/apollo-client/issues/6209
-    const { data, loading, error } = useQuery(GetPostDocument, {
+    const { data, loading, error } = useGetPostQuery({
         variables: { postId },
         fetchPolicy: 'cache-and-network',
         skip: ! isPostsPath,

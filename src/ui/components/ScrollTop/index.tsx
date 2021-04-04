@@ -7,7 +7,7 @@ import React, { ReactElement, useState } from 'react';
 import { Transition } from 'react-transition-group';
 import { css } from 'styled-components';
 
-import { useScrollPosition } from '../../../utils/hooks/useScrollPosition';
+import { useScrollPosition, IScrollProps } from '../../../utils/hooks/useScrollPosition';
 import { MILLISECONDS_IN_SECOND } from '../../../utils/time';
 import Button from '../../elements/Button';
 import Portal from '../../elements/Portal';
@@ -32,7 +32,7 @@ function ScrollTopButton(): ReactElement {
     const [visible, setVisible] = useState<boolean>(false);
 
     useScrollPosition({
-        effect: ({ currPos }) => {
+        effect: ({ currPos }: IScrollProps): void => {
             setVisible(Boolean(currPos.y < ScrollTopDisplay));
         }
     });
