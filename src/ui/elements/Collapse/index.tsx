@@ -3,7 +3,7 @@
  * @module ui/elements/Collapse
  * @author Igor Ivanov
  */
-import React, { Children, ReactElement, ReactNode } from 'react';
+import React, { ReactElement, ReactNode } from 'react';
 import { config, useSpring } from 'react-spring';
 import { CSSProp } from 'styled-components';
 
@@ -50,7 +50,7 @@ function Collapse(props: ICollapseProps): ReactElement {
 
     return (
         <Styled ref={ ref } style={ style } styling={ styling }>
-            { Children.toArray(children) }
+            { children }
         </Styled>
     );
 }

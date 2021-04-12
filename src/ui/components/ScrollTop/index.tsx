@@ -91,7 +91,7 @@ function ScrollTopButton(): ReactElement {
                     `;
 
                     return (
-                        <Button variant="primary" styling={Styles} visible={visible} onClick={handleClick}>
+                        <Button variant="primary" styling={Styles} onClick={handleClick}>
                             <i className="material-icons">keyboard_arrow_up</i>
                         </Button>
                     );

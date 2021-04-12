@@ -2,7 +2,7 @@
  * Module contains button component
  * @module ui/elements/Link
  */
-import React, { Children, ReactElement, ReactNode } from 'react';
+import React, { ReactElement, ReactNode } from 'react';
 import { CSSProp } from 'styled-components';
 
 import StyledLink from './StyledLink';
@@ -37,7 +37,7 @@ function Link(props: ILinkProps): ReactElement<JSX.Element> {
 
     return (
         <StyledLink styling={styling} target={target} href={href} variant={variant}>
-            {Children.toArray(children)}
+            {children}
         </StyledLink>
     );
 }

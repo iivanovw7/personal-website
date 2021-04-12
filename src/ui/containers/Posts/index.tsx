@@ -69,6 +69,7 @@ const { searchByTags, searchBySubject } = postsMessages;
 const defaultSkip = 0;
 const defaultFirst = 12;
 const CONNECTION = 'postsConnection';
+// TODO: refactor next to methods as they are almost identical.
 const getEdges = ifElse(isNilOrEmpty, always([]), path([CONNECTION, 'edges']));
 const getPageInfo = ifElse(isNilOrEmpty, always({ hasNextPage: false }), path([CONNECTION, 'pageInfo']));
 

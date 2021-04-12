@@ -2,7 +2,7 @@
  * Module contains text input component.
  * @module ui/elements/TextInput
  */
-import React, { ChangeEvent, Children, memo, ReactNode } from 'react';
+import React, { ChangeEvent, memo, ReactNode } from 'react';
 import { CSSProp } from 'styled-components';
 
 import { Input, Label, Span } from './Styled';
@@ -106,7 +106,7 @@ function TextInput(props: ITextInputProps) {
                 onFocus={ onFocus }
                 onBlur={ onBlur }
             />
-            { Children.toArray(children) }
+            { children }
         </Label>
     );
 }
