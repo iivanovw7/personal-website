@@ -11,14 +11,15 @@ import { useIsomorphicLayoutEffect } from './useIsomorphicLayoutEffect';
 
 const { isBrowser } = envProps;
 
-interface IPosition {
+export interface IPosition {
     x: number;
     y: number;
 }
 
-interface IScrollProps {
+export interface IScrollProps {
     prevPos: IPosition;
     currPos: IPosition;
+    atBottom: boolean;
 }
 
 export interface IGetScrollPositionParams {
@@ -95,7 +96,12 @@ export const useScrollPosition = (params: IUseScrollPosition): void => {
 
     const callBack = () => {
         const currPos = getScrollPosition({ element, useWindow, boundingElement });
-        effect({ prevPos: position.current, currPos });
+
+        effect({
+            atBottom: (window.innerHeight + window.scrollY) >= document.body.offsetHeight,
+            currPos,
+            prevPos: position.current,
+        });
         position.current = currPos;
         throttleTimeout = null;
     };

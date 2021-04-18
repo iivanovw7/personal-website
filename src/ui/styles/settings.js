@@ -34,6 +34,7 @@ export const base = {
         'Carousel',
         'CarouselArrows',
         'CarouselRating',
+        'Loader'
     ],
     zIndex: 500,
 };
@@ -196,6 +197,8 @@ export const typography = {
  * @typedef {Object} module:ui/config/styles~timeouts
  * @property {number} fade
  * @property {number} transition
+ * @property {number} delay
+ * @property {number} duration
  */
 
 /**
@@ -205,6 +208,8 @@ export const typography = {
 export const timeouts = {
     fade: 500,
     transition: 0.4,
+    delay: 1.5,
+    duration: 3
 };
 
 /**

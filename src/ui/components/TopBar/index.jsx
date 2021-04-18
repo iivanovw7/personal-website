@@ -5,7 +5,7 @@
  */
 import { compose } from '@reduxjs/toolkit';
 import * as PropTypes from 'prop-types';
-import React, { Children, memo } from 'react';
+import React, { memo } from 'react';
 import { injectIntl } from 'react-intl';
 
 import config from '../../../config';
@@ -53,7 +53,7 @@ function TopBar(props) {
                     <NavLinks routes={menuPath} intl={intl} />
                 </Block>
             )}
-            <Block>{Children.toArray(children)}</Block>
+            <Block>{children}</Block>
         </Container>
     );
 }

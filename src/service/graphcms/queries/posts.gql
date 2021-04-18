@@ -17,7 +17,7 @@ fragment Author on Post {
 }
 
 query GetPosts($skip: Int, $first: Int, $search: String, $tags: [String!]) {
-    posts(
+    postsConnection(
         skip: $skip,
         first: $first,
         orderBy: createdAt_DESC,
@@ -32,8 +32,20 @@ query GetPosts($skip: Int, $first: Int, $search: String, $tags: [String!]) {
             ]
         }
     ) {
-        ...Author
-        ...CorePostFields
+        edges {
+            cursor
+            node {
+                ...Author
+                ...CorePostFields
+            }
+        }
+        pageInfo {
+            hasNextPage
+            hasPreviousPage
+            startCursor
+            endCursor
+            pageSize
+        }
     }
 }
 

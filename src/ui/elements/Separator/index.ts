@@ -38,7 +38,7 @@ const Separator = styled.div<TSeparatorProps>`
     ${ (props) => props.styling };
     ${ (props) => props.header && `
         z-index: ${ String(zIndex.Separator) };
-  ` };
+    ` };
     width: 100%;
 `;
 

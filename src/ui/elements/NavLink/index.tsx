@@ -3,7 +3,7 @@
  * @module ui/elements/NavLink
  * @author Igor Ivanov
  */
-import React, { Children, memo, ReactElement, ReactNode } from 'react';
+import React, { memo, ReactElement, ReactNode } from 'react';
 import { CSSProp } from 'styled-components';
 
 import StyledNavLink from './StyledNavLink';
@@ -64,7 +64,7 @@ function NavLink(props: INavLinkProps): ReactElement<JSX.Element> {
             to={link}>
             {icon && <i className="material-icons">{icon}</i>}
             {text}
-            {Children.toArray(children)}
+            {children}
         </StyledNavLink>
     );
 }

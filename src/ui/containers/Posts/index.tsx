@@ -2,16 +2,23 @@
  * Module contains posts main component.
  * @module ui/containers/Posts
  */
-import { useQuery } from '@apollo/client';
+import { ApolloQueryResult } from '@apollo/client';
 import { compose } from '@reduxjs/toolkit';
-import { always, cond, pipe, prop, T, ifElse } from 'ramda';
-import React, { Dispatch, memo, ReactElement, SyntheticEvent } from 'react';
+import { always, cond, pipe, prop, T, ifElse, concat, path } from 'ramda';
+import React, { Dispatch, memo, ReactElement, SyntheticEvent, useState } from 'react';
 import { injectIntl, IntlShape } from 'react-intl';
 import { connect } from 'react-redux';
 
-import { GetPostsDocument, Post } from '../../../generated/graphcms-schema';
+import {
+    GetPostsQuery,
+    GetPostsQueryVariables,
+    PageInfo,
+    PostEdge,
+    useGetPostsQuery,
+} from '../../../generated/graphcms-schema';
 import { getText } from '../../../locale';
 import { isNilOrEmpty, mapIndexed } from '../../../utils/helpers';
+import { IScrollProps, useScrollPosition } from '../../../utils/hooks/useScrollPosition';
 import ErrorMessage from '../../components/ErrorMessage';
 import Paragraph from '../../components/ErrorMessage/Paragraph';
 import Search from '../../components/Search';
@@ -19,6 +26,7 @@ import TagButton from '../../components/TagCloud/TagButton';
 import Collapse from '../../elements/Collapse';
 import Separator, { ContentStyling } from '../../elements/Separator';
 import Spinner from '../../elements/Spinner';
+import { setLoader } from '../App/model';
 import commonMessages from '../App/model/messages';
 import { selectLocation } from '../App/model/selectors';
 
@@ -28,14 +36,8 @@ import postsMessages from './model/messages';
 import { makeSelectPostsSearchText, makeSelectPostsTags } from './model/selectors';
 import { Article, Header, HeaderTagStyles, HeaderCollapseStyles } from './Styled';
 
-const { noResults } = commonMessages;
-const { searchByTags, searchBySubject } = postsMessages;
-
-const defaultSkip = 0;
-const defaultFirst = 48;
-
 export interface IPosts {
-    posts: Post[],
+    posts: Array<PostEdge>,
 }
 
 export interface IPostsProps {
@@ -55,12 +57,30 @@ export interface IPostsProps {
     search: string;
     /** Search text handler, update search query parameter. */
     onTextSearch: (text: string) => void;
+    /** Displays application top loader during additional posts fetching */
+    onSetLoader: (loading: boolean) => void;
 }
 
-interface IDispatchProps extends Pick<IPostsProps, 'onTagClick' | 'onTextSearch'> {
+// TODO: Remove after `src/ui/containers/App` is switched to `ts`.
+type TSetLoadingAction = {
+    type: string,
+    payload: boolean
+};
+
+interface IDispatchProps extends Pick<IPostsProps, 'onTagClick' | 'onTextSearch' | 'onSetLoader'> {
     /** Dispatches action. */
-    dispatch: Dispatch<TModifyTags | TModifySearchText>;
+    dispatch: Dispatch<TModifyTags | TModifySearchText | TSetLoadingAction>;
 }
+
+const { noResults } = commonMessages;
+const { searchByTags, searchBySubject } = postsMessages;
+
+const defaultSkip = 0;
+const defaultFirst = 12;
+const CONNECTION = 'postsConnection';
+// TODO: refactor next to methods as they are almost identical.
+const getEdges = ifElse(isNilOrEmpty, always([]), path([CONNECTION, 'edges']));
+const getPageInfo = ifElse(isNilOrEmpty, always({ hasNextPage: false }), path([CONNECTION, 'pageInfo']));
 
 /**
  * Creates Posts component.
@@ -70,14 +90,58 @@ interface IDispatchProps extends Pick<IPostsProps, 'onTagClick' | 'onTextSearch'
  * @constructor
  */
 function PostsComponent(props: IPostsProps): ReactElement {
-    const { skip = defaultSkip, first = defaultFirst, tags, onTagClick, search, onTextSearch } = props;
+    const { tags, onTagClick, search, onTextSearch, onSetLoader } = props;
+    const [skipped, setSkipped] = useState<number>(defaultSkip);
     const localizedText = (message) => getText(message, props) as string;
     const hasTags = Boolean(tags.length);
 
     // https://github.com/apollographql/apollo-client/issues/6209
-    const { data, loading, error } = useQuery(GetPostsDocument, {
-        variables: { skip, first, search, tags },
+    const { data, loading, error, fetchMore } = useGetPostsQuery({
+        variables: { skip: defaultSkip, first: defaultFirst, search, tags },
         fetchPolicy: 'cache-and-network',
+    });
+    const { hasNextPage }: PageInfo = getPageInfo(data);
+
+    /**
+     * Triggers additional posts loading, updates previous query results adding loading data.
+     * @param {number} skipRecords - records to be skipped in next query.
+     * @return {Promise<ApolloQueryResult<GetPostsQuery>>} will return apollo gql query.
+     */
+    function triggerFetchMore(skipRecords: number): Promise<ApolloQueryResult<GetPostsQuery>> {
+        return fetchMore({
+            variables: { skip: skipRecords, first: defaultFirst, search, tags },
+            updateQuery: (previousResult: GetPostsQuery, options: { fetchMoreResult?: GetPostsQuery, variables?: GetPostsQueryVariables }) => {
+                const { fetchMoreResult } = options;
+
+                if (fetchMoreResult) {
+                    setSkipped(skipped + defaultFirst);
+
+                    return {
+                        postsConnection: {
+                            __typename: 'PostConnection',
+                            edges: concat(previousResult.postsConnection.edges, getEdges(fetchMoreResult)),
+                            pageInfo: getPageInfo(fetchMoreResult)
+                        }
+                    };
+                }
+
+                return previousResult;
+            }
+        });
+    }
+
+    useScrollPosition({
+        effect: async ({ atBottom }: IScrollProps): Promise<void> => {
+            if (atBottom && ! loading && hasNextPage) {
+                onSetLoader(true);
+                const { data: newPosts, error: fetchMoreError } = await triggerFetchMore(skipped + defaultFirst);
+
+                // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+                if (newPosts?.postsConnection || fetchMoreError) {
+                    onSetLoader(false);
+                }
+            }
+        }
     });
 
     const Content = cond([
@@ -112,6 +176,7 @@ function PostsComponent(props: IPostsProps): ReactElement {
         always(null)
     );
 
+
     return (
         <Article error={ error }>
             <Header>
@@ -130,9 +195,9 @@ function PostsComponent(props: IPostsProps): ReactElement {
             <Separator styling={ContentStyling} />
             <Content
                 error={ error }
-                loading={ loading }
+                loading={ ! skipped && loading }
                 posts={ data
-                    ? data.posts
+                    ? getEdges(data)
                     : null } />
         </Article>
     );
@@ -161,13 +226,16 @@ const mapStateToProps = (state) => {
  * @param {Function} dispatch method.
  * @return {Object} redux container
  */
-export function mapDispatchToProps(dispatch: Dispatch<TModifyTags | TModifySearchText>): IDispatchProps {
+export function mapDispatchToProps(dispatch: Dispatch<TModifyTags | TModifySearchText | TSetLoadingAction>): IDispatchProps {
     return {
         onTagClick: (tags: TPostsTags) => {
             dispatch(removeTags(tags));
         },
         onTextSearch: (text: string) => {
             dispatch(setSearchText(text));
+        },
+        onSetLoader: (loading: boolean) => {
+            dispatch(setLoader(loading));
         },
         dispatch,
     };

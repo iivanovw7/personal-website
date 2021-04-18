@@ -1,14 +1,17 @@
 /**
- * Module contains styled button for switch component
- * @module ui/elements/Button/StyledButton
+ * Module styles for Button component.
+ * @module ui/elements/Button/Styled
  * @author Igor Ivanov
  */
 import styled from 'styled-components';
 
 import { btnBackground, btnTextColor } from '../../styles/theme/buttons';
 
-// eslint-disable-next-line
-const StyledButton = styled.button.attrs(({ index }) => ({ 'data-index': index }))`
+import { IButtonProps } from './index';
+
+export const Button = styled.button.attrs<IButtonProps>((attrs) => {
+    return { 'data-id': attrs.dataId };
+})<IButtonProps>`
   background-color: ${btnBackground};
   border: none;
   color: ${btnTextColor};
@@ -20,5 +23,3 @@ const StyledButton = styled.button.attrs(({ index }) => ({ 'data-index': index }
     user-select: none;
   }
 `;
-
-export default StyledButton;

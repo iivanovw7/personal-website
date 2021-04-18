@@ -1,5 +1,5 @@
-import { ReactNode, ReactPortal } from 'react';
-import { createPortal } from 'react-dom';
+import { ReactPortal, ReactNode } from 'react';
+import { createPortal} from 'react-dom';
 
 import usePortal from '../../../utils/hooks/usePortal';
 

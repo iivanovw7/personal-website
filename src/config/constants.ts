@@ -22,7 +22,7 @@ export const DARK_THEME: Readonly<string> = 'dark';
  * @readonly
  * @type {{HEAD: string, DELETE: string, POST: string, GET: string, PUT: string, PATCH: string}}
  */
-export const httpMethodMap: HttpMethodMap = {
+export const httpMethodMap: Readonly<HttpMethodMap> = {
     GET: 'GET',
     POST: 'POST',
     HEAD: 'HEAD',
@@ -43,7 +43,7 @@ export const ACTION_ADD_MESSAGES: Readonly<string> = 'ACTION_ADD_MESSAGES';
  * @readonly
  * @type {{ERROR: string, DEBUG: string, OFF: string}}
  */
-export const logModeMap: LogModeMap = {
+export const logModeMap: Readonly<LogModeMap> = {
     LOGGER_ERROR: 'error',
     LOGGER_DEBUG: 'debug',
     LOGGER_OFF: 'off',
@@ -54,7 +54,7 @@ export const logModeMap: LogModeMap = {
  * @readonly
  * @type {{SUCCESS: string, ERROR: string, INFO: string, DEBUG: string, WARNING: string}}
  */
-export const logLevelMap: LogLevelMap = {
+export const logLevelMap: Readonly<LogLevelMap> = {
     SUCCESS: 'success',
     INFO: 'info',
     DEBUG: 'debug',

@@ -10,3 +10,13 @@ export const fadeInTop = keyframes`
         transform: translate(0px, 0px);
     }
 `;
+
+export const loaderAnimation = keyframes`
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(400%);
+    }
+`;

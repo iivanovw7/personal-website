@@ -1,4 +1,4 @@
 export default {
-    'pw.common.posts.searchByTags': 'Search by tags: ',
-    'pw.common.posts.searchBySubject': 'Search',
+    'pw.posts.searchByTags': 'Search by tags: ',
+    'pw.posts.searchBySubject': 'Search',
 };

@@ -1,4 +1,5 @@
 /**
+ * View util.
  * @module _/tool/view
  */
 
