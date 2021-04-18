@@ -3,7 +3,7 @@
  * @module ui/components/ScrollTopButton
  * @author Igor Ivanov
  */
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement, useState, useRef } from 'react';
 import { Transition } from 'react-transition-group';
 import { css } from 'styled-components';
 
@@ -29,6 +29,7 @@ const ScrollTopDisplay = -100;
  * @constructor
  */
 function ScrollTopButton(): ReactElement {
+    const buttonRef = useRef<HTMLButtonElement>(null);
     const [visible, setVisible] = useState<boolean>(false);
 
     useScrollPosition({
@@ -77,6 +78,8 @@ function ScrollTopButton(): ReactElement {
     return (
         <Portal id="pw-portal__scroll-top-id">
             <Transition
+                // Reference to a node object, see https://github.com/reactjs/react-transition-group/issues/668
+                nodeRef={buttonRef}
                 in={ visible }
                 appear
                 timeout={ timeouts.fade }
@@ -91,7 +94,7 @@ function ScrollTopButton(): ReactElement {
                     `;
 
                     return (
-                        <Button variant="primary" styling={Styles} onClick={handleClick}>
+                        <Button ref={buttonRef} variant="primary" styling={Styles} onClick={handleClick}>
                             <i className="material-icons">keyboard_arrow_up</i>
                         </Button>
                     );

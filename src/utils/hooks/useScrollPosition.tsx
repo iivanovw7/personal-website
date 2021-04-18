@@ -96,10 +96,9 @@ export const useScrollPosition = (params: IUseScrollPosition): void => {
 
     const callBack = () => {
         const currPos = getScrollPosition({ element, useWindow, boundingElement });
-        const windowScroll = document.body.scrollHeight - screen.height;
 
         effect({
-            atBottom: (windowScroll + currPos.y) === 0,
+            atBottom: (window.innerHeight + window.scrollY) >= document.body.offsetHeight,
             currPos,
             prevPos: position.current,
         });

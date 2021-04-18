@@ -26,6 +26,7 @@ import TagButton from '../../components/TagCloud/TagButton';
 import Collapse from '../../elements/Collapse';
 import Separator, { ContentStyling } from '../../elements/Separator';
 import Spinner from '../../elements/Spinner';
+import { setLoader } from '../App/model';
 import commonMessages from '../App/model/messages';
 import { selectLocation } from '../App/model/selectors';
 
@@ -56,11 +57,19 @@ export interface IPostsProps {
     search: string;
     /** Search text handler, update search query parameter. */
     onTextSearch: (text: string) => void;
+    /** Displays application top loader during additional posts fetching */
+    onSetLoader: (loading: boolean) => void;
 }
 
-interface IDispatchProps extends Pick<IPostsProps, 'onTagClick' | 'onTextSearch'> {
+// TODO: Remove after `src/ui/containers/App` is switched to `ts`.
+type TSetLoadingAction = {
+    type: string,
+    payload: boolean
+};
+
+interface IDispatchProps extends Pick<IPostsProps, 'onTagClick' | 'onTextSearch' | 'onSetLoader'> {
     /** Dispatches action. */
-    dispatch: Dispatch<TModifyTags | TModifySearchText>;
+    dispatch: Dispatch<TModifyTags | TModifySearchText | TSetLoadingAction>;
 }
 
 const { noResults } = commonMessages;
@@ -81,7 +90,7 @@ const getPageInfo = ifElse(isNilOrEmpty, always({ hasNextPage: false }), path([C
  * @constructor
  */
 function PostsComponent(props: IPostsProps): ReactElement {
-    const { tags, onTagClick, search, onTextSearch } = props;
+    const { tags, onTagClick, search, onTextSearch, onSetLoader } = props;
     const [skipped, setSkipped] = useState<number>(defaultSkip);
     const localizedText = (message) => getText(message, props) as string;
     const hasTags = Boolean(tags.length);
@@ -124,7 +133,13 @@ function PostsComponent(props: IPostsProps): ReactElement {
     useScrollPosition({
         effect: async ({ atBottom }: IScrollProps): Promise<void> => {
             if (atBottom && ! loading && hasNextPage) {
-                await triggerFetchMore(skipped + defaultFirst);
+                onSetLoader(true);
+                const { data: newPosts, error: fetchMoreError } = await triggerFetchMore(skipped + defaultFirst);
+
+                // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+                if (newPosts?.postsConnection || fetchMoreError) {
+                    onSetLoader(false);
+                }
             }
         }
     });
@@ -211,13 +226,16 @@ const mapStateToProps = (state) => {
  * @param {Function} dispatch method.
  * @return {Object} redux container
  */
-export function mapDispatchToProps(dispatch: Dispatch<TModifyTags | TModifySearchText>): IDispatchProps {
+export function mapDispatchToProps(dispatch: Dispatch<TModifyTags | TModifySearchText | TSetLoadingAction>): IDispatchProps {
     return {
         onTagClick: (tags: TPostsTags) => {
             dispatch(removeTags(tags));
         },
         onTextSearch: (text: string) => {
             dispatch(setSearchText(text));
+        },
+        onSetLoader: (loading: boolean) => {
+            dispatch(setLoader(loading));
         },
         dispatch,
     };

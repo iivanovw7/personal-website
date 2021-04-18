@@ -8,7 +8,7 @@ import { defineMessages } from 'react-intl';
  * Messages id prefix.
  * @constant {string}
  */
-export const scope = 'pw.common.posts';
+export const scope = 'pw.posts';
 
 /**
  * Contains messages set for react component.

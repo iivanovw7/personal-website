@@ -3,7 +3,7 @@
  * @module ui/elements/Button
  * @author Igor Ivanov
  */
-import React, { memo, ReactNode } from 'react';
+import React, { memo, ReactNode, forwardRef, ForwardedRef } from 'react';
 import { CSSProp } from 'styled-components';
 
 import { Button as StyledButton } from './Styled';
@@ -34,11 +34,12 @@ export interface IButtonProps {
  * @return {JSX.Element} React component with children.
  * @constructor
  */
-const Button = (props: IButtonProps): JSX.Element => {
+const Button = forwardRef((props: IButtonProps, ref: ForwardedRef<HTMLButtonElement>): JSX.Element => {
     const { children, onClick, dataId, styling, variant } = props;
 
     return (
         <StyledButton
+            ref={ref}
             dataId={ dataId }
             variant={ variant }
             styling={ styling }
@@ -46,7 +47,9 @@ const Button = (props: IButtonProps): JSX.Element => {
             { children }
         </StyledButton>
     );
-};
+});
+
+Button.displayName = 'Button';
 
 Button.defaultProps = {
     dataId: 0,

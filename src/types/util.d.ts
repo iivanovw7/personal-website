@@ -19,3 +19,5 @@ export type OptionalObject<T = unknown> = ObjectOrNull<T> | undefined;
 export type PartialAndNullable<T> = {
     [P in keyof T]?: T[P] | null;
 };
+
+export type Nullable<T> = AnyObject<T> | null | undefined;

@@ -19,6 +19,7 @@ const selectRouter = (state) => state.router;
 const makeSelectApp = createSelector(selectApp, (appState) => {
     return {
         wait: appState.wait > 0,
+        loading: appState.loading
     };
 });
 

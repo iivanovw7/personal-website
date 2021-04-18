@@ -12,7 +12,7 @@ import { VALIDATION } from '../config/constants';
  * Messages id prefix.
  * @constant {string}
  */
-const messageScope = 'pw.common.validation';
+const messageScope = 'pw.validation';
 
 /** Number defines minimum amount of symbols suitable for search. */
 const minSearchTermLength = 4;

@@ -21,6 +21,7 @@ import LocaleSwitch from '../../components/LocaleSwitch';
 import ScrollTop from '../../components/ScrollTop';
 import ThemeSwitch from '../../components/ThemeSwitch';
 import TopBar from '../../components/TopBar';
+import Loader from '../../elements/Loader';
 import { isHomePath, routes as routesPaths } from '../../routes';
 import appHistory from '../../routes/history';
 import GlobalStyle from '../../styles/global';
@@ -48,7 +49,7 @@ const logger = Logger.getInstance();
  * @constructor
  */
 function App(props: PropTypes.InferProps<typeof App.propTypes>): ReactElement<JSX.Element> {
-    const { wait, location: appLocation } = props;
+    const { wait, loading, location: appLocation } = props;
     const { defaultTitle, defaultDescription } = messages;
 
     useEffect(() => {
@@ -85,6 +86,7 @@ function App(props: PropTypes.InferProps<typeof App.propTypes>): ReactElement<JS
                 <Helmet titleTemplate="%s" defaultTitle={ getText(defaultTitle, props) }>
                     <meta name="description" content={ getText(defaultDescription, props) } />
                 </Helmet>
+                <Loader hide={ ! loading } />
                 <TopBar>
                     <ThemeSwitch />
                     <LocaleSwitch />
@@ -114,6 +116,7 @@ function App(props: PropTypes.InferProps<typeof App.propTypes>): ReactElement<JS
 App.propTypes = {
     // eslint-disable-next-line react/no-unused-prop-types
     intl: PropTypes.object.isRequired,
+    loading: PropTypes.bool.isRequired,
     location: PropTypes.any.isRequired,
     wait: PropTypes.bool.isRequired,
 };
@@ -129,10 +132,11 @@ App.defaultProps = {};
  * @return {Function} selector
  */
 const mapStateToProps = (state) => {
-    const { wait } = makeSelectApp(state);
+    const { wait, loading } = makeSelectApp(state);
 
     return {
         wait,
+        loading,
         location: selectLocation(state),
     };
 };

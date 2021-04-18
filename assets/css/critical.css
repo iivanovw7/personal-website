@@ -33,6 +33,12 @@
     pointer-events: none;
 }
 
+.pw-preloader-image {
+    animation: pw-preloader-displaying 5s infinite;
+    height: auto;
+    width: 15%;
+}
+
 @keyframes pw-preloader-displaying {
     0% {
         animation-timing-function: ease-out;
@@ -47,12 +53,6 @@
     100% {
         filter: invert(0);
     }
-}
-
-.pw-preloader-image {
-    animation: pw-preloader-displaying 5s infinite;
-    height: auto;
-    width: 15%;
 }
 
 @keyframes pw-preloading-hiding {
